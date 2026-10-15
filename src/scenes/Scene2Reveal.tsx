@@ -1,17 +1,18 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame} from 'remotion';
+import {AbsoluteFill} from 'remotion';
+import {useCurrentFrame} from '../frame';
 import {LogoTile} from '../components/Mark';
 import {KText} from '../components/KText';
 import {C, FONT} from '../theme';
 import {ease, prog} from '../util';
 
-/** Local frame 0 = global frame 90 (3.0 s). */
+/** Local frame 0 = global frame 90 (3.0 s). The logo pops as the particles from scene 1 arrive. */
 export const Scene2Reveal: React.FC = () => {
   const f = useCurrentFrame();
-  const markIn = prog(f, 26, 22, ease.back);
-  const flash = prog(f, 30, 6, ease.out) * (1 - prog(f, 36, 14, ease.out));
+  const markIn = prog(f, 14, 22, ease.back);
+  const flash = prog(f, 18, 6, ease.out) * (1 - prog(f, 24, 14, ease.out));
   const out = prog(f, 78, 12, ease.in);
-  const sub = prog(f, 66, 18, ease.out);
+  const sub = prog(f, 54, 18, ease.out);
   return (
     <AbsoluteFill
       style={{
@@ -42,13 +43,13 @@ export const Scene2Reveal: React.FC = () => {
           opacity: Math.min(1, markIn * 1.6),
         }}
       >
-        <LogoTile size={380} sweepAt={44} />
+        <LogoTile size={380} sweepAt={32} />
       </div>
       <div style={{position: 'absolute', left: 0, right: 0, top: 640}}>
         <KText
           align="center"
           size={150}
-          start={36}
+          start={26}
           stagger={5}
           lines={[[{t: 'Meet'}, {t: 'Exam', color: C.mint}, {t: 'Box.', color: C.mint}]]}
         />
@@ -69,7 +70,7 @@ export const Scene2Reveal: React.FC = () => {
           transform: `translateY(${(1 - sub) * 16}px)`,
         }}
       >
-        BY ANOBYTE TECHNOLOGIES
+        BY AREMU TECH EAZY SOLUTIONS
       </div>
     </AbsoluteFill>
   );

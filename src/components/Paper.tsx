@@ -6,7 +6,7 @@ export const PAPER_W = 500;
 export const PAPER_H = 650;
 
 /** A hand-marked examination script, drawn in code. */
-export const Paper: React.FC<{seed: number}> = ({seed}) => {
+export const Paper: React.FC<{seed: number}> = React.memo(({seed}) => {
   const r = rng(seed * 97 + 13);
   const lines = Array.from({length: 17}, () => 0.45 + r() * 0.5);
   const marks = Array.from({length: 6}, (_, i) => ({y: 190 + i * 62 + r() * 18, ok: r() > 0.45, x: 18 + r() * 16}));
@@ -63,4 +63,4 @@ export const Paper: React.FC<{seed: number}> = ({seed}) => {
       ))}
     </div>
   );
-};
+});

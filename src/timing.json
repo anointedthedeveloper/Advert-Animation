@@ -3,14 +3,16 @@
   "width": 1920,
   "height": 1080,
   "totalFrames": 900,
+  "timeScale": 1.2,
   "scenes": {
-    "hook":    { "from": 0,   "to": 96  },
-    "reveal":  { "from": 90,  "to": 186 },
-    "network": { "from": 180, "to": 306 },
-    "start":   { "from": 300, "to": 426 },
-    "monitor": { "from": 420, "to": 546 },
-    "marking": { "from": 540, "to": 666 },
-    "reports": { "from": 660, "to": 846 },
-    "finale":  { "from": 834, "to": 900 }
+    "hook":      { "from": 0,   "to": 96  },
+    "reveal":    { "from": 90,  "to": 186 },
+    "questions": { "from": 180, "to": 270 },
+    "network":   { "from": 264, "to": 369 },
+    "start":     { "from": 363, "to": 468 },
+    "monitor":   { "from": 462, "to": 567 },
+    "marking":   { "from": 561, "to": 666 },
+    "reports":   { "from": 660, "to": 815 },
+    "finale":    { "from": 810, "to": 900 }
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame} from 'remotion';
+import {AbsoluteFill} from 'remotion';
+import {useCurrentFrame} from '../frame';
 import {KText} from '../components/KText';
 import {Cursor} from '../components/Cursor';
 import {LoginWindow, LOGIN_H, LOGIN_W} from '../components/LoginWindow';

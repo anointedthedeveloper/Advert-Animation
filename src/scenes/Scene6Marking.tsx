@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, Img, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Img, staticFile} from 'remotion';
+import {useCurrentFrame} from '../frame';
 import {KText} from '../components/KText';
 import {Cursor} from '../components/Cursor';
 import {Chip, Logo36} from '../components/ui';

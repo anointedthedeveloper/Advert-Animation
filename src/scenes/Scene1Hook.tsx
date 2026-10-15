@@ -1,8 +1,9 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame} from 'remotion';
+import {AbsoluteFill} from 'remotion';
+import {useCurrentFrame} from '../frame';
 import {Paper, PAPER_H, PAPER_W} from '../components/Paper';
 import {KText} from '../components/KText';
-import {DISSOLVE_LEN, DISSOLVE_START, STACK} from '../components/PaperDissolve';
+import {DISSOLVE_START, STACK, dissolvedFraction} from '../components/PaperDissolve';
 import {ease, lerp, prog, rng} from '../util';
 
 const COUNT = 12;
@@ -36,8 +37,8 @@ export const Scene1Hook: React.FC = () => {
   }
   const push = 1 + prog(f, 0, 90, ease.soft) * 0.07;
 
-  const p = prog(f, DISSOLVE_START, DISSOLVE_LEN, ease.inOut);
-  const h = Math.max(0, Math.min(1.2, (p - 0.18) / 0.62));
+  const h = dissolvedFraction(f);
+  const p = h > 0 ? 1 : 0;
   const maskFrac = h * 100;
   const left = STACK.cx - 290;
   return (
@@ -47,7 +48,7 @@ export const Scene1Hook: React.FC = () => {
           size={110}
           start={9}
           stagger={4}
-          exitAt={DISSOLVE_START + 6}
+          exitAt={DISSOLVE_START - 2}
           lines={[[{t: 'Marking'}, {t: 'exams'}], [{t: 'takes'}, {t: 'days.', color: '#A7F3D0'}]]}
         />
       </div>

@@ -1,5 +1,6 @@
 import React from 'react';
-import {Img, staticFile, useCurrentFrame} from 'remotion';
+import {Img, staticFile} from 'remotion';
+import {useCurrentFrame} from '../frame';
 import {ease, prog} from '../util';
 
 const SRC = 'brand/exambox-mark.png';

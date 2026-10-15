@@ -2,13 +2,14 @@
   "name": "exam-box-advert",
   "version": "1.0.0",
   "private": true,
-  "description": "30-second cinematic motion-graphics advert for Exam Box (Anobyte Technologies), rendered with Remotion.",
+  "description": "30-second cinematic motion-graphics advert for Exam Box (Aremu Tech Eazy Solutions), rendered with Remotion.",
   "scripts": {
     "preview": "remotion studio src/index.ts",
     "audio": "python3 scripts/make_audio.py",
     "still": "remotion still src/index.ts ExamBoxAdvert --frame=450 out/still.png",
     "typecheck": "tsc --noEmit",
     "render": "node scripts/render.mjs",
+    "encode": "node scripts/encode.mjs",
     "verify": "node scripts/verify.mjs"
   },
   "dependencies": {

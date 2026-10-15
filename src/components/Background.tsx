@@ -3,11 +3,10 @@ import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {C, W, H} from '../theme';
 import {prog} from '../util';
 
-/** Persistent deep-forest background. A fine grid fades in after the paper stack dissolves. */
+/** Persistent deep-forest background. A fine, static grid fades in after the paper stack dissolves. */
 export const Background: React.FC = () => {
   const f = useCurrentFrame();
-  const grid = prog(f, 70, 40) * 0.5;
-  const drift = (f * 0.25) % 80;
+  const grid = prog(f, 66, 36) * 0.5;
   return (
     <AbsoluteFill style={{background: C.deep}}>
       <AbsoluteFill
@@ -17,15 +16,13 @@ export const Background: React.FC = () => {
       />
       <svg width={W} height={H} style={{position: 'absolute', inset: 0, opacity: grid}}>
         <defs>
-          <pattern id="g" width="80" height="80" patternUnits="userSpaceOnUse" patternTransform={`translate(${-drift} ${-drift})`}>
+          <pattern id="g" width="80" height="80" patternUnits="userSpaceOnUse">
             <path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(167,243,208,0.07)" strokeWidth="1" />
           </pattern>
         </defs>
         <rect width={W} height={H} fill="url(#g)" />
       </svg>
-      <AbsoluteFill
-        style={{background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.38) 100%)'}}
-      />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.38) 100%)'}} />
     </AbsoluteFill>
   );
 };

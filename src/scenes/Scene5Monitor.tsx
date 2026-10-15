@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame} from 'remotion';
+import {AbsoluteFill} from 'remotion';
+import {useCurrentFrame} from '../frame';
 import {KText} from '../components/KText';
 import {Chip, Dot, Logo36} from '../components/ui';
 import {Battery, Book, Check, Grid, Radio, Server, Settings, User, Users, Wifi, Award, Monitor} from '../components/Icons';

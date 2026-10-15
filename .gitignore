@@ -3,3 +3,4 @@ node_modules/
 out/still*.png
 out/frames/
 *.log
+out/master.mp4

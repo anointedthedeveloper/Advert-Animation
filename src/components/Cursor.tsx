@@ -1,5 +1,5 @@
 import React from 'react';
-import {useCurrentFrame} from 'remotion';
+import {useCurrentFrame} from '../frame';
 import {ease, lerp, prog} from '../util';
 
 export type Key = {f: number; x: number; y: number};

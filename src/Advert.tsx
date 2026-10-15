@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {AbsoluteFill, Audio, Sequence, continueRender, delayRender, staticFile} from 'remotion';
 import timing from './timing.json';
+import {TimeScale} from './frame';
 import {Background} from './components/Background';
 import {PaperDissolve} from './components/PaperDissolve';
 import {Scene1Hook} from './scenes/Scene1Hook';
 import {Scene2Reveal} from './scenes/Scene2Reveal';
+import {SceneQuestions} from './scenes/SceneQuestions';
 import {Scene3Network} from './scenes/Scene3Network';
 import {Scene4Start} from './scenes/Scene4Start';
 import {Scene5Monitor} from './scenes/Scene5Monitor';
@@ -13,6 +15,7 @@ import {Scene7Reports} from './scenes/Scene7Reports';
 import {Scene8Finale} from './scenes/Scene8Finale';
 
 const S = timing.scenes;
+const K = timing.timeScale;
 const seq = (s: {from: number; to: number}) => ({from: s.from, durationInFrames: s.to - s.from});
 
 const FONT_FILES: [number, string][] = [
@@ -53,22 +56,35 @@ export const Advert: React.FC = () => {
       <Sequence {...seq(S.reveal)} name="2 Reveal">
         <Scene2Reveal />
       </Sequence>
-      <Sequence {...seq(S.network)} name="3 Network">
-        <Scene3Network />
+      <Sequence {...seq(S.questions)} name="3 Question bank">
+        <SceneQuestions />
       </Sequence>
-      <Sequence {...seq(S.start)} name="4 Start">
-        <Scene4Start />
+      <Sequence {...seq(S.network)} name="4 Network">
+        <TimeScale k={K}>
+          <Scene3Network />
+        </TimeScale>
       </Sequence>
-      <Sequence {...seq(S.monitor)} name="5 Monitor">
-        <Scene5Monitor />
+      <Sequence {...seq(S.start)} name="5 Start">
+        <TimeScale k={K}>
+          <Scene4Start />
+        </TimeScale>
       </Sequence>
-      <Sequence {...seq(S.marking)} name="6 Marking">
-        <Scene6Marking />
+      <Sequence {...seq(S.monitor)} name="6 Monitor">
+        <TimeScale k={K}>
+          <Scene5Monitor />
+        </TimeScale>
       </Sequence>
-      <Sequence {...seq(S.reports)} name="7 Reports">
-        <Scene7Reports />
+      <Sequence {...seq(S.marking)} name="7 Marking">
+        <TimeScale k={K}>
+          <Scene6Marking />
+        </TimeScale>
       </Sequence>
-      <Sequence {...seq(S.finale)} name="8 Finale">
+      <Sequence {...seq(S.reports)} name="8 Reports">
+        <TimeScale k={K}>
+          <Scene7Reports />
+        </TimeScale>
+      </Sequence>
+      <Sequence {...seq(S.finale)} name="9 Finale">
         <Scene8Finale />
       </Sequence>
     </AbsoluteFill>

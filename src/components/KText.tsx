@@ -1,5 +1,5 @@
 import React from 'react';
-import {useCurrentFrame} from 'remotion';
+import {useCurrentFrame} from '../frame';
 import {C, FONT} from '../theme';
 import {ease, prog} from '../util';
 
