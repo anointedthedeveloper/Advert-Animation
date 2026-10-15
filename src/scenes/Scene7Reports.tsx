@@ -6,6 +6,7 @@ import {Crest, Chip} from '../components/ui';
 import {Check, File} from '../components/Icons';
 import {C, FONT} from '../theme';
 import {ease, lerp, prog} from '../util';
+import {Problem, Strength, Explainer} from '../components/Caption';
 
 const CARD_W = 470;
 const CARD_H = 640;
@@ -162,19 +163,29 @@ export const Scene7Reports: React.FC = () => {
   const zipMove = prog(f, 96, 20, ease.inOut);
   const cap1Out = f >= 90;
   const sheetF = f - 100;
-  const zx = lerp(ZIP.x, 610, zipMove);
-  const zy = lerp(ZIP.y, 790, zipMove);
+  const zx = lerp(ZIP.x, 330, zipMove);
+  const zy = lerp(ZIP.y, 840, zipMove);
   const out = prog(f, 160, 14, ease.in);
 
   return (
     <AbsoluteFill style={{opacity: (1 - out) * inP}}>
+      <div style={{position: 'absolute', left: 100, top: 214}}>
+        <Problem text="Reports compiled by hand" at={2} fixAt={36} size={28} />
+      </div>
+      <div style={{position: 'absolute', left: 100, top: cap1Out ? 560 : 640}}>
+        {!cap1Out ? (
+          <Explainer text="PDF report cards with your school logo, ready for the whole class." at={30} width={700} />
+        ) : (
+          <Explainer text="Class broadsheets and results export straight to Excel." at={100} width={700} />
+        )}
+      </div>
       {!cap1Out && (
-        <div style={{position: 'absolute', left: 100, top: 300}}>
+        <div style={{position: 'absolute', left: 100, top: 292}}>
           <KText size={70} start={4} stagger={4} exitAt={80} lines={[[{t: 'Branded'}, {t: 'report'}], [{t: 'cards', color: C.mint}, {t: 'for', color: C.mint}], [{t: 'the', color: C.mint}, {t: 'whole', color: C.mint}], [{t: 'class', color: C.mint}]]} lineHeight={1.08} />
         </div>
       )}
       {cap1Out && (
-        <div style={{position: 'absolute', left: 100, top: 360}}>
+        <div style={{position: 'absolute', left: 100, top: 330}}>
           <KText size={96} start={92} stagger={5} lines={[[{t: 'Export'}], [{t: 'to', color: C.mint}, {t: 'Excel', color: C.mint}]]} />
         </div>
       )}

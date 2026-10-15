@@ -2,10 +2,11 @@ import React, {useLayoutEffect, useRef} from 'react';
 import {Easing, useCurrentFrame} from 'remotion';
 import {C, W, H} from '../theme';
 import {lerp, rng} from '../util';
+import timing from '../timing.json';
 
 /** Geometry shared by the paper stack (scene 1) and the particle layer that replaces it. */
-export const STACK = {cx: 1400, cy: 560, cols: 26, rows: 32, tile: 22};
-export const DISSOLVE_START = 56;
+export const STACK = {cx: 1500, cy: 560, cols: 26, rows: 32, tile: 22};
+export const DISSOLVE_START = timing.dissolveStart;
 /** Frames over which the dissolve wave crosses the stack from left to right. */
 export const WAVE = 20;
 const FLIGHT = 42; // frames each particle takes from the paper to the logo
@@ -71,7 +72,7 @@ const posAt = (t: (typeof tiles)[number], f: number) => {
 export const PaperDissolve: React.FC = () => {
   const f = useCurrentFrame();
   const ref = useRef<HTMLCanvasElement>(null);
-  const active = f >= DISSOLVE_START && f <= 130;
+  const active = f >= DISSOLVE_START && f <= DISSOLVE_START + 76;
 
   useLayoutEffect(() => {
     const cv = ref.current;

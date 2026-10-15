@@ -8,6 +8,7 @@ import {DeviceFrame, Chip, Logo36} from '../components/ui';
 import {Check, Server, Wifi} from '../components/Icons';
 import {C, FONT} from '../theme';
 import {ease, lerp, prog} from '../util';
+import {Problem, Strength, Explainer} from '../components/Caption';
 
 const WIN = {cx: 1330, cy: 540};
 const SERVER = {x: 1340, y: 560};
@@ -65,10 +66,16 @@ export const Scene3Network: React.FC = () => {
   const ringT = ((f - 74) % 40) / 40;
   return (
     <AbsoluteFill style={{opacity: 1 - out, transform: `translateX(${-out * 90}px)`}}>
-      <div style={{position: 'absolute', left: 120, top: 330}}>
+      <div style={{position: 'absolute', left: 120, top: 226}}>
+        <Problem text="Cyber café fees" at={2} fixAt={30} />
+      </div>
+      <div style={{position: 'absolute', left: 120, top: 316}}>
         <KText size={92} start={4} stagger={4} lines={[[{t: 'Run'}, {t: 'exams'}, {t: 'on'}], [{t: 'your'}, {t: 'own', color: C.mint}], [{t: 'network', color: C.mint}]]} />
       </div>
-      <div style={{position: 'absolute', left: 120, top: 700, opacity: prog(f, 38, 14), transform: `translateY(${(1 - prog(f, 38, 14)) * 18}px)`}}>
+      <div style={{position: 'absolute', left: 120, top: 622}}>
+        <Explainer text="One school PC runs the exam. Candidates join from any browser on the same network." at={34} width={760} />
+      </div>
+      <div style={{position: 'absolute', left: 120, top: 780, opacity: prog(f, 46, 14), transform: `translateY(${(1 - prog(f, 46, 14)) * 18}px)`}}>
         <Chip bg="rgba(167,243,208,0.1)" fg={C.mint} size={26} style={{border: '1px solid rgba(167,243,208,0.35)'}}>
           <Wifi size={26} stroke={2.4} /> Works offline after licence activation
         </Chip>

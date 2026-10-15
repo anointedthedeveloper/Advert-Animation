@@ -6,13 +6,17 @@ import {KText} from '../components/KText';
 import {C, FONT} from '../theme';
 import {ease, prog} from '../util';
 
-/** Local frame 0 = global frame 90 (3.0 s). The logo pops as the particles from scene 1 arrive. */
+/**
+ * Local frame 0 = dissolveStart + 34. The logo pops as the particles from scene 1 arrive, then the scene says
+ * who we are in one plain sentence.
+ */
 export const Scene2Reveal: React.FC = () => {
   const f = useCurrentFrame();
   const markIn = prog(f, 14, 22, ease.back);
   const flash = prog(f, 18, 6, ease.out) * (1 - prog(f, 24, 14, ease.out));
   const out = prog(f, 78, 12, ease.in);
-  const sub = prog(f, 54, 18, ease.out);
+  const what = prog(f, 44, 16, ease.out);
+  const by = prog(f, 58, 16, ease.out);
   return (
     <AbsoluteFill
       style={{
@@ -20,54 +24,58 @@ export const Scene2Reveal: React.FC = () => {
         opacity: 1 - out,
       }}
     >
-      {/* soft light plate behind the mark so the green artwork always reads */}
       <div
         style={{
           position: 'absolute',
-          left: 960 - 330,
-          top: 380 - 330,
-          width: 660,
-          height: 660,
+          left: 960 - 300,
+          top: 330 - 300,
+          width: 600,
+          height: 600,
           borderRadius: '50%',
           background: `radial-gradient(circle, rgba(167,243,208,${0.2 * markIn + flash * 0.25}) 0%, rgba(167,243,208,0) 66%)`,
         }}
       />
-      <div
-        style={{
-          position: 'absolute',
-          left: 960 - 190,
-          top: 380 - 190,
-          width: 380,
-          height: 380,
-          transform: `scale(${0.55 + markIn * 0.45})`,
-          opacity: Math.min(1, markIn * 1.6),
-        }}
-      >
-        <LogoTile size={380} sweepAt={32} />
+      <div style={{position: 'absolute', left: 960 - 150, top: 330 - 150, width: 300, height: 300, transform: `scale(${0.55 + markIn * 0.45})`, opacity: Math.min(1, markIn * 1.6)}}>
+        <LogoTile size={300} sweepAt={32} />
       </div>
-      <div style={{position: 'absolute', left: 0, right: 0, top: 640}}>
-        <KText
-          align="center"
-          size={150}
-          start={26}
-          stagger={5}
-          lines={[[{t: 'Meet'}, {t: 'Exam', color: C.mint}, {t: 'Box.', color: C.mint}]]}
-        />
+      <div style={{position: 'absolute', left: 0, right: 0, top: 508}}>
+        <KText align="center" size={150} start={26} stagger={5} lines={[[{t: 'Meet'}, {t: 'Exam', color: C.mint}, {t: 'Box.', color: C.mint}]]} />
       </div>
       <div
         style={{
           position: 'absolute',
           left: 0,
           right: 0,
-          top: 836,
+          top: 712,
           textAlign: 'center',
           fontFamily: FONT,
-          fontSize: 32,
+          fontSize: 50,
           fontWeight: 600,
-          letterSpacing: '0.22em',
+          lineHeight: 1.22,
+          letterSpacing: '-0.015em',
+          color: '#fff',
+          opacity: what,
+          transform: `translateY(${(1 - what) * 20}px)`,
+        }}
+      >
+        The offline computer-based testing system
+        <br />
+        for schools and exam centres.
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 912,
+          textAlign: 'center',
+          fontFamily: FONT,
+          fontSize: 30,
+          fontWeight: 700,
+          letterSpacing: '0.2em',
           color: C.mint,
-          opacity: sub * 0.9,
-          transform: `translateY(${(1 - sub) * 16}px)`,
+          opacity: by * 0.95,
+          transform: `translateY(${(1 - by) * 14}px)`,
         }}
       >
         BY AREMU TECH EAZY SOLUTIONS

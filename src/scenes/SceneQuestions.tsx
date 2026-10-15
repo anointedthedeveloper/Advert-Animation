@@ -6,6 +6,7 @@ import {Chip, Crest, Logo36} from '../components/ui';
 import {Check} from '../components/Icons';
 import {C, FONT} from '../theme';
 import {ease, lerp, prog} from '../util';
+import {Strength} from '../components/Caption';
 
 const WX = 930;
 const WY = 150;
@@ -81,7 +82,10 @@ export const SceneQuestions: React.FC = () => {
 
   return (
     <AbsoluteFill style={{opacity: 1 - out, transform: `translateX(${-out * 80}px)`}}>
-      <div style={{position: 'absolute', left: 110, top: 236}}>
+      <div style={{position: 'absolute', left: 110, top: 168}}>
+        <Strength text="Ready on day one" at={2} />
+      </div>
+      <div style={{position: 'absolute', left: 110, top: 250}}>
         <KText size={92} start={3} stagger={4} lines={[[{t: 'Past'}, {t: 'questions'}], [{t: '1998', color: C.mint}, {t: 'to', color: C.mint}, {t: 'date.', color: C.mint}]]} />
       </div>
       <div style={{position: 'absolute', left: 110, top: 540, display: 'flex', flexDirection: 'column', gap: 16}}>

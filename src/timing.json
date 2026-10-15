@@ -3,16 +3,18 @@
   "width": 1920,
   "height": 1080,
   "totalFrames": 900,
-  "timeScale": 1.2,
+  "dissolveStart": 110,
+  "paperLandings": [6, 9, 12, 15, 18, 21, 34, 40, 54, 60, 74, 80],
+  "problemRows": [14, 34, 54, 74],
   "scenes": {
-    "hook":      { "from": 0,   "to": 96  },
-    "reveal":    { "from": 90,  "to": 186 },
-    "questions": { "from": 180, "to": 270 },
-    "network":   { "from": 264, "to": 369 },
-    "start":     { "from": 363, "to": 468 },
-    "monitor":   { "from": 462, "to": 567 },
-    "marking":   { "from": 561, "to": 666 },
-    "reports":   { "from": 660, "to": 815 },
-    "finale":    { "from": 810, "to": 900 }
+    "hook":      { "from": 0,   "to": 150, "scale": 1 },
+    "reveal":    { "from": 144, "to": 234, "scale": 1 },
+    "questions": { "from": 228, "to": 312, "scale": 1 },
+    "network":   { "from": 306, "to": 398, "scale": 1.37 },
+    "start":     { "from": 392, "to": 484, "scale": 1.37 },
+    "monitor":   { "from": 478, "to": 570, "scale": 1.37 },
+    "marking":   { "from": 564, "to": 656, "scale": 1.37 },
+    "reports":   { "from": 650, "to": 806, "scale": 1.192 },
+    "finale":    { "from": 800, "to": 900, "scale": 1 }
   }
 }

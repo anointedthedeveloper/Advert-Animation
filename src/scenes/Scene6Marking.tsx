@@ -7,6 +7,7 @@ import {Chip, Logo36} from '../components/ui';
 import {Check} from '../components/Icons';
 import {C, FONT} from '../theme';
 import {ease, lerp, prog, rng} from '../util';
+import {Problem, Strength, Explainer} from '../components/Caption';
 
 const CX = 1390;
 const CY = 540;
@@ -53,10 +54,16 @@ export const Scene6Marking: React.FC = () => {
 
   return (
     <AbsoluteFill style={{opacity: 1 - out, transform: `translateX(${-out * 80}px)`}}>
-      <div style={{position: 'absolute', left: 110, top: 392}}>
+      <div style={{position: 'absolute', left: 110, top: 318}}>
+        <Problem text="Marking takes days" at={2} fixAt={30} />
+      </div>
+      <div style={{position: 'absolute', left: 110, top: 402}}>
         <KText size={84} start={4} stagger={5} lines={[[{t: 'Instant'}, {t: 'marking.'}], [{t: 'Scores', color: C.mint}, {t: 'out', color: C.mint}, {t: 'of', color: C.mint}, {t: '100.', color: C.mint}]]} />
       </div>
 
+      <div style={{position: 'absolute', left: 110, top: 630}}>
+        <Explainer text="Every answer is marked the moment a candidate submits." at={34} width={700} />
+      </div>
       <div
         style={{
           position: 'absolute',

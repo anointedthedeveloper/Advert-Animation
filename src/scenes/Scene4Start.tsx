@@ -7,11 +7,12 @@ import {Chip, Dot, Logo36} from '../components/ui';
 import {Check, Clock, Flag} from '../components/Icons';
 import {C, FONT} from '../theme';
 import {ease, lerp, pad2, prog} from '../util';
+import {Problem, Strength, Explainer} from '../components/Caption';
 
 const PX = 140;
-const PY = 232;
+const PY = 246;
 const PW = 1640;
-const PH = 780;
+const PH = 774;
 
 const checklist = ['I have my ID/slip ready', 'My mouse is working properly', 'My keyboard is working properly', 'I understand the keyboard shortcuts'];
 
@@ -302,8 +303,11 @@ export const Scene4Start: React.FC = () => {
   const push = 1 + prog(f, 0, 126, ease.soft) * 0.035;
   return (
     <AbsoluteFill style={{opacity: 1 - out, transform: `translateY(${out * -60}px)`}}>
-      <div style={{position: 'absolute', left: 140, top: 70}}>
-        <KText size={80} start={2} stagger={4} lines={[[{t: 'Everyone'}, {t: 'starts', color: C.mint}, {t: 'together', color: C.mint}]]} />
+      <div style={{position: 'absolute', left: 140, top: 22}}>
+        <Problem text="First CBT on exam day" at={2} fixAt={28} size={26} />
+      </div>
+      <div style={{position: 'absolute', left: 140, top: 74}}>
+        <KText size={76} start={2} stagger={4} lines={[[{t: 'Everyone'}, {t: 'starts', color: C.mint}, {t: 'together', color: C.mint}]]} />
       </div>
       <div
         style={{
@@ -330,12 +334,15 @@ export const Scene4Start: React.FC = () => {
         )}
         <div style={{position: 'absolute', inset: 0, background: C.mint, opacity: flash * 0.5}} />
       </div>
+      <div style={{position: 'absolute', left: 140, top: 168}}>
+        <Explainer text="A real CBT screen: timer, subject tabs, question navigator and calculator." at={34} width={1500} size={30} />
+      </div>
       <Cursor
         keys={[
-          {f: 16, x: 1500, y: 900},
-          {f: 30, x: 1402, y: 842},
-          {f: 52, x: 1402, y: 842},
-          {f: 68, x: 330, y: 648},
+          {f: 16, x: 1500, y: 912},
+          {f: 30, x: 1402, y: 856},
+          {f: 52, x: 1402, y: 856},
+          {f: 68, x: 330, y: 662},
         ]}
         clicks={[32, 70]}
         opacityIn={14}

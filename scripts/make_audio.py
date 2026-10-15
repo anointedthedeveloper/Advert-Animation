@@ -211,48 +211,57 @@ def gain_curve(t, pts):
 
 # ---- music bed ---------------------------------------------------------------------------------
 # Scene 1 (0-3 s): tense low drone + wood-block clock.
-drone = pad_tone([hz(26), hz(33)], 3.4, 0.55)
+T_LOGO = t_of(S["reveal"] + 13)
+drone = pad_tone([hz(38), hz(45), hz(50)], T_LOGO + 0.8, 0.9)
 place(music, drone, 0.0, 0.5)
-for k in range(6):
+for k in range(int(T_LOGO / BEAT)):
     place(music, tick(900 + 40 * (k % 2), 0.05, 0.5), k * BEAT, 0.4, -0.1)
 
 # Logo reveal onwards: pads on each chord, bass pulse, arpeggio, drums with scene-based layering.
-T_MUSIC = 3.5  # logo reveal
+T_MUSIC = t_of(S["reveal"] + 13)  # logo pops
+T_QUESTIONS = t_of(S["questions"])
+T_START = t_of(S["start"])
+T_MARKING = t_of(S["marking"])
+T_REPORTS = t_of(S["reports"])
 final_t_hint = t_of(S["finale"] + 12)
 bar = 2.0
-t = 4.0
+t = T_MUSIC
 while t < final_t_hint:
     ch = chord_at(t)
     seg = min(bar, final_t_hint - t)
-    pg = gain_curve(t, [(4, 0.85), (10, 0.9), (18, 0.95), (22, 0.95), (28, 0.95)])
+    pg = gain_curve(t, [(T_MUSIC, 0.85), (T_START, 0.9), (T_MARKING, 0.95), (T_REPORTS, 0.95), (28, 0.95)])
     place(music, pad_tone([hz(n) for n in ch["pad"]], seg + 1.0, pg), t - 0.4, 0.55, -0.05)
     # bass: root on beats 1 and the "and" of 2, a little on 4
     for beat, oct_, g in ((0, 0, 0.62), (1.5, 0, 0.45), (3, 0, 0.4)):
         bt = t + beat * BEAT
-        if bt < final_t_hint and bt >= 6.0:
-            place(music, pluck(hz(ch["root"]) * 1.0, 0.45, 0.35) * 1.3, bt, g * 0.9 * gain_curve(bt, [(6, 0.7), (10, 1.0), (18, 1.15)]))
+        if bt < final_t_hint and bt >= T_QUESTIONS:
+            place(music, pluck(hz(ch["root"]) * 1.0, 0.45, 0.35) * 1.3, bt, g * 0.9 * gain_curve(bt, [(T_QUESTIONS, 0.7), (T_START, 1.0), (T_MARKING, 1.15)]))
     # arpeggio: 8th notes from 6 s
-    if t >= 6.0:
+    if t >= T_QUESTIONS - 1.0:
         for i in range(8):
             at = t + i * BEAT / 2
             if at >= final_t_hint:
                 break
             note = ch["arp"][[0, 1, 2, 3, 4, 3, 2, 1][i]]
-            g = gain_curve(at, [(6, 0.12), (10, 0.18), (18, 0.24), (22, 0.26)])
+            if at < T_QUESTIONS:
+                continue
+            g = gain_curve(at, [(T_QUESTIONS, 0.12), (T_START, 0.18), (T_MARKING, 0.24), (T_REPORTS, 0.26)])
             place(music, pluck(hz(note), 0.42, 1.0), at, g, [-0.35, 0.3][i % 2])
     # drums: kick from 10 s, hats from 10 s, clap from 18 s
-    if t >= 10.0:
+    if t >= T_START - 1.0:
         for b in range(4):
             bt = t + b * BEAT
             if bt >= final_t_hint:
                 break
-            place(music, kick() * 0.9, bt, 0.55 * gain_curve(bt, [(10, 0.75), (18, 1.0)]))
+            if bt < T_START:
+                continue
+            place(music, kick() * 0.9, bt, 0.55 * gain_curve(bt, [(T_START, 0.75), (T_MARKING, 1.0)]))
             place(music, hat(), bt, 0.08, 0.4)
             place(music, hat(), bt + BEAT / 2, 0.12, -0.3)
-    if t >= 18.0:
+    if t >= T_MARKING - 1.0:
         for b in (1, 3):
             bt = t + b * BEAT
-            if bt < final_t_hint:
+            if bt < final_t_hint and bt >= T_MARKING:
                 place(music, clap(), bt, 0.28)
     t += bar
 
@@ -263,13 +272,12 @@ place(music, final, final_t - 0.1, 0.85)
 place(music, kick(0.5, 110, 38) * 1.1, final_t, 0.9)
 
 # ---- sound effects ----------------------------------------------------------------------------
-K = TIMING["timeScale"]  # scenes 4-8 play their internal timeline K times faster
-SCALED = {"network", "start", "monitor", "marking", "reports"}
+SCALE = {name: sc.get("scale", 1.0) for name, sc in TIMING["scenes"].items()}  # scenes 4-8 play faster
 
 
 def F(scene, local):
     """Global frame of a cue given in a scene's *internal* (designed) frame numbers."""
-    return S[scene] + round(local / (K if scene in SCALED else 1.0))
+    return S[scene] + round(local / SCALE[scene])
 
 
 def mixsig(a, b):
@@ -287,20 +295,27 @@ def at(scene, local, sig, gain=1.0, pan=0.0):
     sfx_at(F(scene, local), sig, gain, pan)
 
 
-# Scene 1: twelve scripts slapping onto the stack (frames 6, 9, 12 ... 39), screen shake on each.
-for i in range(12):
-    sfx_at(6 + i * 3 + 1, thud(0.26, 0.9 + 0.025 * i), 0.55 + 0.02 * i, 0.3)
-# dissolve: the stack breaks into particles (wave 56-76) that sweep into the logo (lands ~104)
-sfx_at(56, whoosh(1.0, up=True, lo=300, hi=9000, level=0.9, seed=11), 0.55, 0.2)
-sfx_at(58, riser(1.55, 0.7), 0.5)
+# Scene 1: scripts slap onto the stack (timing.json paperLandings) and four problems stamp in (problemRows)
+for i, fr in enumerate(TIMING["paperLandings"]):
+    sfx_at(fr + 1, thud(0.26, 0.9 + 0.02 * i), 0.5 + 0.02 * i, 0.3)
+for k, fr in enumerate(TIMING["problemRows"]):
+    sfx_at(fr, mixsig(thud(0.3, 0.8 - 0.05 * k) * 0.9, click(0.65, 0.09) * 1.1), 0.7, -0.3)
+    sfx_at(fr + 4, tick(300 + 40 * k, 0.18, 0.7), 0.3)
+sfx_at(3, tick(500, 0.2, 0.7), 0.25)
+DS = TIMING["dissolveStart"]
+# dissolve: the stack breaks into particles (wave of ~20 frames) that sweep into the logo
+sfx_at(DS - 2, whoosh(1.1, up=True, lo=300, hi=9000, level=0.9, seed=11), 0.55, 0.2)
+sfx_at(DS, riser(1.55, 1.0), 0.6)
 
-# Scene 2: logo pops (frame 104), light sweep (122), words (116, 121, 126)
-sfx_at(103, thud(0.9, 0.7) * 1.2, 0.9)
-sfx_at(103, chime([hz(74), hz(81)], 2.4, 0.6, 1.6), 0.5, 0.1)
-sfx_at(122, whoosh(0.55, up=True, lo=1500, hi=9000, level=0.7, seed=31), 0.4, 0.2)
-for k, fr in enumerate((116, 121, 126)):
-    sfx_at(fr, click(1.0 + 0.1 * k), 0.4)
-sfx_at(S["reveal"] + 76, whoosh(0.5, up=False, lo=300, hi=5000, level=0.7, seed=41), 0.45)
+# Scene 2: logo pops (local 13), light sweep (32), words (26, 31, 36), descriptor (44), out (76)
+r2 = S["reveal"]
+sfx_at(r2 + 13, thud(0.9, 0.7) * 1.2, 0.9)
+sfx_at(r2 + 13, chime([hz(74), hz(81)], 2.4, 0.6, 1.6), 0.5, 0.1)
+sfx_at(r2 + 32, whoosh(0.55, up=True, lo=1500, hi=9000, level=0.7, seed=31), 0.4, 0.2)
+for k, fr in enumerate((26, 31, 36)):
+    sfx_at(r2 + fr, click(1.0 + 0.1 * k), 0.4)
+sfx_at(r2 + 44, whoosh(0.45, up=True, lo=1200, hi=8000, level=0.5, seed=33), 0.3)
+sfx_at(r2 + 76, whoosh(0.5, up=False, lo=300, hi=5000, level=0.7, seed=41), 0.45)
 
 # Scene 3 (new): question bank - window, three cards, pills, year ruler
 sq = S["questions"]

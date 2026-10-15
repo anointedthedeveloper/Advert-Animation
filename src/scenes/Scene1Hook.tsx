@@ -2,25 +2,35 @@ import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {useCurrentFrame} from '../frame';
 import {Paper, PAPER_H, PAPER_W} from '../components/Paper';
-import {KText} from '../components/KText';
 import {DISSOLVE_START, STACK, dissolvedFraction} from '../components/PaperDissolve';
+import {C, FONT} from '../theme';
 import {ease, lerp, prog, rng} from '../util';
+import timing from '../timing.json';
 
-const COUNT = 12;
-const LAND0 = 6;
-const STEP = 3;
+const RED = '#EF4444';
+const RED_SOFT = '#FCA5A5';
+
+/** The problems, in the words a school would use. `hot` is the phrase that hurts. */
+const ROWS: {before: string; hot: string; after: string}[] = [
+  {before: '', hot: 'Marking takes days.', after: ''},
+  {before: 'Report cards and broadsheets ', hot: 'compiled by hand.', after: ''},
+  {before: 'Candidates face CBT ', hot: 'for the first time on exam day.', after: ''},
+  {before: 'Cyber cafés ', hot: 'cost money', after: ' and are hard to supervise.'},
+];
+
 const papers = (() => {
   const r = rng(7);
-  return Array.from({length: COUNT}, (_, i) => ({
+  return timing.paperLandings.map((land, i) => ({
     i,
     rot: (r() - 0.5) * 9,
     dx: (r() - 0.5) * 34,
     dy: -i * 9,
-    land: LAND0 + i * STEP,
+    land,
     fromX: (r() - 0.5) * 240,
   }));
 })();
 
+/** Scene 1: "Sound familiar?" Four problems pile up as a stack of scripts grows, then everything dissolves. */
 export const Scene1Hook: React.FC = () => {
   const f = useCurrentFrame();
 
@@ -35,23 +45,56 @@ export const Scene1Hook: React.FC = () => {
       shakeY += Math.cos(dt * 3.3 + p.i) * a;
     }
   }
-  const push = 1 + prog(f, 0, 90, ease.soft) * 0.07;
+  const push = 1 + prog(f, 0, DISSOLVE_START, ease.soft) * 0.06;
+  const exit = prog(f, DISSOLVE_START - 10, 10, ease.in);
 
   const h = dissolvedFraction(f);
-  const p = h > 0 ? 1 : 0;
   const maskFrac = h * 100;
   const left = STACK.cx - 290;
+  const kick = prog(f, 3, 12, ease.out);
+
   return (
-    <AbsoluteFill style={{transform: `translate(${shakeX}px, ${shakeY}px) scale(${push})`, transformOrigin: '60% 55%'}}>
-      <div style={{position: 'absolute', left: 110, top: 340}}>
-        <KText
-          size={110}
-          start={9}
-          stagger={4}
-          exitAt={DISSOLVE_START - 2}
-          lines={[[{t: 'Marking'}, {t: 'exams'}], [{t: 'takes'}, {t: 'days.', color: '#A7F3D0'}]]}
-        />
+    <AbsoluteFill style={{transform: `translate(${shakeX}px, ${shakeY}px) scale(${push})`, transformOrigin: '65% 55%'}}>
+      <div style={{position: 'absolute', left: 110, top: 88, opacity: kick * (1 - exit), transform: `translateY(${(1 - kick) * -14}px)`, fontFamily: FONT, fontWeight: 800, fontSize: 40, letterSpacing: '0.22em', color: RED_SOFT}}>
+        SOUND FAMILIAR?
       </div>
+
+      <div style={{position: 'absolute', left: 110, top: 160, width: 1060, display: 'flex', flexDirection: 'column', gap: 18, fontFamily: FONT, opacity: 1 - exit, transform: `translateX(${-exit * 60}px)`}}>
+        {ROWS.map((row, i) => {
+          const at = timing.problemRows[i];
+          const a = prog(f, at, 14, ease.out);
+          const pop = prog(f, at + 4, 12, ease.back);
+          const flash = prog(f, at, 4) * (1 - prog(f, at + 4, 18));
+          return (
+            <div
+              key={i}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 24,
+                padding: '20px 30px 20px 22px',
+                borderRadius: 24,
+                background: `rgba(239,68,68,${0.1 + flash * 0.22})`,
+                border: '1.5px solid rgba(239,68,68,0.42)',
+                opacity: a,
+                transform: `translateX(${(1 - a) * -120}px)`,
+              }}
+            >
+              <span style={{width: 70, height: 70, borderRadius: '50%', background: RED, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: 'none', transform: `scale(${pop})`}}>
+                <svg width={38} height={38} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={3.6} strokeLinecap="round">
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
+              </span>
+              <span style={{fontSize: 58, fontWeight: 800, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.02em'}}>
+                {row.before}
+                <span style={{color: RED_SOFT}}>{row.hot}</span>
+                {row.after}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
       <div
         style={{
           position: 'absolute',
@@ -59,10 +102,7 @@ export const Scene1Hook: React.FC = () => {
           top: 0,
           width: 580,
           height: 1080,
-          WebkitMaskImage:
-            p > 0
-              ? `linear-gradient(90deg, transparent ${maskFrac}%, #000 ${maskFrac + 7}%)`
-              : undefined,
+          WebkitMaskImage: h > 0 ? `linear-gradient(90deg, transparent ${maskFrac}%, #000 ${maskFrac + 7}%)` : undefined,
         }}
       >
         {papers.map((pp) => {

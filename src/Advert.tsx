@@ -15,7 +15,6 @@ import {Scene7Reports} from './scenes/Scene7Reports';
 import {Scene8Finale} from './scenes/Scene8Finale';
 
 const S = timing.scenes;
-const K = timing.timeScale;
 const seq = (s: {from: number; to: number}) => ({from: s.from, durationInFrames: s.to - s.from});
 
 const FONT_FILES: [number, string][] = [
@@ -60,27 +59,27 @@ export const Advert: React.FC = () => {
         <SceneQuestions />
       </Sequence>
       <Sequence {...seq(S.network)} name="4 Network">
-        <TimeScale k={K}>
+        <TimeScale k={S.network.scale}>
           <Scene3Network />
         </TimeScale>
       </Sequence>
       <Sequence {...seq(S.start)} name="5 Start">
-        <TimeScale k={K}>
+        <TimeScale k={S.start.scale}>
           <Scene4Start />
         </TimeScale>
       </Sequence>
       <Sequence {...seq(S.monitor)} name="6 Monitor">
-        <TimeScale k={K}>
+        <TimeScale k={S.monitor.scale}>
           <Scene5Monitor />
         </TimeScale>
       </Sequence>
       <Sequence {...seq(S.marking)} name="7 Marking">
-        <TimeScale k={K}>
+        <TimeScale k={S.marking.scale}>
           <Scene6Marking />
         </TimeScale>
       </Sequence>
       <Sequence {...seq(S.reports)} name="8 Reports">
-        <TimeScale k={K}>
+        <TimeScale k={S.reports.scale}>
           <Scene7Reports />
         </TimeScale>
       </Sequence>

@@ -6,11 +6,12 @@ import {Chip, Dot, Logo36} from '../components/ui';
 import {Battery, Book, Check, Grid, Radio, Server, Settings, User, Users, Wifi, Award, Monitor} from '../components/Icons';
 import {C, FONT} from '../theme';
 import {clamp, ease, lerp, pad2, prog} from '../util';
+import {Problem, Strength, Explainer} from '../components/Caption';
 
 const WX = 140;
-const WY = 232;
+const WY = 246;
 const WW = 1640;
-const WH = 800;
+const WH = 780;
 
 type Row = {name: string; dev: string; batt: number; start: number; end: number; submitAt: number | null; blip?: [number, number]};
 const ROWS: Row[] = [
@@ -52,8 +53,14 @@ export const Scene5Monitor: React.FC = () => {
 
   return (
     <AbsoluteFill style={{opacity: 1 - out, transform: `translateX(${out * 100}px)`}}>
-      <div style={{position: 'absolute', left: 140, top: 70}}>
-        <KText size={80} start={2} stagger={4} lines={[[{t: 'Watch'}, {t: 'every', color: C.mint}, {t: 'candidate', color: C.mint}, {t: 'live'}]]} />
+      <div style={{position: 'absolute', left: 140, top: 22}}>
+        <Problem text="Hard to supervise" at={2} fixAt={28} size={26} />
+      </div>
+      <div style={{position: 'absolute', left: 140, top: 74}}>
+        <KText size={76} start={2} stagger={4} lines={[[{t: 'Watch'}, {t: 'every', color: C.mint}, {t: 'candidate', color: C.mint}, {t: 'live'}]]} />
+      </div>
+      <div style={{position: 'absolute', left: 140, top: 168}}>
+        <Explainer text="See every candidate's progress, connection and battery while they write." at={34} width={1500} size={30} />
       </div>
       <div
         style={{

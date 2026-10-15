@@ -14,19 +14,24 @@ viewer/index.html          a page that plays the video and has a Download video 
 
 ## What is in the video
 
-| Time | Scene | On-screen text |
-|---|---|---|
-| 0:00 – 0:03 | Stack of marked scripts dissolves into particles | Marking exams takes days. |
-| 0:03 – 0:06 | Logo emerges, light sweep | Meet Exam Box. |
-| 0:06 – 0:09 | Question bank: JAMB and WAEC tabs, year ruler, a question with a diagram, a custom school question | Past questions 1998 to date. |
-| 0:09 – 0:12 | Student login, devices join one local server | Run exams on your own network |
-| 0:12 – 0:15 | Waiting room, then exam screen with timer, subject tabs, navigator, calculator | Everyone starts together |
-| 0:15 – 0:19 | Admin Live Monitor with progress bars and submissions | Watch every candidate live |
-| 0:19 – 0:22 | Submit, "Calculating score…", animated score card | Instant marking. Scores out of 100. |
-| 0:22 – 0:27 | Report cards gather into a ZIP, broadsheet slides in | Branded report cards for the whole class / Export to Excel |
-| 0:27 – 0:30 | Logo lockup, call to action, contact card | Exam Box. Smarter exams, instant results. / Get Exam Box for your school. / aremutecheazysolutions.com / 0901 647 1351 · 0902 907 4772 / © 2026 Aremu Tech Eazy Solutions |
+The advert tells a story in three beats: **the problems schools face, who we are, and how Exam Box fixes each problem.**
+Every feature scene opens with a struck-through problem tag that turns into a green "Fixed" tag, then a headline and one
+line that says how.
 
-Scene boundaries and the playback speed of scenes 4-8 (`timeScale`) live in `src/timing.json`.
+| Time | Beat | Scene | On-screen text |
+|---|---|---|---|
+| 0.0 – 4.8 s | Problems | A stack of marked scripts grows while four problems stamp in, then everything dissolves into particles | Sound familiar? / Marking takes days. / Report cards and broadsheets compiled by hand. / Candidates face CBT for the first time on exam day. / Cyber cafés cost money and are hard to supervise. |
+| 4.8 – 7.6 s | Who we are | Logo emerges from the particles | Meet Exam Box. The offline computer-based testing system for schools and exam centres. By Aremu Tech Eazy Solutions |
+| 7.6 – 10.2 s | Strength | Question bank: JAMB and WAEC tabs, year ruler, a question with a diagram, a custom school question | Ready on day one. Past questions 1998 to date. |
+| 10.2 – 13.1 s | Fix: cyber café fees | Student login, devices join one local server | Run exams on your own network |
+| 13.1 – 15.9 s | Fix: first CBT on exam day | Waiting room, then exam screen with timer, subject tabs, navigator, calculator | Everyone starts together |
+| 15.9 – 18.8 s | Fix: hard to supervise | Admin Live Monitor with progress bars and submissions | Watch every candidate live |
+| 18.8 – 21.7 s | Fix: marking takes days | Submit, "Calculating score…", animated score card | Instant marking. Scores out of 100. |
+| 21.7 – 26.7 s | Fix: reports by hand | Report cards gather into a ZIP, broadsheet slides in | Branded report cards for the whole class / Export to Excel |
+| 26.7 – 30.0 s | Call to action | Logo lockup, button, contact card | Exam Box. Smarter exams, instant results. / Get Exam Box for your school. / aremutecheazysolutions.com / 0901 647 1351 · 0902 907 4772 / © 2026 Aremu Tech Eazy Solutions |
+
+Scene boundaries, each scene's playback speed (`scale`), the paper-landing frames and the problem-row frames live in
+`src/timing.json`.
 
 All school and student names (Greenfield Academy, Daniel Ade …) are **fictional**, and the numbers in the mock-ups
 (24 candidates, 86 / 100, the sample questions …) are illustrative. The question-bank scene states "past questions
@@ -76,10 +81,15 @@ BROWSER=/path/to/chrome npm run render
 
 1. `npx remotion render src/index.ts ExamBoxAdvert out/master.mp4 --concurrency=4`: a near-lossless master (PNG frames,
    CRF 1, BT.709). The master is git-ignored and kept so you can re-encode without re-rendering.
-2. `npm run encode`: ffmpeg writes the delivery file, H.264 High, CRF 15 capped at 8 Mbit/s with a half-second buffer
-   (no bitrate spikes, so smooth playback even on weaker players or streams), a keyframe every 2 s (smooth seeking),
-   BT.709 colour tags, the AAC audio copied untouched, and the MP4 index moved to the front (instant start on the
-   web). Settings are in `scripts/encode.mjs`.
+2. `npm run encode`: ffmpeg writes the delivery file. H.264 High, constant quality (CRF 21) with a 4 Mbit/s cap and a
+   small buffer (no bitrate spikes, so smooth playback on any player or connection), a keyframe every 2 s (smooth
+   seeking), BT.709 colour tags and the MP4 index at the front (instant start on the web). The soundtrack is taken from
+   `public/audio/soundtrack.wav` and encoded once to AAC stereo 160 kbit/s, so sound is always in the file. The result
+   is about **6.7 MB** and measures SSIM 0.996 against the master (1.0 = identical). Tune with `CRF=19 npm run encode`
+   (sharper, about 8 MB) or `CRF=23 npm run encode` (smaller, about 5.5 MB).
+
+`npm run verify` proves the file is right, including that the audio is **audible** (it measures loudness, not just that an
+audio stream exists) and that the file is under 10 MB.
 
 Lower `CONCURRENCY` (for example `CONCURRENCY=2 npm run render`) on small machines.
 
@@ -101,11 +111,11 @@ scripts/make_audio.py           procedural soundtrack, cues are in video frames
 scripts/render.mjs              reproducible render wrapper (master + encode)
 scripts/encode.mjs              final delivery encode from the master
 scripts/verify.mjs              ffprobe verification of the finished MP4
-src/timing.json                 frame count, size, time scale, scene boundaries (single source of truth)
+src/timing.json                 frame count, size, scene boundaries and speeds (single source of truth)
 src/frame.tsx                   per-scene playback-speed helper
 src/Advert.tsx                  composition: fonts, audio, scene sequencing
 src/scenes/                     one file per scene
-src/components/                 shared pieces: kinetic text, cursor, canvas particles, UI mock-ups, icons
+src/components/                 shared pieces: kinetic text, problem/fixed tags, cursor, canvas particles, UI mock-ups, icons
 viewer/index.html, poster.jpg   player page with download button
 NARRATION.md                    optional voice-over script
 ```
@@ -128,7 +138,7 @@ transparent, square PNG. Company name, website and phone numbers are constants a
 
 ## Audio
 
-The soundtrack (music bed plus about 170 timed sound effects) is synthesised from scratch by
+The soundtrack (music bed plus about 190 timed sound effects) is synthesised from scratch by
 `scripts/make_audio.py`, so it is original and licence-free. Cue times are expressed in video frames and read the
 scene starts and `timeScale` from `src/timing.json`. If you move a scene, regenerate the audio. No voice-over is
 included (see `NARRATION.md`).
@@ -152,4 +162,4 @@ git push -u origin main
 ```
 
 Create the empty repository on GitHub first (without a README). `node_modules/` and the large master render are
-ignored; the 12 MB MP4 is committed so the repository contains the finished video.
+ignored; the 6.7 MB MP4 is committed so the repository contains the finished video.
