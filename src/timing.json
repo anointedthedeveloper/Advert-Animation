@@ -1,0 +1,16 @@
+{
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "totalFrames": 900,
+  "scenes": {
+    "hook":    { "from": 0,   "to": 96  },
+    "reveal":  { "from": 90,  "to": 186 },
+    "network": { "from": 180, "to": 306 },
+    "start":   { "from": 300, "to": 426 },
+    "monitor": { "from": 420, "to": 546 },
+    "marking": { "from": 540, "to": 666 },
+    "reports": { "from": 660, "to": 846 },
+    "finale":  { "from": 834, "to": 900 }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "exam-box-advert",
+  "version": "1.0.0",
+  "private": true,
+  "description": "30-second cinematic motion-graphics advert for Exam Box (Anobyte Technologies), rendered with Remotion.",
+  "scripts": {
+    "preview": "remotion studio src/index.ts",
+    "audio": "python3 scripts/make_audio.py",
+    "still": "remotion still src/index.ts ExamBoxAdvert --frame=450 out/still.png",
+    "typecheck": "tsc --noEmit",
+    "render": "node scripts/render.mjs",
+    "verify": "node scripts/verify.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.535",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.535"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "typescript": "5.6.3"
+  }
+}

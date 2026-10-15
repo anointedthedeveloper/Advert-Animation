@@ -1,0 +1,5 @@
+node_modules/
+.remotion/
+out/still*.png
+out/frames/
+*.log
