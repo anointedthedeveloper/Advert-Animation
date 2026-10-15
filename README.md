@@ -99,6 +99,34 @@ Open `viewer/index.html` after rendering (double-click it, or serve the folder w
 `/viewer/`). It plays the video, lets you jump to any scene, shows the contact details, and has a **Download video**
 button that saves `exambox-advert.mp4`.
 
+## The flyer
+
+An A4 flyer with the same story (problems on the left, fixes on the right), the screenshots from the advert, the
+website, both phone numbers and a QR code.
+
+```
+out/exambox-flyer.pdf     print-ready A4, vector text, about 1 MB
+out/exambox-flyer.png     2480 x 3508 px (A4 at 300 dpi) for print shops
+out/exambox-flyer.jpg     1240 x 1754 px, light file for WhatsApp and social media
+flyer/index.html          the flyer source (HTML and CSS, 794 x 1123 px = A4 at 96 dpi)
+```
+
+Rebuild all three files after editing `flyer/index.html`:
+
+```bash
+BROWSER=/path/to/chrome npm run flyer      # omit BROWSER if Chrome or Chromium is on a standard path
+```
+
+The screenshots in `flyer/img/` are stills from the advert (frames 467, 548 and 640). The QR code points to
+`https://aremutecheazysolutions.com` and is regenerated with:
+
+```bash
+node -e "require('qrcode').toString('https://aremutecheazysolutions.com',{type:'svg',margin:0,color:{dark:'#022C22',light:'#FFFFFF'},errorCorrectionLevel:'M'}).then(s=>require('fs').writeFileSync('flyer/img/qr.svg',s))"
+```
+
+The flyer has no print bleed. Ask the print shop for A4, full colour, "fit to page". Like the video, it carries the
+line "Not affiliated with or endorsed by JAMB or WAEC".
+
 ## Project layout
 
 ```
@@ -117,6 +145,8 @@ src/Advert.tsx                  composition: fonts, audio, scene sequencing
 src/scenes/                     one file per scene
 src/components/                 shared pieces: kinetic text, problem/fixed tags, cursor, canvas particles, UI mock-ups, icons
 viewer/index.html, poster.jpg   player page with download button
+flyer/                          A4 flyer source and images
+scripts/flyer.mjs               exports the flyer to PDF, PNG and JPG
 NARRATION.md                    optional voice-over script
 ```
 

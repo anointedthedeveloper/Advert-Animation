@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Exam Box flyer (A4)</title>
+<style>
+  @font-face { font-family: 'Inter'; font-weight: 500; src: url('../public/fonts/Inter-Medium.otf'); }
+  @font-face { font-family: 'Inter'; font-weight: 600; src: url('../public/fonts/Inter-SemiBold.otf'); }
+  @font-face { font-family: 'Inter'; font-weight: 700; src: url('../public/fonts/Inter-Bold.otf'); }
+  @font-face { font-family: 'Inter'; font-weight: 800; src: url('../public/fonts/Inter-ExtraBold.otf'); }
+  @font-face { font-family: 'Inter'; font-weight: 900; src: url('../public/fonts/Inter-Black.otf'); }
+
+  /* A4 portrait at 96 dpi: 794 x 1123 px. Brand tokens match the advert. */
+  :root {
+    --deep: #022C22; --dark: #064E3B; --primary: #16A34A; --emerald: #10B981; --mint: #A7F3D0;
+    --white: #FFFFFF; --mist: #F1F5F9; --ink: #0F172A; --slate: #64748B; --red: #EF4444; --red-ink: #B91C1C;
+  }
+  @page { size: 210mm 297mm; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 794px; height: 1123px; background: var(--deep); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; color: var(--white); }
+
+  .page { position: relative; width: 794px; height: 1123px; overflow: hidden;
+    background:
+      radial-gradient(620px 460px at 88% 6%, rgba(16,185,129,0.30), rgba(16,185,129,0) 70%),
+      radial-gradient(520px 420px at 0% 60%, rgba(6,78,59,0.9), rgba(6,78,59,0) 70%),
+      var(--deep); }
+  .grid { position: absolute; inset: 0; opacity: .55;
+    background-image: linear-gradient(rgba(167,243,208,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(167,243,208,0.06) 1px, transparent 1px);
+    background-size: 40px 40px; }
+
+  header { position: absolute; left: 44px; right: 44px; top: 30px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .tile { width: 54px; height: 54px; border-radius: 14px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px rgba(0,0,0,.35); }
+  .tile img { width: 44px; height: 44px; display: block; }
+  .brand b { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; }
+  .by { font-size: 11px; font-weight: 700; letter-spacing: .2em; color: var(--mint); text-transform: uppercase; text-align: right; line-height: 1.5; }
+
+  h1 { position: absolute; left: 44px; top: 88px; font-size: 72px; line-height: .94; font-weight: 900; letter-spacing: -0.045em; }
+  h1 span { display: block; }
+  h1 .m { color: var(--mint); }
+  .lead { position: absolute; left: 46px; top: 238px; width: 540px; font-size: 19px; line-height: 1.38; font-weight: 500; color: rgba(255,255,255,.92); }
+  .lead b { font-weight: 800; color: #fff; }
+
+  .pills { position: absolute; left: 44px; top: 304px; display: flex; gap: 8px; }
+  .pill { font-size: 11.8px; font-weight: 800; letter-spacing: .01em; padding: 7px 12px; border-radius: 999px; background: rgba(167,243,208,.12); border: 1px solid rgba(167,243,208,.45); color: var(--mint); white-space: nowrap; }
+  .pill.g { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .shot { position: absolute; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 24px 50px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.14); }
+  .shot img { display: block; width: 100%; height: auto; }
+  .s-exam { left: 40px; top: 376px; width: 478px; transform: rotate(-2.2deg); z-index: 1; }
+  .s-mon  { left: 388px; top: 498px; width: 358px; transform: rotate(2.4deg); z-index: 3; }
+  .s-score { left: 536px; top: 350px; width: 218px; transform: rotate(3deg); z-index: 2; border-radius: 16px; }
+  .sticker { position: absolute; z-index: 4; left: 44px; top: 592px; background: var(--primary); color: #fff; font-weight: 900; font-size: 15px; letter-spacing: .02em;
+    padding: 9px 16px; border-radius: 999px; box-shadow: 0 10px 22px rgba(0,0,0,.4), 0 0 0 2px rgba(167,243,208,.5); transform: rotate(-3deg); }
+
+  .panel { position: absolute; left: 44px; right: 44px; top: 692px; border-radius: 22px; background: var(--mist); color: var(--ink); padding: 14px 22px 6px; box-shadow: 0 20px 46px rgba(0,0,0,.4); }
+  .ph { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 8px; }
+  .ph .k { font-size: 13px; font-weight: 900; letter-spacing: .2em; color: var(--red-ink); }
+  .ph .t { font-size: 13px; font-weight: 800; color: var(--dark); }
+  .row { display: grid; grid-template-columns: 252px 22px 1fr; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid #D5DEE8; }
+  .bad { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 800; color: var(--red-ink); line-height: 1.15; }
+  .bad s { text-decoration-thickness: 2px; text-decoration-color: rgba(185,28,28,.6); }
+  .x, .ok { flex: none; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+  .x { background: var(--red); }
+  .ok { background: var(--primary); }
+  .arrow { color: var(--primary); font-weight: 900; font-size: 20px; text-align: center; }
+  .fix { display: flex; align-items: flex-start; gap: 10px; }
+  .fix strong { display: block; font-size: 14.8px; font-weight: 900; color: var(--dark); line-height: 1.15; }
+  .fix span.d { display: block; font-size: 11.8px; font-weight: 500; color: #475569; line-height: 1.3; margin-top: 2px; }
+
+
+  .cta { position: absolute; left: 0; right: 0; bottom: 0; height: 124px; background: linear-gradient(100deg, #064E3B 0%, #0A5D38 100%); border-top: 3px solid var(--mint); padding: 0 44px 16px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .cta h2 { font-size: 30px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; }
+  .cta .web { font-size: 21px; font-weight: 800; color: var(--mint); margin-top: 7px; letter-spacing: -0.01em; }
+  .cta .tel { font-size: 19px; font-weight: 800; margin-top: 3px; font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+  .cta .tel i { font-style: normal; opacity: .55; padding: 0 6px; }
+  .qr { text-align: center; flex: none; }
+  .qr .box { width: 78px; height: 78px; background: #fff; border-radius: 12px; padding: 7px; }
+  .qr img { width: 100%; height: 100%; display: block; }
+  .qr small { display: block; margin-top: 4px; font-size: 9.5px; font-weight: 700; letter-spacing: .12em; color: var(--mint); text-transform: uppercase; }
+  .fine { position: absolute; left: 44px; right: 44px; bottom: 8px; font-size: 9.5px; font-weight: 500; color: rgba(241,245,249,.7); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="grid"></div>
+
+  <header>
+    <div class="brand"><div class="tile"><img src="img/exambox-mark.png" alt=""></div><b>Exam Box</b></div>
+    <div class="by">by Aremu Tech<br>Eazy Solutions</div>
+  </header>
+
+  <h1><span>Run the exam.</span><span class="m">Skip the marking.</span></h1>
+  <p class="lead">The <b>offline computer-based testing</b> system for schools and exam centres.</p>
+
+  <div class="pills"><span class="pill g">Past questions 1998 to date</span><span class="pill">JAMB + WAEC · images included</span><span class="pill">Your own school exams</span><span class="pill">Works offline</span></div>
+
+  <div class="shot s-exam"><img src="img/exam.jpg" alt="Exam Box exam screen with timer, question navigator and calculator"></div>
+  <div class="shot s-score"><img src="img/score.jpg" alt="Instant score card, 86 out of 100"></div>
+  <div class="shot s-mon"><img src="img/monitor.jpg" alt="Live monitor showing every candidate's progress"></div>
+  <div class="sticker">Real CBT screen · live monitor · instant score</div>
+
+  <section class="panel">
+    <div class="ph"><span class="k">SOUND FAMILIAR?</span><span class="t">Here is how Exam Box fixes it.</span></div>
+
+    <div class="row">
+      <div class="bad"><span class="x"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><s>Marking takes days</s></div>
+      <div class="arrow">→</div>
+      <div class="fix"><span class="ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><div><strong>Instant marking. Scores out of 100.</strong><span class="d">Every answer is marked the moment a candidate submits.</span></div></div>
+    </div>
+    <div class="row">
+      <div class="bad"><span class="x"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><s>Report cards compiled by hand</s></div>
+      <div class="arrow">→</div>
+      <div class="fix"><span class="ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><div><strong>Branded report cards. Export to Excel.</strong><span class="d">PDF report cards with your school logo for the whole class, plus Excel broadsheets.</span></div></div>
+    </div>
+    <div class="row">
+      <div class="bad"><span class="x"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><s>First CBT on exam day</s></div>
+      <div class="arrow">→</div>
+      <div class="fix"><span class="ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><div><strong>A real CBT screen. Everyone starts together.</strong><span class="d">Timer, subject tabs, question navigator and calculator.</span></div></div>
+    </div>
+    <div class="row">
+      <div class="bad"><span class="x"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><s>Cyber cafés cost money and are hard to supervise</s></div>
+      <div class="arrow">→</div>
+      <div class="fix"><span class="ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><div><strong>Your own network. Live monitoring.</strong><span class="d">One school PC runs the exam, offline after licence activation. Watch every candidate live.</span></div></div>
+    </div>
+  </section>
+
+
+  <footer class="cta">
+    <div>
+      <h2>Get Exam Box<br>for your school.</h2>
+    </div>
+    <div style="flex:1">
+      <div class="web">aremutecheazysolutions.com</div>
+      <div class="tel">0901 647 1351<i>·</i>0902 907 4772</div>
+    </div>
+    <div class="qr"><div class="box"><img src="img/qr.svg" alt="QR code for aremutecheazysolutions.com"></div><small>Scan to visit</small></div>
+    <div class="fine">Not affiliated with or endorsed by JAMB or WAEC. © 2026 Aremu Tech Eazy Solutions</div>
+  </footer>
+</div>
+</body>
+</html>
