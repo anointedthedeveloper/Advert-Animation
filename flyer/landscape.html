@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Exam Box flyer (A4 landscape)</title>
+<style>
+  @font-face { font-family: 'Inter'; font-weight: 500; src: url('../public/fonts/Inter-Medium.otf'); }
+  @font-face { font-family: 'Inter'; font-weight: 700; src: url('../public/fonts/Inter-Bold.otf'); }
+  @font-face { font-family: 'Inter'; font-weight: 800; src: url('../public/fonts/Inter-ExtraBold.otf'); }
+  @font-face { font-family: 'Inter'; font-weight: 900; src: url('../public/fonts/Inter-Black.otf'); }
+
+  /* A4 landscape at 96 dpi: 1123 x 794 px. Deliberately simple: one message, three points, one call to action. */
+  :root { --deep: #022C22; --dark: #064E3B; --primary: #16A34A; --mint: #A7F3D0; }
+  @page { size: 297mm 210mm; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1123px; height: 794px; background: var(--deep); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; color: #fff; }
+  .page { position: relative; width: 1123px; height: 794px; overflow: hidden;
+    background: radial-gradient(640px 480px at 92% 12%, rgba(16,185,129,.32), rgba(16,185,129,0) 70%), radial-gradient(520px 420px at 0% 70%, rgba(6,78,59,.9), rgba(6,78,59,0) 70%), var(--deep); }
+  .grid { position: absolute; inset: 0; opacity: .55; background-image: linear-gradient(rgba(167,243,208,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(167,243,208,.06) 1px, transparent 1px); background-size: 40px 40px; }
+
+  .brand { position: absolute; left: 56px; top: 40px; display: flex; align-items: center; gap: 14px; }
+  .tile { width: 58px; height: 58px; border-radius: 15px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px rgba(0,0,0,.35); }
+  .tile img { width: 47px; height: 47px; display: block; }
+  .brand b { font-size: 31px; font-weight: 900; letter-spacing: -.03em; }
+
+  h1 { position: absolute; left: 56px; top: 126px; font-size: 80px; line-height: .95; font-weight: 900; letter-spacing: -.045em; }
+  h1 span { display: block; }
+  h1 .m { color: var(--mint); }
+  .lead { position: absolute; left: 58px; top: 300px; width: 560px; font-size: 22px; line-height: 1.36; font-weight: 500; color: rgba(255,255,255,.92); }
+
+  .pts { position: absolute; left: 58px; top: 410px; display: grid; gap: 16px; }
+  .pt { display: flex; align-items: center; gap: 16px; font-size: 27px; font-weight: 800; letter-spacing: -.015em; }
+  .pt i { flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; }
+
+  .shot { position: absolute; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 26px 54px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.14); }
+  .shot img { display: block; width: 100%; height: auto; }
+  .exam { left: 640px; top: 322px; width: 440px; transform: rotate(-2.5deg); z-index: 1; }
+  .score { left: 742px; top: 56px; width: 300px; transform: rotate(3deg); z-index: 2; border-radius: 18px; }
+
+  .cta { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: linear-gradient(100deg, #064E3B 0%, #0A5D38 100%); border-top: 3px solid var(--mint); padding: 0 56px 8px; display: flex; align-items: center; gap: 36px; }
+  .cta h2 { font-size: 40px; line-height: 1.04; font-weight: 900; letter-spacing: -.035em; }
+  .cta .c { flex: 1; }
+  .cta .web { font-size: 29px; font-weight: 800; color: var(--mint); letter-spacing: -.015em; }
+  .cta .tel { margin-top: 6px; font-size: 26px; font-weight: 800; letter-spacing: .01em; font-variant-numeric: tabular-nums; }
+  .cta .tel em { font-style: normal; opacity: .5; padding: 0 8px; }
+  .qr { flex: none; width: 96px; height: 96px; background: #fff; border-radius: 14px; padding: 8px; }
+  .qr img { width: 100%; height: 100%; display: block; }
+  .fine { position: absolute; left: 56px; bottom: 8px; font-size: 10px; font-weight: 500; color: rgba(241,245,249,.7); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="grid"></div>
+
+  <div class="brand"><div class="tile"><img src="img/exambox-mark.png" alt=""></div><b>Exam Box</b></div>
+
+  <h1><span>Run the exam.</span><span class="m">Skip the marking.</span></h1>
+  <p class="lead">Offline computer-based testing<br>for schools and exam centres.</p>
+
+  <div class="pts">
+    <div class="pt"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>Instant marking. Scores out of 100.</div>
+    <div class="pt"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>Watch every candidate live.</div>
+    <div class="pt"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>Past questions, 1998 to date.</div>
+  </div>
+
+  <div class="shot exam"><img src="img/exam.jpg" alt="Exam Box exam screen"></div>
+  <div class="shot score"><img src="img/score.jpg" alt="Score card: 86 out of 100"></div>
+
+  <footer class="cta">
+    <h2>Get Exam Box<br>for your school.</h2>
+    <div class="c">
+      <div class="web">aremutecheazysolutions.com</div>
+      <div class="tel">0901 647 1351<em>·</em>0902 907 4772</div>
+    </div>
+    <div class="qr"><img src="img/qr.svg" alt="QR code for aremutecheazysolutions.com"></div>
+    <div class="fine">Not affiliated with or endorsed by JAMB or WAEC. © 2026 Aremu Tech Eazy Solutions</div>
+  </footer>
+</div>
+</body>
+</html>
