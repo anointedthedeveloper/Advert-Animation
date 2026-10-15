@@ -135,4 +135,4 @@ git push -u origin main
 ```
 
 Create the empty repository on GitHub first (without a README). `node_modules/` is ignored; the MP4 is about
-10 MB and is committed so the repository contains the finished video.
+12 MB and is committed so the repository contains the finished video.
