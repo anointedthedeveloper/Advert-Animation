@@ -8,7 +8,14 @@
 body{margin:0;font-family:Carlito,Calibri,sans-serif;color:var(--ink);font-size:9.9pt;line-height:1.42}
 .page{width:210mm;height:297mm;position:relative;overflow:hidden;page-break-after:always;border-top:1.2mm solid var(--gold)}
 .page:last-child{page-break-after:auto}
-.foot{position:absolute;left:0;right:0;bottom:0;width:100%;display:block}
+.foot{position:absolute;left:0;right:0;bottom:0;border-top:.5mm solid var(--gold);padding:2.2mm 0 3mm;text-align:center;background:#fff}
+.fi{display:flex;justify-content:center;gap:6mm;font-size:9.5pt;color:#111;flex-wrap:nowrap}.fi .ic{display:inline-flex;align-items:center;gap:1.2mm;white-space:nowrap}
+.fp{font-size:11.5pt;font-weight:700;color:var(--navy);margin-top:1.6mm;letter-spacing:.2mm}
+.lh{display:flex;align-items:center;justify-content:space-between;height:31mm;padding:3mm 8mm 0 0}
+.lhl{height:27mm;display:block}
+.addr{display:flex;flex-direction:column;align-items:center;text-align:center;font-size:9.5pt;line-height:1.35;border-left:1.6mm solid #8a8a8a;border-right:1.6mm solid #8a8a8a;border-radius:3mm;padding:1.5mm 6mm;gap:1mm}
+.addr u{text-decoration-color:#e6e64a}
+.refs{display:flex;gap:4mm;border-top:.4mm solid #111;margin:0 6mm;padding-top:1mm;font-size:9.5pt;color:#333}.refs span{display:flex;flex:1;align-items:baseline}.refs i{flex:1;border-bottom:.2mm solid #555;margin-left:1mm;height:1em}
 .body{position:absolute;left:16mm;right:16mm;top:44mm;bottom:23mm}
 .body.sub{top:27mm}
 .hdr{width:100%;display:block}
@@ -50,7 +57,7 @@ tbody tr:nth-child(even) td{background:#f6f7fb}
 
 <!-- PAGE 1 : LETTER -->
 <section class="page">
-<img class="hdr" src="header.png" style="margin-top:0">
+<div class="lh"><img src="header-left.png" class="lhl"><div class="addr"><svg viewBox="0 0 24 24" width="16" height="22"><path d="M12 0C7 0 3.5 3.6 3.5 8.2 3.5 14 12 24 12 24s8.5-10 8.5-15.8C20.5 3.6 17 0 12 0z" fill="#ec2f3b"/><circle cx="12" cy="8.5" r="3.2" fill="#fff"/></svg><div>Plot 1, Behind CAC Church<br><u>Kubwa FCT-Abuja, Nigeria</u></div><div>Shop 6, Arsenal Close, New Maitama<br>Kubwa, FCT-Abuja, Nigeria</div></div></div><div class="refs"><span>Our Ref:<i></i></span><span>Your Ref:<i></i></span><span>Date:<i></i></span></div>
 <div class="body" style="top:45mm">
  <div class="to">The Proprietor,<br><b>Goshen High School</b><br>Kubwa, Abuja</div>
  <p style="margin-bottom:1.5mm">Dear Sir/Ma,</p>
@@ -81,13 +88,13 @@ tbody tr:nth-child(even) td{background:#f6f7fb}
  <div class="sig">Yours faithfully,<br>For: <b>AREMU TECH EAZY SOLUTIONS</b>
  <hr><b>Anointed Agunloye</b><br>Senior Software Developer</div>
 </div>
-<img class="foot" src="footer.png">
+<div class="foot"><div class="fi"><span class="ic"><svg viewBox="0 0 24 24" width="14" height="14"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#fd9a1a"/><stop offset=".5" stop-color="#e1306c"/><stop offset="1" stop-color="#833ab4"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#ig)"/><rect x="5" y="5" width="14" height="14" rx="4" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3.3" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="16.4" cy="7.6" r="1" fill="#fff"/></svg>aremutecheasysolutions</span><span class="ic"><svg viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="12" fill="#1877f2"/><path d="M13.3 19v-6h2l.4-2.4h-2.4V9.2c0-.7.3-1.2 1.3-1.2h1.2V5.9c-.2 0-1-.1-1.8-.1-1.8 0-3 1.1-3 3.1v1.7H9v2.4h2V19z" fill="#fff"/></svg>aremutecheasysolutions</span><span class="ic">&#9993; aremutecheasysolutions@gmail.com</span><span class="ic">&#127760; www.aremutecheazysolutions.com</span></div><div class="fp">&#9990; 09135523400 &nbsp;|&nbsp; 09028595191 &nbsp;|&nbsp; 07039193550 &nbsp;|&nbsp; 09029074772</div></div>
 </section>
 
 <!-- PAGE 2 : ABOUT -->
 <section class="page">
 <img class="logo" src="logo.png"><div class="rule"></div>
-<img class="foot" src="footer.png">
+<div class="foot"><div class="fi"><span class="ic"><svg viewBox="0 0 24 24" width="14" height="14"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#fd9a1a"/><stop offset=".5" stop-color="#e1306c"/><stop offset="1" stop-color="#833ab4"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#ig)"/><rect x="5" y="5" width="14" height="14" rx="4" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3.3" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="16.4" cy="7.6" r="1" fill="#fff"/></svg>aremutecheasysolutions</span><span class="ic"><svg viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="12" fill="#1877f2"/><path d="M13.3 19v-6h2l.4-2.4h-2.4V9.2c0-.7.3-1.2 1.3-1.2h1.2V5.9c-.2 0-1-.1-1.8-.1-1.8 0-3 1.1-3 3.1v1.7H9v2.4h2V19z" fill="#fff"/></svg>aremutecheasysolutions</span><span class="ic">&#9993; aremutecheasysolutions@gmail.com</span><span class="ic">&#127760; www.aremutecheazysolutions.com</span></div><div class="fp">&#9990; 09135523400 &nbsp;|&nbsp; 09028595191 &nbsp;|&nbsp; 07039193550 &nbsp;|&nbsp; 09029074772</div></div>
 <div class="body sub">
  <h2>ABOUT EXAMBOX®</h2>
  <div class="meta"><b>Prepared by:</b> Aremu Tech Eazy Solutions &nbsp; <b>Prepared for:</b> Goshen High School, Kubwa, Abuja &nbsp; <b>Version:</b> 2026-001</div>
@@ -141,7 +148,7 @@ tbody tr:nth-child(even) td{background:#f6f7fb}
 <!-- PAGE 3 : PRICING -->
 <section class="page">
 <img class="logo" src="logo.png"><div class="rule"></div>
-<img class="foot" src="footer.png">
+<div class="foot"><div class="fi"><span class="ic"><svg viewBox="0 0 24 24" width="14" height="14"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#fd9a1a"/><stop offset=".5" stop-color="#e1306c"/><stop offset="1" stop-color="#833ab4"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#ig)"/><rect x="5" y="5" width="14" height="14" rx="4" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3.3" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="16.4" cy="7.6" r="1" fill="#fff"/></svg>aremutecheasysolutions</span><span class="ic"><svg viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="12" fill="#1877f2"/><path d="M13.3 19v-6h2l.4-2.4h-2.4V9.2c0-.7.3-1.2 1.3-1.2h1.2V5.9c-.2 0-1-.1-1.8-.1-1.8 0-3 1.1-3 3.1v1.7H9v2.4h2V19z" fill="#fff"/></svg>aremutecheasysolutions</span><span class="ic">&#9993; aremutecheasysolutions@gmail.com</span><span class="ic">&#127760; www.aremutecheazysolutions.com</span></div><div class="fp">&#9990; 09135523400 &nbsp;|&nbsp; 09028595191 &nbsp;|&nbsp; 07039193550 &nbsp;|&nbsp; 09029074772</div></div>
 <div class="body sub">
  <h3 style="margin-top:0">Implementation &amp; Renewal Pricing</h3>
  <table>
@@ -169,14 +176,14 @@ tbody tr:nth-child(even) td{background:#f6f7fb}
  <h3>Offer for the 2026/2027 Academic Session</h3>
  <p>The implementation price includes priority onboarding and complimentary setup assistance. Renewal is due annually at <b>₦400,000</b>.</p>
 
- <p class="contact">For inquiries or to schedule a live demonstration, contact Aremu Tech Eazy Solutions at <a>aremutecheasysolutions@gmail.com</a> &nbsp;|&nbsp; 09135523400 &nbsp;|&nbsp; 09028595191</p>
+ <p class="contact">For inquiries or to schedule a live demonstration, contact Aremu Tech Eazy Solutions at <a>aremutecheasysolutions@gmail.com</a> &nbsp;|&nbsp; <a>www.aremutecheazysolutions.com</a> &nbsp;|&nbsp; 09135523400 &nbsp;|&nbsp; 09028595191</p>
 </div>
 </section>
 
 <!-- PAGE 4 : REQUIREMENTS -->
 <section class="page">
 <img class="logo" src="logo.png"><div class="rule"></div>
-<img class="foot" src="footer.png">
+<div class="foot"><div class="fi"><span class="ic"><svg viewBox="0 0 24 24" width="14" height="14"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#fd9a1a"/><stop offset=".5" stop-color="#e1306c"/><stop offset="1" stop-color="#833ab4"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#ig)"/><rect x="5" y="5" width="14" height="14" rx="4" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3.3" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="16.4" cy="7.6" r="1" fill="#fff"/></svg>aremutecheasysolutions</span><span class="ic"><svg viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="12" fill="#1877f2"/><path d="M13.3 19v-6h2l.4-2.4h-2.4V9.2c0-.7.3-1.2 1.3-1.2h1.2V5.9c-.2 0-1-.1-1.8-.1-1.8 0-3 1.1-3 3.1v1.7H9v2.4h2V19z" fill="#fff"/></svg>aremutecheasysolutions</span><span class="ic">&#9993; aremutecheasysolutions@gmail.com</span><span class="ic">&#127760; www.aremutecheazysolutions.com</span></div><div class="fp">&#9990; 09135523400 &nbsp;|&nbsp; 09028595191 &nbsp;|&nbsp; 07039193550 &nbsp;|&nbsp; 09029074772</div></div>
 <div class="body sub">
  <h3 style="margin-top:0">System Requirements</h3>
  <p style="font-weight:700;margin-bottom:1mm">Server computer (host) — one PC runs the entire exam</p>
