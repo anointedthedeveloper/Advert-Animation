@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {useCurrentFrame} from '../frame';
+import {useIsPortrait} from '../layout';
 import {KText} from '../components/KText';
 import {Chip, Dot, Logo36} from '../components/ui';
 import {Battery, Book, Check, Grid, Radio, Server, Settings, User, Users, Wifi, Award, Monitor} from '../components/Icons';
@@ -40,6 +41,7 @@ const SIDE: [React.ReactNode, string, boolean][] = [
 /** Local frame 0 = global frame 420 (14.0 s). */
 export const Scene5Monitor: React.FC = () => {
   const f = useCurrentFrame();
+  const P = useIsPortrait();
   const inP = prog(f, 0, 16, ease.out);
   const out = prog(f, 108, 12, ease.in);
   const push = 1 + prog(f, 0, 126, ease.soft) * 0.045;
@@ -50,6 +52,143 @@ export const Scene5Monitor: React.FC = () => {
   const inProgress = Math.max(0, connected - submitted - (submitted > 0 ? 0 : 0));
   const secs = 41 * 60 + 12 - Math.floor(f / 5);
   const timeLeft = `00:${pad2(secs / 60)}:${pad2(secs % 60)}`;
+
+  if (P) {
+    const rowState = (r: Row) => {
+      const sub = r.submitAt !== null && f >= r.submitAt;
+      const run = r.submitAt === null ? f / 126 : Math.min(1, f / r.submitAt);
+      const base = r.submitAt === null ? lerp(r.start, r.end, run) : lerp(r.start, 0.97, run);
+      const pr = sub ? lerp(0.97, 1, prog(f, r.submitAt!, 8, ease.out)) : base;
+      const blip = !!r.blip && f >= r.blip[0] && f < r.blip[1];
+      const flash = r.submitAt !== null ? prog(f, r.submitAt, 4) * (1 - prog(f, r.submitAt + 4, 18)) : 0;
+      return {sub, pr, blip, flash, ans: Math.round(pr * TOTAL_Q)};
+    };
+    const stats: [string, React.ReactNode, string][] = [
+      ['Connected', connected, C.ink],
+      ['In progress', inProgress, '#15803D'],
+      ['Submitted', submitted, C.dark],
+      ['Time left', timeLeft, C.ink],
+    ];
+    return (
+      <AbsoluteFill style={{opacity: 1 - out, transform: `translateX(${out * 100}px)`}}>
+        <div style={{position: 'absolute', left: 70, top: 196}}>
+          <Problem text="Hard to supervise" at={2} fixAt={28} size={30} />
+        </div>
+        <div style={{position: 'absolute', left: 70, top: 280}}>
+          <KText size={108} start={2} stagger={4} lines={[[{t: 'Watch'}, {t: 'every', color: C.mint}], [{t: 'candidate', color: C.mint}, {t: 'live'}]]} />
+        </div>
+        <div style={{position: 'absolute', left: 70, top: 530}}>
+          <Explainer text="See every candidate's progress, connection and battery while they write." at={34} width={940} size={36} />
+        </div>
+        <div
+          style={{
+            position: 'absolute',
+            left: 30,
+            top: 650,
+            width: 1020,
+            height: 1040,
+            borderRadius: 28,
+            overflow: 'hidden',
+            background: '#F1F5F9',
+            fontFamily: FONT,
+            boxShadow: '0 50px 110px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.12)',
+            opacity: inP,
+            transform: `translateY(${(1 - inP) * 80}px) scale(${1 + prog(f, 0, 126, ease.soft) * 0.03})`,
+            transformOrigin: 'top center',
+          }}
+        >
+          <div style={{height: 92, background: '#fff', borderBottom: `1px solid ${C.line}`, display: 'flex', alignItems: 'center', gap: 14, padding: '0 28px'}}>
+            <Logo36 size={48} />
+            <div>
+              <div style={{fontWeight: 900, fontSize: 24, color: C.ink}}>Exam Box</div>
+              <div style={{fontWeight: 700, fontSize: 13, color: C.slate}}>Admin Console</div>
+            </div>
+            <div style={{flex: 1}} />
+            <Chip bg="#ECFDF5" fg="#15803D" size={17}>
+              <Dot color={C.emerald} size={10} pulse={(f % 30) / 30} /> Server running
+            </Chip>
+          </div>
+          <div style={{padding: '22px 28px 0', display: 'flex', alignItems: 'center', gap: 16}}>
+            <div style={{fontSize: 40, fontWeight: 900, color: C.ink, letterSpacing: '-0.02em'}}>Live Monitor</div>
+            <Chip bg="#ECFDF5" fg="#15803D" size={17}>
+              <Dot color={C.emerald} size={9} pulse={(f % 24) / 24} /> Session live
+            </Chip>
+          </div>
+          <div style={{padding: '16px 28px 0', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14}}>
+            {stats.map(([k, v, col], i) => (
+              <div key={k} style={{borderRadius: 18, background: '#fff', border: `1px solid ${C.line}`, padding: '12px 20px', opacity: prog(f, 6 + i * 3, 10), transform: `translateY(${(1 - prog(f, 6 + i * 3, 12)) * 20}px)`}}>
+                <div style={{color: C.slate, fontWeight: 700, fontSize: 17}}>{k}</div>
+                <div style={{fontSize: 44, fontWeight: 900, color: col, fontVariantNumeric: 'tabular-nums', lineHeight: 1.1}}>{v}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{margin: '18px 28px 0', borderRadius: 18, background: '#fff', border: `1px solid ${C.line}`, overflow: 'hidden'}}>
+            <div style={{display: 'grid', gridTemplateColumns: '250px 110px 1fr 150px', gap: 12, height: 44, alignItems: 'center', background: '#F8FAFC', color: C.slate, fontWeight: 800, fontSize: 13, letterSpacing: '0.08em', padding: '0 20px', borderBottom: `1px solid ${C.line}`}}>
+              <span>CANDIDATE</span>
+              <span>ANSWERED</span>
+              <span>PROGRESS</span>
+              <span>STATUS</span>
+            </div>
+            {ROWS.map((r, i) => {
+              const st = rowState(r);
+              const appear = prog(f, 10 + i * 4, 12, ease.out);
+              return (
+                <div
+                  key={r.name}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '250px 110px 1fr 150px',
+                    gap: 12,
+                    height: 66,
+                    alignItems: 'center',
+                    padding: '0 20px',
+                    borderBottom: i < ROWS.length - 1 ? `1px solid ${C.line}` : 'none',
+                    background: `rgba(16,185,129,${st.flash * 0.16})`,
+                    opacity: appear,
+                    transform: `translateX(${(1 - appear) * 40}px)`,
+                    fontSize: 20,
+                    fontWeight: 700,
+                    color: C.ink,
+                  }}
+                >
+                  <span style={{display: 'flex', alignItems: 'center', gap: 12, minWidth: 0}}>
+                    <span style={{width: 38, height: 38, borderRadius: '50%', background: '#D1FAE5', color: C.dark, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 800, flex: 'none'}}>
+                      {r.name.split(' ').map((w) => w[0]).join('')}
+                    </span>
+                    <span style={{whiteSpace: 'nowrap'}}>{r.name}</span>
+                  </span>
+                  <span style={{fontVariantNumeric: 'tabular-nums', fontWeight: 800}}>
+                    {st.ans}
+                    <span style={{color: C.slate, fontWeight: 600}}> / {TOTAL_Q}</span>
+                  </span>
+                  <span style={{paddingRight: 8}}>
+                    <div style={{height: 14, borderRadius: 7, background: '#E2E8F0', overflow: 'hidden'}}>
+                      <div style={{width: `${st.pr * 100}%`, height: '100%', borderRadius: 7, background: st.sub ? C.dark : `linear-gradient(90deg, ${C.primary}, ${C.emerald})`}} />
+                    </div>
+                  </span>
+                  <span>
+                    {st.sub ? (
+                      <Chip bg={C.dark} fg="#fff" size={16}>
+                        <Check size={16} stroke={3.4} /> Submitted
+                      </Chip>
+                    ) : st.blip ? (
+                      <Chip bg="#FFFBEB" fg="#B45309" size={16}>
+                        <Dot color={C.amber} size={9} /> Reconnecting
+                      </Chip>
+                    ) : (
+                      <Chip bg="#ECFDF5" fg="#15803D" size={16}>
+                        <Dot color={C.emerald} size={9} pulse={((f + i * 5) % 30) / 30} /> In progress
+                      </Chip>
+                    )}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </AbsoluteFill>
+    );
+  }
 
   return (
     <AbsoluteFill style={{opacity: 1 - out, transform: `translateX(${out * 100}px)`}}>

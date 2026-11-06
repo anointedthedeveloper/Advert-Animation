@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {AbsoluteFill, Audio, Sequence, continueRender, delayRender, staticFile} from 'remotion';
 import timing from './timing.json';
 import {TimeScale} from './frame';
+import {LayoutProvider, Layout} from './layout';
 import {Background} from './components/Background';
 import {PaperDissolve} from './components/PaperDissolve';
 import {Scene1Hook} from './scenes/Scene1Hook';
@@ -42,9 +43,10 @@ const useFonts = () => {
   }, [handle]);
 };
 
-export const Advert: React.FC = () => {
+export const Advert: React.FC<{layout?: Layout}> = ({layout = 'landscape'}) => {
   useFonts();
   return (
+    <LayoutProvider layout={layout}>
     <AbsoluteFill style={{background: '#022C22', overflow: 'hidden'}}>
       <Audio src={staticFile('audio/soundtrack.wav')} />
       <Background />
@@ -87,5 +89,6 @@ export const Advert: React.FC = () => {
         <Scene8Finale />
       </Sequence>
     </AbsoluteFill>
+    </LayoutProvider>
   );
 };

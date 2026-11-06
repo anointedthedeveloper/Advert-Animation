@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Img, staticFile} from 'remotion';
 import {useCurrentFrame} from '../frame';
+import {useIsPortrait} from '../layout';
 import {KText} from '../components/KText';
 import {Cursor} from '../components/Cursor';
 import {Chip, Logo36} from '../components/ui';
@@ -9,8 +10,8 @@ import {C, FONT} from '../theme';
 import {ease, lerp, prog, rng} from '../util';
 import {Problem, Strength, Explainer} from '../components/Caption';
 
-const CX = 1390;
-const CY = 540;
+const CX_L = 1390;
+const CY_L = 540;
 const CW = 820;
 const CH = 780;
 const SCORE = 86;
@@ -35,6 +36,9 @@ const RING_C = 2 * Math.PI * RING_R;
 /** Local frame 0 = global frame 540 (18.0 s). */
 export const Scene6Marking: React.FC = () => {
   const f = useCurrentFrame();
+  const P = useIsPortrait();
+  const CX = P ? 540 : CX_L;
+  const CY = P ? 1230 : CY_L;
   const inP = prog(f, 0, 14, ease.out);
   const out = prog(f, 108, 12, ease.in);
 
@@ -54,15 +58,15 @@ export const Scene6Marking: React.FC = () => {
 
   return (
     <AbsoluteFill style={{opacity: 1 - out, transform: `translateX(${-out * 80}px)`}}>
-      <div style={{position: 'absolute', left: 110, top: 318}}>
+      <div style={{position: 'absolute', left: P ? 70 : 110, top: P ? 196 : 318}}>
         <Problem text="Marking takes days" at={2} fixAt={30} />
       </div>
-      <div style={{position: 'absolute', left: 110, top: 402}}>
-        <KText size={84} start={4} stagger={5} lines={[[{t: 'Instant'}, {t: 'marking.'}], [{t: 'Scores', color: C.mint}, {t: 'out', color: C.mint}, {t: 'of', color: C.mint}, {t: '100.', color: C.mint}]]} />
+      <div style={{position: 'absolute', left: P ? 70 : 110, top: P ? 282 : 402}}>
+        <KText size={P ? 104 : 84} start={4} stagger={5} lines={[[{t: 'Instant'}, {t: 'marking.'}], [{t: 'Scores', color: C.mint}, {t: 'out', color: C.mint}, {t: 'of', color: C.mint}, {t: '100.', color: C.mint}]]} />
       </div>
 
-      <div style={{position: 'absolute', left: 110, top: 630}}>
-        <Explainer text="Every answer is marked the moment a candidate submits." at={34} width={700} />
+      <div style={{position: 'absolute', left: P ? 70 : 110, top: P ? 520 : 630}}>
+        <Explainer text="Every answer is marked the moment a candidate submits." at={34} width={P ? 940 : 700} size={P ? 36 : 34} />
       </div>
       <div
         style={{
@@ -174,7 +178,7 @@ export const Scene6Marking: React.FC = () => {
         })}
 
       <div style={{opacity: 1 - prog(f, 24, 6)}}>
-        <Cursor keys={[{f: 4, x: 1620, y: 880}, {f: 16, x: 1570, y: 748}]} clicks={[18]} opacityIn={2} />
+        <Cursor keys={P ? [{f: 4, x: 800, y: 1700}, {f: 16, x: 720, y: 1440}] : [{f: 4, x: 1620, y: 880}, {f: 16, x: 1570, y: 748}]} clicks={[18]} opacityIn={2} />
       </div>
     </AbsoluteFill>
   );

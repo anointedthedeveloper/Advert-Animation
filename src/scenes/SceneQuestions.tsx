@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {useCurrentFrame} from '../frame';
+import {Fit, useIsPortrait} from '../layout';
 import {KText} from '../components/KText';
 import {Chip, Crest, Logo36} from '../components/ui';
 import {Check} from '../components/Icons';
@@ -73,6 +74,7 @@ const CARDS: CardDef[] = [
 /** Local frame 0 = global frame 180 (6.0 s). Past questions, images, JAMB / WAEC sources, custom school questions. */
 export const SceneQuestions: React.FC = () => {
   const f = useCurrentFrame();
+  const P = useIsPortrait();
   const inP = prog(f, 0, 16, ease.out);
   const out = prog(f, 78, 12, ease.in);
   const ruler = prog(f, 16, 46, ease.inOut);
@@ -82,13 +84,13 @@ export const SceneQuestions: React.FC = () => {
 
   return (
     <AbsoluteFill style={{opacity: 1 - out, transform: `translateX(${-out * 80}px)`}}>
-      <div style={{position: 'absolute', left: 110, top: 168}}>
+      <div style={{position: 'absolute', left: P ? 80 : 110, top: P ? 214 : 168}}>
         <Strength text="Ready on day one" at={2} />
       </div>
-      <div style={{position: 'absolute', left: 110, top: 250}}>
-        <KText size={92} start={3} stagger={4} lines={[[{t: 'Past'}, {t: 'questions'}], [{t: '1998', color: C.mint}, {t: 'to', color: C.mint}, {t: 'date.', color: C.mint}]]} />
+      <div style={{position: 'absolute', left: P ? 80 : 110, top: P ? 300 : 250}}>
+        <KText size={P ? 108 : 92} start={3} stagger={4} lines={[[{t: 'Past'}, {t: 'questions'}], [{t: '1998', color: C.mint}, {t: 'to', color: C.mint}, {t: 'date.', color: C.mint}]]} />
       </div>
-      <div style={{position: 'absolute', left: 110, top: 540, display: 'flex', flexDirection: 'column', gap: 16}}>
+      <div style={{position: 'absolute', left: P ? 80 : 110, top: P ? 600 : 540, display: 'flex', flexDirection: 'column', gap: 16}}>
         <div style={{display: 'flex', gap: 14}}>
           <Pill at={22} filled>JAMB</Pill>
           <Pill at={27} filled>WAEC</Pill>
@@ -98,10 +100,11 @@ export const SceneQuestions: React.FC = () => {
           <Pill at={38}>Your own school questions</Pill>
         </div>
       </div>
-      <div style={{position: 'absolute', left: 110, top: 1006, fontFamily: FONT, fontSize: 19, fontWeight: 500, color: 'rgba(241,245,249,0.6)', opacity: prog(f, 30, 14)}}>
+      <div style={{position: 'absolute', left: P ? 80 : 110, top: P ? 1690 : 1006, fontFamily: FONT, fontSize: P ? 24 : 19, fontWeight: 500, color: 'rgba(241,245,249,0.6)', opacity: prog(f, 30, 14)}}>
         Not affiliated with or endorsed by JAMB or WAEC.
       </div>
 
+      <Fit from={{x: WX, y: WY, w: WW}} to={{x: 100, y: 800, w: 880}}>
       <div
         style={{
           position: 'absolute',
@@ -205,6 +208,7 @@ export const SceneQuestions: React.FC = () => {
           })}
         </div>
       </div>
+      </Fit>
     </AbsoluteFill>
   );
 };

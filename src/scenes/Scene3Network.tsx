@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {useCurrentFrame} from '../frame';
+import {Fit, useIsPortrait} from '../layout';
 import {KText} from '../components/KText';
 import {Cursor} from '../components/Cursor';
 import {LoginWindow, LOGIN_H, LOGIN_W} from '../components/LoginWindow';
@@ -54,6 +55,7 @@ const MiniScreen: React.FC<{at: number; compact?: boolean}> = ({at, compact}) =>
 /** Local frame 0 = global frame 180 (6.0 s). */
 export const Scene3Network: React.FC = () => {
   const f = useCurrentFrame();
+  const P = useIsPortrait();
   const inP = prog(f, 0, 16, ease.out);
   const out = prog(f, 108, 12, ease.in);
   const shrink = prog(f, 66, 26, ease.inOut);
@@ -66,21 +68,22 @@ export const Scene3Network: React.FC = () => {
   const ringT = ((f - 74) % 40) / 40;
   return (
     <AbsoluteFill style={{opacity: 1 - out, transform: `translateX(${-out * 90}px)`}}>
-      <div style={{position: 'absolute', left: 120, top: 226}}>
+      <div style={{position: 'absolute', left: P ? 80 : 120, top: P ? 214 : 226}}>
         <Problem text="Cyber café fees" at={2} fixAt={30} />
       </div>
-      <div style={{position: 'absolute', left: 120, top: 316}}>
-        <KText size={92} start={4} stagger={4} lines={[[{t: 'Run'}, {t: 'exams'}, {t: 'on'}], [{t: 'your'}, {t: 'own', color: C.mint}], [{t: 'network', color: C.mint}]]} />
+      <div style={{position: 'absolute', left: P ? 80 : 120, top: P ? 304 : 316}}>
+        <KText size={P ? 104 : 92} start={4} stagger={4} lines={[[{t: 'Run'}, {t: 'exams'}, {t: 'on'}], [{t: 'your'}, {t: 'own', color: C.mint}], [{t: 'network', color: C.mint}]]} />
       </div>
-      <div style={{position: 'absolute', left: 120, top: 622}}>
-        <Explainer text="One school PC runs the exam. Candidates join from any browser on the same network." at={34} width={760} />
+      <div style={{position: 'absolute', left: P ? 80 : 120, top: P ? 692 : 622}}>
+        <Explainer text="One school PC runs the exam. Candidates join from any browser on the same network." at={34} width={P ? 920 : 760} size={P ? 36 : 34} />
       </div>
-      <div style={{position: 'absolute', left: 120, top: 780, opacity: prog(f, 46, 14), transform: `translateY(${(1 - prog(f, 46, 14)) * 18}px)`}}>
+      <div style={{position: 'absolute', left: P ? 80 : 120, top: P ? 842 : 780, opacity: prog(f, 46, 14), transform: `translateY(${(1 - prog(f, 46, 14)) * 18}px)`}}>
         <Chip bg="rgba(167,243,208,0.1)" fg={C.mint} size={26} style={{border: '1px solid rgba(167,243,208,0.35)'}}>
           <Wifi size={26} stroke={2.4} /> Works offline after licence activation
         </Chip>
       </div>
 
+      <Fit from={{x: 890, y: 120, w: 860}} to={{x: 90, y: 900, w: 900}}>
       {/* connection lines + pulses */}
       <svg width={1920} height={1080} style={{position: 'absolute', inset: 0, opacity: prog(f, 76, 10)}}>
         {nodes.map((n, i) => {
@@ -160,6 +163,7 @@ export const Scene3Network: React.FC = () => {
       <div style={{opacity: 1 - prog(f, 60, 6)}}>
       <Cursor keys={[{f: 8, x: 1430, y: 900}, {f: 18, x: 1560, y: 548}, {f: 36, x: 1560, y: 646}, {f: 54, x: 1520, y: 738}]} clicks={[18, 36, 58]} opacityIn={6} />
       </div>
+      </Fit>
     </AbsoluteFill>
   );
 };

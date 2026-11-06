@@ -10,6 +10,9 @@ import {fileURLToPath} from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const file = process.argv[2] ?? resolve(root, 'out/exambox-advert.mp4');
+// the WhatsApp status cut (exambox-status.mp4) is vertical 1080x1920, 897 frames (29.9 s) and must stay under WhatsApp's limits
+const status = /status/.test(file);
+const want = status ? {w: '1080', h: '1920', frames: '897', secs: 29.9, mb: 16} : {w: '1920', h: '1080', frames: '900', secs: 30, mb: 10};
 const probe = (args) => spawnSync('ffprobe', ['-v', 'error', ...args, file], {encoding: 'utf8'}).stdout.trim();
 
 const v = Object.fromEntries(
@@ -31,16 +34,16 @@ const mdat = head.indexOf("type:'mdat'");
 const sizeMB = statSync(file).size / 1e6;
 const checks = [
   ['video codec h264', v.codec_name === 'h264'],
-  ['1920 x 1080', v.width === '1920' && v.height === '1080'],
+  [`${want.w} x ${want.h}`, v.width === want.w && v.height === want.h],
   ['30 fps', v.r_frame_rate === '30/1'],
-  ['900 frames', v.nb_read_frames === '900'],
-  ['video duration 30.0 s', Math.abs(parseFloat(v.duration) - 30) < 0.01],
+  [`${want.frames} frames`, v.nb_read_frames === want.frames],
+  [`video duration ${want.secs} s`, Math.abs(parseFloat(v.duration) - want.secs) < 0.01],
   ['pixel format yuv420p', v.pix_fmt === 'yuv420p'],
   ['audio codec aac', a.codec_name === 'aac'],
-  ['audio duration ~30 s', Math.abs(parseFloat(a.duration) - 30) < 0.1],
+  ['audio duration ~' + want.secs + ' s', Math.abs(parseFloat(a.duration) - want.secs) < 0.1],
   ['audio is audible (mean volume ' + mean + ' dB, peak ' + peak + ' dB)', mean > -30 && peak > -12 && peak <= 0],
   ['index at the front (faststart)', moov > -1 && moov < mdat],
-  ['file size ' + sizeMB.toFixed(1) + ' MB (limit 10 MB)', sizeMB <= 10],
+  ['file size ' + sizeMB.toFixed(1) + ' MB (limit ' + want.mb + ' MB)', sizeMB <= want.mb],
 ];
 console.log(JSON.stringify({video: v, audio: a}, null, 2));
 let ok = true;

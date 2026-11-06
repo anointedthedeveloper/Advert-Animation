@@ -2,7 +2,8 @@ import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {useCurrentFrame} from '../frame';
 import {Paper, PAPER_H, PAPER_W} from '../components/Paper';
-import {DISSOLVE_START, STACK, dissolvedFraction} from '../components/PaperDissolve';
+import {DISSOLVE_START, STACKS, dissolvedFraction} from '../components/PaperDissolve';
+import {useIsPortrait} from '../layout';
 import {C, FONT} from '../theme';
 import {ease, lerp, prog, rng} from '../util';
 import timing from '../timing.json';
@@ -33,6 +34,8 @@ const papers = (() => {
 /** Scene 1: "Sound familiar?" Four problems pile up as a stack of scripts grows, then everything dissolves. */
 export const Scene1Hook: React.FC = () => {
   const f = useCurrentFrame();
+  const P = useIsPortrait();
+  const STACK = STACKS[P ? 'portrait' : 'landscape'];
 
   // each landing gives the whole frame a short, decaying shake
   let shakeX = 0;
@@ -54,12 +57,12 @@ export const Scene1Hook: React.FC = () => {
   const kick = prog(f, 3, 12, ease.out);
 
   return (
-    <AbsoluteFill style={{transform: `translate(${shakeX}px, ${shakeY}px) scale(${push})`, transformOrigin: '65% 55%'}}>
-      <div style={{position: 'absolute', left: 110, top: 88, opacity: kick * (1 - exit), transform: `translateY(${(1 - kick) * -14}px)`, fontFamily: FONT, fontWeight: 800, fontSize: 40, letterSpacing: '0.22em', color: RED_SOFT}}>
+    <AbsoluteFill style={{transform: `translate(${shakeX}px, ${shakeY}px) scale(${push})`, transformOrigin: P ? '50% 70%' : '65% 55%'}}>
+      <div style={{position: 'absolute', left: P ? 60 : 110, top: P ? 168 : 88, opacity: kick * (1 - exit), transform: `translateY(${(1 - kick) * -14}px)`, fontFamily: FONT, fontWeight: 800, fontSize: 40, letterSpacing: '0.22em', color: RED_SOFT}}>
         SOUND FAMILIAR?
       </div>
 
-      <div style={{position: 'absolute', left: 110, top: 160, width: 1060, display: 'flex', flexDirection: 'column', gap: 18, fontFamily: FONT, opacity: 1 - exit, transform: `translateX(${-exit * 60}px)`}}>
+      <div style={{position: 'absolute', left: P ? 60 : 110, top: P ? 238 : 160, width: P ? 960 : 1060, display: 'flex', flexDirection: 'column', gap: 18, fontFamily: FONT, opacity: 1 - exit, transform: `translateX(${-exit * 60}px)`}}>
         {ROWS.map((row, i) => {
           const at = timing.problemRows[i];
           const a = prog(f, at, 14, ease.out);
@@ -71,8 +74,8 @@ export const Scene1Hook: React.FC = () => {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 24,
-                padding: '20px 30px 20px 22px',
+                gap: P ? 20 : 24,
+                padding: P ? '22px 26px 22px 20px' : '20px 30px 20px 22px',
                 borderRadius: 24,
                 background: `rgba(239,68,68,${0.1 + flash * 0.22})`,
                 border: '1.5px solid rgba(239,68,68,0.42)',
@@ -80,12 +83,12 @@ export const Scene1Hook: React.FC = () => {
                 transform: `translateX(${(1 - a) * -120}px)`,
               }}
             >
-              <span style={{width: 70, height: 70, borderRadius: '50%', background: RED, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: 'none', transform: `scale(${pop})`}}>
+              <span style={{width: P ? 60 : 70, height: P ? 60 : 70, borderRadius: '50%', background: RED, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: 'none', transform: `scale(${pop})`}}>
                 <svg width={38} height={38} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={3.6} strokeLinecap="round">
                   <path d="M6 6l12 12M18 6L6 18" />
                 </svg>
               </span>
-              <span style={{fontSize: 58, fontWeight: 800, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.02em'}}>
+              <span style={{fontSize: P ? 56 : 58, fontWeight: 800, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.02em'}}>
                 {row.before}
                 <span style={{color: RED_SOFT}}>{row.hot}</span>
                 {row.after}
@@ -108,7 +111,7 @@ export const Scene1Hook: React.FC = () => {
         {papers.map((pp) => {
           const t = prog(f, pp.land - 9, 9, ease.in);
           const bounce = f >= pp.land ? Math.max(0, Math.sin((f - pp.land) * 1.1) * 7 * Math.exp(-(f - pp.land) * 0.28)) : 0;
-          const y = lerp(-900, pp.dy, t) - bounce;
+          const y = lerp(P ? -280 : -900, pp.dy, t) - bounce;
           return (
             <div
               key={pp.i}

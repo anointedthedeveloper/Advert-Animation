@@ -15,18 +15,21 @@ import {fileURLToPath} from 'node:url';
 import {dirname, resolve} from 'node:path';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const run = (cmd, args) => {
-  const r = spawnSync(cmd, args, {cwd: root, stdio: 'inherit'});
+const run = (cmd, args, env = {}) => {
+  const r = spawnSync(cmd, args, {cwd: root, stdio: 'inherit', env: {...process.env, ...env}});
   if (r.status !== 0) process.exit(r.status ?? 1);
 };
-const master = 'out/master.mp4';
-const final = 'out/exambox-advert.mp4';
+// COMP=ExamBoxStatus renders the vertical 9:16 cut for WhatsApp status (out/exambox-status.mp4, 29.9 s)
+const comp = process.env.COMP ?? 'ExamBoxAdvert';
+const status = comp === 'ExamBoxStatus';
+const master = status ? 'out/master-status.mp4' : 'out/master.mp4';
+const final = status ? 'out/exambox-status.mp4' : 'out/exambox-advert.mp4';
 
 if (!existsSync(resolve(root, 'public/audio/soundtrack.wav'))) run('python3', ['scripts/make_audio.py']);
 
-const args = ['remotion', 'render', 'src/index.ts', 'ExamBoxAdvert', master, '--concurrency=' + (process.env.CONCURRENCY ?? '4')];
+const args = ['remotion', 'render', 'src/index.ts', comp, master, '--concurrency=' + (process.env.CONCURRENCY ?? '4')];
 if (process.env.BROWSER) args.push('--browser-executable=' + process.env.BROWSER);
 run('npx', args);
 
-run('node', ['scripts/encode.mjs']);
+run('node', ['scripts/encode.mjs'], {MASTER: master, OUT: final, DURATION: status ? '29.9' : '30'});
 console.log('Master kept at ' + master + ' (git-ignored); re-run `npm run encode` to re-encode without re-rendering.');

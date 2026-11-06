@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {useCurrentFrame} from '../frame';
+import {useIsPortrait} from '../layout';
 import {KText} from '../components/KText';
 import {Crest, Chip} from '../components/ui';
 import {Check, File} from '../components/Icons';
@@ -135,11 +136,12 @@ const ZipIcon: React.FC<{size: number}> = ({size}) => (
 /** Local frame 0 = global frame 660 (22.0 s). Ends at global 846 (28.2 s) under the final wipe. */
 export const Scene7Reports: React.FC = () => {
   const f = useCurrentFrame();
+  const P = useIsPortrait();
   const inP = prog(f, 0, 12, ease.out);
   const sec = 4; // seconds-based timeline below is in scene-local frames
 
-  const ZIP = {x: 800, y: 600};
-  const CARDS_C = {x: 1230, y: 560};
+  const ZIP = P ? {x: 540, y: 1260} : {x: 800, y: 600};
+  const CARDS_C = P ? {x: 620, y: 1260} : {x: 1230, y: 560};
 
   // card timeline: card k appears at 8 + 9k
   const cards = STUDENTS.map((_, k) => {
@@ -163,30 +165,30 @@ export const Scene7Reports: React.FC = () => {
   const zipMove = prog(f, 96, 20, ease.inOut);
   const cap1Out = f >= 90;
   const sheetF = f - 100;
-  const zx = lerp(ZIP.x, 330, zipMove);
-  const zy = lerp(ZIP.y, 840, zipMove);
+  const zx = lerp(ZIP.x, P ? 540 : 330, zipMove);
+  const zy = lerp(ZIP.y, P ? 1500 : 840, zipMove);
   const out = prog(f, 160, 14, ease.in);
 
   return (
     <AbsoluteFill style={{opacity: (1 - out) * inP}}>
-      <div style={{position: 'absolute', left: 100, top: 214}}>
-        <Problem text="Reports compiled by hand" at={2} fixAt={36} size={28} />
+      <div style={{position: 'absolute', left: P ? 70 : 100, top: P ? 196 : 214}}>
+        <Problem text="Reports compiled by hand" at={2} fixAt={36} size={P ? 30 : 28} />
       </div>
-      <div style={{position: 'absolute', left: 100, top: cap1Out ? 560 : 640}}>
+      <div style={{position: 'absolute', left: P ? 70 : 100, top: P ? (cap1Out ? 640 : 648) : (cap1Out ? 560 : 640)}}>
         {!cap1Out ? (
-          <Explainer text="PDF report cards with your school logo, ready for the whole class." at={30} width={700} />
+          <Explainer text="PDF report cards with your school logo, ready for the whole class." at={30} width={P ? 940 : 700} size={P ? 36 : 34} />
         ) : (
-          <Explainer text="Class broadsheets and results export straight to Excel." at={100} width={700} />
+          <Explainer text="Class broadsheets and results export straight to Excel." at={100} width={P ? 940 : 700} size={P ? 36 : 34} />
         )}
       </div>
       {!cap1Out && (
-        <div style={{position: 'absolute', left: 100, top: 292}}>
-          <KText size={70} start={4} stagger={4} exitAt={80} lines={[[{t: 'Branded'}, {t: 'report'}], [{t: 'cards', color: C.mint}, {t: 'for', color: C.mint}], [{t: 'the', color: C.mint}, {t: 'whole', color: C.mint}], [{t: 'class', color: C.mint}]]} lineHeight={1.08} />
+        <div style={{position: 'absolute', left: P ? 70 : 100, top: P ? 276 : 292}}>
+          <KText size={P ? 96 : 70} start={4} stagger={4} exitAt={80} lines={P ? [[{t: 'Branded'}, {t: 'report'}], [{t: 'cards', color: C.mint}, {t: 'for', color: C.mint}, {t: 'the', color: C.mint}], [{t: 'whole', color: C.mint}, {t: 'class', color: C.mint}]] : [[{t: 'Branded'}, {t: 'report'}], [{t: 'cards', color: C.mint}, {t: 'for', color: C.mint}], [{t: 'the', color: C.mint}, {t: 'whole', color: C.mint}], [{t: 'class', color: C.mint}]]} lineHeight={1.08} />
         </div>
       )}
       {cap1Out && (
-        <div style={{position: 'absolute', left: 100, top: 330}}>
-          <KText size={96} start={92} stagger={5} lines={[[{t: 'Export'}], [{t: 'to', color: C.mint}, {t: 'Excel', color: C.mint}]]} />
+        <div style={{position: 'absolute', left: P ? 70 : 100, top: P ? 290 : 330}}>
+          <KText size={P ? 130 : 96} start={92} stagger={5} lines={[[{t: 'Export'}], [{t: 'to', color: C.mint}, {t: 'Excel', color: C.mint}]]} />
         </div>
       )}
 
@@ -224,7 +226,7 @@ export const Scene7Reports: React.FC = () => {
 
       {/* broadsheet */}
       {sheet > 0 && (
-        <div style={{position: 'absolute', left: 940, top: 290, opacity: sheet, transform: `translateX(${(1 - sheet) * 260}px)`}}>
+        <div style={{position: 'absolute', left: P ? 110 : 940, top: P ? 790 : 290, opacity: sheet, transform: `translateX(${(1 - sheet) * 260}px)`}}>
           <Broadsheet f={sheetF} />
         </div>
       )}

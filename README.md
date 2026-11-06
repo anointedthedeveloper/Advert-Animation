@@ -10,6 +10,7 @@ Concept: **"Run the exam. Skip the marking."**
 ```
 out/exambox-advert.mp4     the finished video, with voice-over
 out/exambox-advert-no-voice.mp4   the same video with music and effects only
+out/exambox-status.mp4            vertical 9:16 cut for WhatsApp status (29.9 s)
 viewer/index.html          a page that plays the video and has a Download video button
 ```
 
@@ -94,6 +95,21 @@ audio stream exists) and that the file is under 10 MB.
 
 Lower `CONCURRENCY` (for example `CONCURRENCY=2 npm run render`) on small machines.
 
+## WhatsApp status (vertical cut)
+
+`out/exambox-status.mp4` is the same advert laid out for a phone: **1080 x 1920 (9:16), 29.9 s, about 6.5 MB**, with the
+voice-over and music. WhatsApp status videos are limited to 30 seconds, so it stops 0.1 s short, with a short audio
+fade-out so nothing is cut mid-word. Every scene has its own portrait layout (stacked exam screen, simplified live
+monitor, larger type), and the key content stays clear of the areas WhatsApp covers at the top and bottom.
+
+```bash
+npm run render:status      # master (PNG frames) -> ffmpeg encode -> out/exambox-status.mp4
+node scripts/verify.mjs out/exambox-status.mp4
+```
+
+`npm run preview` shows both compositions in Remotion Studio: `ExamBoxAdvert` (16:9) and `ExamBoxStatus` (9:16). The
+scenes read the layout from `src/layout.tsx`, so a change to the story or timing applies to both.
+
 ## Watch and download in a browser
 
 Open `viewer/index.html` after rendering (double-click it, or serve the folder with `npx serve .` and open
@@ -148,6 +164,7 @@ scripts/encode.mjs              final delivery encode from the master
 scripts/verify.mjs              ffprobe verification of the finished MP4
 src/timing.json                 frame count, size, scene boundaries and speeds (single source of truth)
 src/frame.tsx                   per-scene playback-speed helper
+src/layout.tsx                  landscape / portrait layout context and the Fit helper
 src/Advert.tsx                  composition: fonts, audio, scene sequencing
 src/scenes/                     one file per scene
 src/components/                 shared pieces: kinetic text, problem/fixed tags, cursor, canvas particles, UI mock-ups, icons

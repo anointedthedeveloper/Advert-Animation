@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {useCurrentFrame} from '../frame';
+import {useIsPortrait} from '../layout';
 import {LogoTile} from '../components/Mark';
 import {C, FONT} from '../theme';
 import {ease, prog} from '../util';
@@ -27,6 +28,7 @@ const Phone: React.FC<{size: number}> = ({size}) => (
  */
 export const Scene8Finale: React.FC = () => {
   const f = useCurrentFrame();
+  const P = useIsPortrait();
   const wipe = prog(f, 0, 16, ease.inOut);
   const bg = prog(f, 8, 8, ease.out);
   const tile = prog(f, 8, 16, ease.back);
@@ -47,20 +49,20 @@ export const Scene8Finale: React.FC = () => {
       </div>
 
       <AbsoluteFill style={{transform: `scale(${1 + hold * 0.015})`, alignItems: 'center'}}>
-        <div style={{position: 'absolute', top: 54, opacity: Math.min(1, tile * 1.6), transform: `scale(${0.6 + 0.4 * tile})`}}>
-          <LogoTile size={190} sweepAt={20} />
+        <div style={{position: 'absolute', top: P ? 330 : 54, opacity: Math.min(1, tile * 1.6), transform: `scale(${0.6 + 0.4 * tile})`}}>
+          <LogoTile size={P ? 250 : 190} sweepAt={20} />
         </div>
 
-        <div style={{position: 'absolute', top: 262, width: '100%', textAlign: 'center', fontFamily: FONT}}>
+        <div style={{position: 'absolute', top: P ? 650 : 262, width: '100%', textAlign: 'center', fontFamily: FONT}}>
           <div style={{overflow: 'hidden', paddingBottom: 12}}>
-            <div style={{fontSize: 132, fontWeight: 900, color: '#fff', letterSpacing: '-0.04em', lineHeight: 1.05, transform: `translateY(${(1 - h1) * 120}%)`, opacity: Math.min(1, h1 * 3)}}>Exam Box.</div>
+            <div style={{fontSize: P ? 168 : 132, fontWeight: 900, color: '#fff', letterSpacing: '-0.04em', lineHeight: 1.05, transform: `translateY(${(1 - h1) * 120}%)`, opacity: Math.min(1, h1 * 3)}}>Exam Box.</div>
           </div>
           <div style={{overflow: 'hidden', paddingBottom: 10}}>
-            <div style={{fontSize: 60, fontWeight: 600, color: C.mint, letterSpacing: '-0.02em', transform: `translateY(${(1 - tag) * 120}%)`, opacity: Math.min(1, tag * 3)}}>Smarter exams, instant results.</div>
+            <div style={{fontSize: P ? 56 : 60, fontWeight: 600, color: C.mint, letterSpacing: '-0.02em', transform: `translateY(${(1 - tag) * 120}%)`, opacity: Math.min(1, tag * 3)}}>Smarter exams, instant results.</div>
           </div>
         </div>
 
-        <div style={{position: 'absolute', top: 508, opacity: Math.min(1, cta * 2), transform: `scale(${0.8 + 0.2 * cta})`}}>
+        <div style={{position: 'absolute', top: P ? 970 : 508, opacity: Math.min(1, cta * 2), transform: `scale(${0.8 + 0.2 * cta})`}}>
           <div
             style={{
               position: 'relative',
@@ -86,8 +88,8 @@ export const Scene8Finale: React.FC = () => {
         <div
           style={{
             position: 'absolute',
-            top: 672,
-            width: 1180,
+            top: P ? 1170 : 672,
+            width: P ? 960 : 1180,
             borderRadius: 30,
             background: 'rgba(255,255,255,0.07)',
             border: '1px solid rgba(167,243,208,0.3)',
@@ -98,11 +100,11 @@ export const Scene8Finale: React.FC = () => {
             transform: `translateY(${(1 - card) * 40}px)`,
           }}
         >
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 18, color: '#fff', fontSize: 58, fontWeight: 800, letterSpacing: '-0.02em'}}>
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 18, color: '#fff', fontSize: P ? 50 : 58, fontWeight: 800, letterSpacing: '-0.02em'}}>
             <Globe size={46} />
             {WEBSITE}
           </div>
-          <div style={{marginTop: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 18, color: C.mint, fontSize: 46, fontWeight: 700, letterSpacing: '0.01em', fontVariantNumeric: 'tabular-nums'}}>
+          <div style={{marginTop: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 18, color: C.mint, fontSize: P ? 40 : 46, fontWeight: 700, letterSpacing: '0.01em', fontVariantNumeric: 'tabular-nums'}}>
             <Phone size={40} />
             <span>{PHONES[0]}</span>
             <span style={{opacity: 0.5}}>·</span>
@@ -110,7 +112,7 @@ export const Scene8Finale: React.FC = () => {
           </div>
         </div>
 
-        <div style={{position: 'absolute', bottom: 42, fontFamily: FONT, fontSize: 28, fontWeight: 500, color: 'rgba(241,245,249,0.72)', letterSpacing: '0.02em', opacity: foot, transform: `translateY(${(1 - foot) * 14}px)`}}>
+        <div style={{position: 'absolute', bottom: P ? 240 : 42, fontFamily: FONT, fontSize: P ? 30 : 28, fontWeight: 500, color: 'rgba(241,245,249,0.72)', letterSpacing: '0.02em', opacity: foot, transform: `translateY(${(1 - foot) * 14}px)`}}>
           © 2026 {COMPANY}
         </div>
       </AbsoluteFill>

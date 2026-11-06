@@ -1,16 +1,21 @@
 import React, {useLayoutEffect, useRef} from 'react';
 import {Easing, useCurrentFrame} from 'remotion';
-import {C, W, H} from '../theme';
+import {C} from '../theme';
+import {useLayout, Layout} from '../layout';
 import {lerp, rng} from '../util';
 import timing from '../timing.json';
 
 /** Geometry shared by the paper stack (scene 1) and the particle layer that replaces it. */
-export const STACK = {cx: 1500, cy: 560, cols: 26, rows: 32, tile: 22};
+export const STACKS = {
+  landscape: {cx: 1500, cy: 560, cols: 26, rows: 32, tile: 22},
+  portrait: {cx: 540, cy: 1500, cols: 26, rows: 32, tile: 22},
+};
+export const TARGETS = {landscape: {x: 960, y: 380}, portrait: {x: 540, y: 560}};
+export const SIZES = {landscape: {w: 1920, h: 1080}, portrait: {w: 1080, h: 1920}};
 export const DISSOLVE_START = timing.dissolveStart;
 /** Frames over which the dissolve wave crosses the stack from left to right. */
 export const WAVE = 20;
 const FLIGHT = 42; // frames each particle takes from the paper to the logo
-const TARGET = {x: 960, y: 380};
 const INK = ['#F1F5F9', '#F1F5F9', '#F8FAFC', '#F1F5F9', '#94A3B8', '#EF4444', '#F1F5F9', '#CBD5E1'];
 
 /** Fraction (0..1.2) of the stack width that has already dissolved at frame f. */
@@ -26,36 +31,42 @@ const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 // Accelerates away from the paper, then settles gently into the logo. No mid-flight stall.
 const flight = Easing.bezier(0.55, 0.05, 0.25, 1);
 
-const tiles = (() => {
+type Tile = {x: number; y: number; start: number; cx: number; cy: number; tx: number; ty: number; s: number; ink: string; rot: number};
+const cache: Partial<Record<Layout, Tile[]>> = {};
+const tilesFor = (layout: Layout): Tile[] => {
+  const hit = cache[layout];
+  if (hit) return hit;
   const r = rng(2026);
-  const out: {x: number; y: number; start: number; cx: number; cy: number; tx: number; ty: number; s: number; ink: string; rot: number}[] = [];
-  const {cols, rows, tile, cx, cy} = STACK;
+  const out: Tile[] = [];
+  const {cols, rows, tile, cx, cy} = STACKS[layout];
+  const T = TARGETS[layout];
   for (let c = 0; c < cols; c++) {
     for (let rr = 0; rr < rows; rr++) {
       const x = cx - (cols * tile) / 2 + c * tile;
       const y = cy - (rows * tile) / 2 + rr * tile - 10;
       const d = (c / cols) * 0.62 + r() * 0.18;
-      const dx = -30 + r() * 200;
-      const dy = -(40 + r() * 240);
+      // landscape drifts up and to the right; portrait drifts up and out sideways
+      const dx = layout === 'landscape' ? -30 + r() * 200 : (r() - 0.5) * 360;
+      const dy = layout === 'landscape' ? -(40 + r() * 240) : -(60 + r() * 300);
       out.push({
         x,
         y,
         start: DISSOLVE_START + d * WAVE + r() * 3,
-        // control point: the particle swings through its "drift" position on the way to the logo
         cx: x + dx * 2,
         cy: y + dy * 2,
-        tx: TARGET.x + (r() - 0.5) * 70,
-        ty: TARGET.y + (r() - 0.5) * 70,
+        tx: T.x + (r() - 0.5) * 70,
+        ty: T.y + (r() - 0.5) * 70,
         s: 0.55 + r() * 0.5,
         ink: INK[Math.floor(r() * INK.length)],
         rot: (r() - 0.5) * 540,
       });
     }
   }
+  cache[layout] = out;
   return out;
-})();
+};
 
-const posAt = (t: (typeof tiles)[number], f: number) => {
+const posAt = (t: Tile, f: number) => {
   const raw = clamp01((f - t.start) / FLIGHT);
   const k = flight(raw);
   const a = (1 - k) * (1 - k);
@@ -71,6 +82,10 @@ const posAt = (t: (typeof tiles)[number], f: number) => {
  */
 export const PaperDissolve: React.FC = () => {
   const f = useCurrentFrame();
+  const layout = useLayout();
+  const {w: W, h: H} = SIZES[layout];
+  const tiles = tilesFor(layout);
+  const stackTile = STACKS[layout].tile;
   const ref = useRef<HTMLCanvasElement>(null);
   const active = f >= DISSOLVE_START && f <= DISSOLVE_START + 76;
 
@@ -92,7 +107,7 @@ export const PaperDissolve: React.FC = () => {
         const p = posAt(t, tf);
         if (p.raw >= 1 && tf > t.start + FLIGHT + 1) continue;
         const grow = 1 - 0.78 * p.k * p.k;
-        const size = STACK.tile * t.s * grow;
+        const size = stackTile * t.s * grow;
         const toGreen = clamp01((p.raw - 0.12) / 0.4);
         const toMint = clamp01((p.raw - 0.7) / 0.3);
         const col = toMint > 0 ? mix(C.emerald, C.mint, toMint) : mix(t.ink, C.emerald, toGreen);
@@ -106,7 +121,7 @@ export const PaperDissolve: React.FC = () => {
     }
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.globalAlpha = 1;
-  }, [f, active]);
+  }, [f, active, tiles, W, H, stackTile]);
 
   if (!active) return null;
   return <canvas ref={ref} width={W} height={H} style={{position: 'absolute', left: 0, top: 0, width: W, height: H, pointerEvents: 'none'}} />;

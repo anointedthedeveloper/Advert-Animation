@@ -9,7 +9,7 @@
  *          AAC-LC stereo, 48 kHz, so the soundtrack is guaranteed to be in the file. scripts/verify.mjs checks it is audible.
  *          AUDIO=public/audio/music_sfx.wav gives the version without voice-over.
  *
- * Tuning (environment variables): AUDIO, OUT, CRF (default 21), MAXRATE (default 4M), BUFSIZE (default 2M), ABITRATE (default 160k).
+ * Tuning (environment variables): MASTER, DURATION (seconds, default 30), AUDIO, OUT, CRF (default 21), MAXRATE (default 4M), BUFSIZE (default 2M), ABITRATE (default 160k).
  * Lower CRF = sharper and larger. Typical result for this advert: about 6-7 MB.
  */
 import {spawnSync} from 'node:child_process';
@@ -19,11 +19,15 @@ import {dirname, resolve} from 'node:path';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const env = process.env;
 const out = env.OUT ?? 'out/exambox-advert.mp4';
+const master = env.MASTER ?? 'out/master.mp4';
+const duration = parseFloat(env.DURATION ?? '30');
+// a clip trimmed short of the full soundtrack gets a short fade-out so the audio never ends on a hard cut
+const afade = duration < 30 ? ['-af', `afade=t=out:st=${(duration - 0.35).toFixed(2)}:d=0.35`] : [];
 const r = spawnSync(
   'ffmpeg',
   [
     '-y', '-v', 'error',
-    '-i', 'out/master.mp4',
+    '-i', master,
     '-i', env.AUDIO ?? 'public/audio/soundtrack.wav',
     '-map', '0:v:0', '-map', '1:a:0',
     '-c:v', 'libx264', '-preset', env.PRESET ?? 'veryslow', '-crf', env.CRF ?? '21',
@@ -32,7 +36,8 @@ const r = spawnSync(
     '-g', '60', '-keyint_min', '30', '-sc_threshold', '0',
     '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-color_range', 'tv',
     '-c:a', 'aac', '-b:a', env.ABITRATE ?? '160k', '-ar', '48000', '-ac', '2',
-    '-t', '30',
+    '-t', String(duration),
+    ...afade,
     '-movflags', '+faststart',
     out,
   ],

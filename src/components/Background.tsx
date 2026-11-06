@@ -1,12 +1,13 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {C, W, H} from '../theme';
+import {AbsoluteFill, useCurrentFrame, useVideoConfig} from 'remotion';
+import {C} from '../theme';
 import {prog} from '../util';
 import timing from '../timing.json';
 
 /** Persistent deep-forest background. A fine, static grid fades in after the paper stack dissolves. */
 export const Background: React.FC = () => {
   const f = useCurrentFrame();
+  const {width: W, height: H} = useVideoConfig();
   const grid = prog(f, timing.dissolveStart + 10, 36) * 0.5;
   return (
     <AbsoluteFill style={{background: C.deep}}>
