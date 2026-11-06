@@ -22,15 +22,15 @@ line that says how.
 
 | Time | Beat | Scene | On-screen text |
 |---|---|---|---|
-| 0.0 – 4.8 s | Problems | A stack of marked scripts grows while four problems stamp in, then everything dissolves into particles | Sound familiar? / Marking takes days. / Report cards and broadsheets compiled by hand. / Candidates face CBT for the first time on exam day. / Cyber cafés cost money and are hard to supervise. |
-| 4.8 – 7.6 s | Who we are | Logo emerges from the particles | Meet Exam Box. The offline computer-based testing system for schools and exam centres. By Aremu Tech Eazy Solutions |
+| 0.0 – 4.8 s | Problems | A stack of marked scripts grows while three problems stamp in, then everything dissolves into particles | Sound familiar? / Exams need internet, and data costs money. / Marking takes days. / Report cards and broadsheets compiled by hand. |
+| 4.8 – 7.6 s | Who we are | Logo emerges from the particles | Meet Exam Box. The fully offline computer-based testing system for schools and exam centres. By Aremu Tech Eazy Solutions |
 | 7.6 – 10.2 s | Strength | Question bank: JAMB and WAEC tabs, year ruler, a question with a diagram, a custom school question | Ready on day one. Past questions 1998 to date. |
-| 10.2 – 13.1 s | Fix: cyber café fees | Student login, devices join one local server | Run exams on your own network |
+| 10.2 – 13.1 s | Fix: data and internet costs (the main selling point) | Student login, devices join one local server, "No internet needed" badge | Fully offline. No data bills. Run exams on your own school network. |
 | 13.1 – 15.9 s | Fix: first CBT on exam day | Waiting room, then exam screen with timer, subject tabs, navigator, calculator | Everyone starts together |
 | 15.9 – 18.8 s | Fix: hard to supervise | Admin Live Monitor with progress bars and submissions | Watch every candidate live |
 | 18.8 – 21.7 s | Fix: marking takes days | Submit, "Calculating score…", animated score card | Instant marking. Scores out of 100. |
 | 21.7 – 26.7 s | Fix: reports by hand | Report cards gather into a ZIP, broadsheet slides in | Branded report cards for the whole class / Export to Excel |
-| 26.7 – 30.0 s | Call to action | Logo lockup, button, contact card | Exam Box. Smarter exams, instant results. / Get Exam Box for your school. / aremutecheazysolutions.com / 0901 647 1351 · 0902 907 4772 / © 2026 Aremu Tech Eazy Solutions |
+| 26.7 – 30.0 s | Call to action | Logo lockup, button, contact card | Exam Box. Smarter exams, instant results. / Get Exam Box for your school. / Fully offline, No data bills / aremutecheazysolutions.com / 0901 647 1351 · 0902 907 4772 / © 2026 Aremu Tech Eazy Solutions |
 
 Scene boundaries, each scene's playback speed (`scale`), the paper-landing frames and the problem-row frames live in
 `src/timing.json`.

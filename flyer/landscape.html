@@ -29,6 +29,8 @@
   h1 .m { color: var(--mint); }
   .lead { position: absolute; left: 58px; top: 300px; width: 560px; font-size: 22px; line-height: 1.36; font-weight: 500; color: rgba(255,255,255,.92); }
 
+  .lead b { font-weight: 800; color: var(--mint); }
+  .sticker { position: absolute; z-index: 4; left: 612px; top: 286px; background: var(--primary); color: #fff; font-weight: 900; font-size: 21px; letter-spacing: .01em; padding: 11px 22px; border-radius: 999px; box-shadow: 0 12px 26px rgba(0,0,0,.45), 0 0 0 2px rgba(167,243,208,.55); transform: rotate(-4deg); white-space: nowrap; }
   .pts { position: absolute; left: 58px; top: 410px; display: grid; gap: 16px; }
   .pt { display: flex; align-items: center; gap: 16px; font-size: 27px; font-weight: 800; letter-spacing: -.015em; }
   .pt i { flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; }
@@ -56,14 +58,15 @@
   <div class="brand"><div class="tile"><img src="img/exambox-mark.png" alt=""></div><b>Exam Box</b></div>
 
   <h1><span>Run the exam.</span><span class="m">Skip the marking.</span></h1>
-  <p class="lead">Offline computer-based testing<br>for schools and exam centres.</p>
+  <p class="lead"><b>Fully offline</b> computer-based testing<br>for schools and exam centres.</p>
 
   <div class="pts">
+    <div class="pt"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>Fully offline. No data bills.</div>
     <div class="pt"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>Instant marking. Scores out of 100.</div>
-    <div class="pt"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>Watch every candidate live.</div>
     <div class="pt"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>Past questions, 1998 to date.</div>
   </div>
 
+  <div class="sticker">No internet. No data bills.</div>
   <div class="shot exam"><img src="img/exam.jpg" alt="Exam Box exam screen"></div>
   <div class="shot score"><img src="img/score.jpg" alt="Score card: 86 out of 100"></div>
 

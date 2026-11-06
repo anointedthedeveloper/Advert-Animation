@@ -37,16 +37,16 @@ MODEL_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model
 FILES = ["kokoro-v1.0.int8.onnx", "voices-v1.0.bin"]
 
 # (id, start second, text). "C B T" with spaces makes the voice read the letters.
-# Timeline: problems stamp in at 0.5 / 1.1 / 1.8 / 2.5 s (the voice reads three of the four), logo pops at 5.3 s, then scenes start at
+# Timeline: the three problems stamp in at 0.5 / 1.3 / 2.2 s, the logo pops at 5.3 s, logo pops at 5.3 s, then scenes start at
 # questions 7.6, network 10.2, start 13.1, monitor 15.9, marking 18.8, reports 21.7, finale 26.7 s.
 LINES = [
-    ("p1", 0.40, "Marking takes days."),
-    ("p2", 1.75, "Reports, by hand."),
-    ("p3", 3.05, "Cyber cafés cost money."),
-    ("intro", 5.10, "Meet Exam Box, the offline exam system."),
-    ("questions", 7.90, "Past questions, from nineteen ninety eight."),
-    ("network", 10.30, "Run exams on your own network."),
-    ("start", 13.10, "Everyone starts together, on a real exam screen."),
+    ("p1", 0.35, "Data costs money."),
+    ("p2", 1.55, "Marking takes days."),
+    ("p3", 2.85, "Reports, by hand."),
+    ("intro", 4.95, "Meet Exam Box, the fully offline exam system."),
+    ("questions", 8.10, "Past questions, from nineteen ninety eight."),
+    ("network", 10.50, "No internet. No data bills. Fully offline."),
+    ("start", 13.30, "Everyone starts together, like the real exam."),
     ("monitor", 16.05, "Watch every candidate live."),
     ("marking", 18.90, "Instant marking. Scores out of one hundred."),
     ("reports", 21.85, "Branded report cards for the whole class, and a broadsheet ready for Excel."),

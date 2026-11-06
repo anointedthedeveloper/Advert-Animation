@@ -36,6 +36,7 @@ export const Scene8Finale: React.FC = () => {
   const tag = prog(f, 17, 14, ease.out);
   const cta = prog(f, 22, 14, ease.back);
   const card = prog(f, 30, 14, ease.out);
+  const pills = prog(f, 34, 12, ease.back);
   const foot = prog(f, 40, 12, ease.out);
   const hold = prog(f, 8, 82, ease.soft);
   const sweep = prog(f, 38, 18, ease.inOut);
@@ -85,10 +86,19 @@ export const Scene8Finale: React.FC = () => {
           </div>
         </div>
 
+        <div style={{position: 'absolute', top: P ? 1104 : 628, display: 'flex', gap: 14, opacity: Math.min(1, pills * 1.6), transform: `scale(${0.85 + 0.15 * pills})`}}>
+          {['Fully offline', 'No data bills'].map((t) => (
+            <div key={t} style={{display: 'inline-flex', alignItems: 'center', gap: 10, padding: '9px 20px', borderRadius: 999, border: '1.5px solid rgba(167,243,208,0.5)', background: 'rgba(167,243,208,0.1)', color: C.mint, fontFamily: FONT, fontWeight: 800, fontSize: P ? 30 : 26, whiteSpace: 'nowrap'}}>
+              <svg width={P ? 28 : 24} height={P ? 28 : 24} viewBox="0 0 24 24" fill="none" stroke={C.mint} strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+              {t}
+            </div>
+          ))}
+        </div>
+
         <div
           style={{
             position: 'absolute',
-            top: P ? 1170 : 672,
+            top: P ? 1190 : 690,
             width: P ? 960 : 1180,
             borderRadius: 30,
             background: 'rgba(255,255,255,0.07)',

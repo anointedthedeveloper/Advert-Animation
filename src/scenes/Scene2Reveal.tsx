@@ -62,7 +62,7 @@ export const Scene2Reveal: React.FC = () => {
           transform: `translateY(${(1 - what) * 20}px)`,
         }}
       >
-        {P ? 'The offline computer-based testing system for schools and exam centres.' : (<>The offline computer-based testing system<br />for schools and exam centres.</>)}
+        {P ? (<>The <b style={{color: C.mint, fontWeight: 800}}>fully offline</b> computer-based testing system for schools and exam centres.</>) : (<>The <b style={{color: C.mint, fontWeight: 800}}>fully offline</b> computer-based testing<br />system for schools and exam centres.</>)}
       </div>
       <div
         style={{

@@ -3,58 +3,58 @@
   "lines": [
     {
       "id": "p1",
-      "text": "Marking takes days.",
-      "start": 0.4,
-      "end": 1.61,
-      "speed": 1.11,
+      "text": "Data costs money.",
+      "start": 0.35,
+      "end": 1.42,
+      "speed": 1.08,
       "fits": true
     },
     {
       "id": "p2",
-      "text": "Reports, by hand.",
-      "start": 1.75,
-      "end": 2.92,
-      "speed": 1.05,
+      "text": "Marking takes days.",
+      "start": 1.55,
+      "end": 2.73,
+      "speed": 1.17,
       "fits": true
     },
     {
       "id": "p3",
-      "text": "Cyber caf\u00e9s cost money.",
-      "start": 3.05,
-      "end": 4.53,
+      "text": "Reports, by hand.",
+      "start": 2.85,
+      "end": 4.02,
       "speed": 1.05,
       "fits": true
     },
     {
       "id": "intro",
-      "text": "Meet Exam Box, the offline exam system.",
-      "start": 5.1,
-      "end": 7.78,
+      "text": "Meet Exam Box, the fully offline exam system.",
+      "start": 4.95,
+      "end": 7.97,
       "speed": 1.11,
       "fits": true
     },
     {
       "id": "questions",
       "text": "Past questions, from nineteen ninety eight.",
-      "start": 7.9,
-      "end": 10.12,
+      "start": 8.1,
+      "end": 10.32,
       "speed": 1.08,
       "fits": true
     },
     {
       "id": "network",
-      "text": "Run exams on your own network.",
-      "start": 10.3,
-      "end": 11.99,
+      "text": "No internet. No data bills. Fully offline.",
+      "start": 10.5,
+      "end": 13.15,
       "speed": 1.05,
       "fits": true
     },
     {
       "id": "start",
-      "text": "Everyone starts together, on a real exam screen.",
-      "start": 13.1,
-      "end": 15.92,
-      "speed": 1.08,
+      "text": "Everyone starts together, like the real exam.",
+      "start": 13.3,
+      "end": 15.9,
+      "speed": 1.11,
       "fits": true
     },
     {

@@ -338,6 +338,7 @@ for k in range(8):
     at(s3, 38 + round(k * 1.4), click(0.8 + 0.08 * (k % 3)), 0.24)
 for fr in (18, 36, 58):
     at(s3, fr, click(0.7, 0.09) * 1.2, 0.55)
+at(s3, 26, chime([hz(86), hz(93)], 1.0, 0.7, 3.2), 0.5, 0.1)  # "No internet needed" badge
 at(s3, 66, whoosh(0.7, up=False, lo=300, hi=5000, level=0.8, seed=61), 0.45)
 for k, fr in enumerate((84, 92, 100, 108)):
     at(s3, fr, chime([hz(81 + 2 * k)], 0.9, 0.5, 4.5), 0.5, -0.3 + 0.2 * k)
@@ -403,6 +404,7 @@ sfx_at(s8 + 12, whoosh(0.4, up=True, lo=1500, hi=9000, level=0.8, seed=191), 0.4
 sfx_at(s8 + 17, whoosh(0.4, up=True, lo=1500, hi=9000, level=0.8, seed=193), 0.35)
 sfx_at(s8 + 28, click(0.8, 0.09) * 1.2, 0.45)
 sfx_at(s8 + 30, whoosh(0.5, up=True, lo=1500, hi=9000, level=0.7, seed=195), 0.4)
+sfx_at(s8 + 36, click(0.9, 0.09) * 1.1, 0.4)  # "Fully offline / No data bills" pills
 sfx_at(s8 + 38, whoosh(0.5, up=True, lo=2500, hi=12000, level=0.7, seed=197), 0.35)
 sfx_at(s8 + 40, chime([hz(93), hz(98)], 1.8, 0.5, 2.2), 0.35, 0.2)
 

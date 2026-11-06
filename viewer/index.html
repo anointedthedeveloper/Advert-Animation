@@ -43,6 +43,8 @@ h1 { font: 800 clamp(1.5rem, 3.2vw, 2.2rem)/1.1 var(--font-display); letter-spac
 video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; max-width: 100%; }
 .bar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; }
 .btn { appearance: none; border: 0; cursor: pointer; font: 700 1.05rem/1 var(--font-body); background: var(--accent); color: var(--accent-ink); padding: 15px 24px; border-radius: 12px; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; }
+.btn.alt { background: transparent; color: var(--mint); border: 1.5px solid var(--mint); }
+.btn.alt:hover { background: var(--surface-2); }
 .btn:hover { background: #15803d; }
 .btn:disabled { opacity: 0.65; cursor: progress; }
 .mode { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -102,7 +104,11 @@ h2 { font: 800 1.15rem/1.2 var(--font-display); margin: 0 0 12px; letter-spacing
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
       Download video
     </button>
-    <div class="facts"><b id="fname">exambox-advert.mp4</b> · 1920 × 1080 · 30 fps · 30 s · H.264 + AAC sound · 6.7 MB</div>
+    <button class="btn alt" id="dl-status" type="button" title="Vertical 1080 x 1920 video, sized for WhatsApp status">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
+      WhatsApp status size
+    </button>
+    <div class="facts"><b id="fname">exambox-advert.mp4</b> · 1920 × 1080 · 30 s · with sound · <span id="fsize">6.7 MB</span><br>WhatsApp status: <b>exambox-status.mp4</b> · 1080 × 1920 (9:16) · 29.9 s · <span id="ssize">6.5 MB</span></div>
     <p class="status" id="status" role="status" aria-live="polite"></p>
   </div>
 
@@ -194,24 +200,27 @@ h2 { font: 800 1.15rem/1.2 var(--font-display); margin: 0 0 12px; letter-spacing
     if (window.claude && window.claude.use) window.claude.use('downloads').then(function (d) { downloads = d; }).catch(function () {});
   } catch (e) {}
 
-  function plainDownload() {
-    var a = document.createElement('a');
-    a.href = VIDEO; a.download = FILE;
-    document.body.appendChild(a); a.click(); a.remove();
-    statusEl.textContent = 'Download started.';
-  }
+  var statusBtn = document.getElementById('dl-status');
+  var STATUS = { src: '../out/exambox-status.mp4', file: 'exambox-status.mp4' };
 
-  btn.addEventListener('click', function () {
+  // Saves one file. Inside claude.ai the page asks the viewer to confirm; anywhere else a normal link download is used.
+  function saveFile(button, src, file) {
     statusEl.textContent = '';
-    if (!downloads) { plainDownload(); return; }
-    btn.disabled = true;
+    if (!downloads) {
+      var a = document.createElement('a');
+      a.href = src; a.download = file;
+      document.body.appendChild(a); a.click(); a.remove();
+      statusEl.textContent = 'Download started.';
+      return;
+    }
+    button.disabled = true;
     statusEl.textContent = 'Preparing the file…';
-    fetch(VIDEO).then(function (r) {
+    fetch(src).then(function (r) {
       if (!r.ok) throw new Error('fetch failed');
       return r.blob();
     }).then(function (blob) {
       statusEl.textContent = 'Confirm the save to keep the video.';
-      return downloads.save({ filename: FILE, data: blob });
+      return downloads.save({ filename: file, data: blob });
     }).then(function () {
       statusEl.textContent = 'Saved. Check your downloads folder.';
     }).catch(function (e) {
@@ -219,8 +228,10 @@ h2 { font: 800 1.15rem/1.2 var(--font-display); margin: 0 0 12px; letter-spacing
       statusEl.textContent = code === 'declined' ? 'Download cancelled.' :
         code === 'rate_limited' ? 'A save prompt is already open. Answer it, then try again.' :
         'The download could not start here. Open this page in a normal browser tab and try again.';
-    }).then(function () { btn.disabled = false; });
-  });
+    }).then(function () { button.disabled = false; });
+  }
+  btn.addEventListener('click', function () { saveFile(btn, VIDEO, FILE); });
+  statusBtn.addEventListener('click', function () { saveFile(statusBtn, STATUS.src, STATUS.file); });
 
   // Copy buttons: clipboard first, fall back to selecting the text.
   document.querySelectorAll('.copy').forEach(function (b) {

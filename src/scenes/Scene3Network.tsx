@@ -69,21 +69,31 @@ export const Scene3Network: React.FC = () => {
   return (
     <AbsoluteFill style={{opacity: 1 - out, transform: `translateX(${-out * 90}px)`}}>
       <div style={{position: 'absolute', left: P ? 80 : 120, top: P ? 214 : 226}}>
-        <Problem text="Cyber café fees" at={2} fixAt={30} />
+        <Problem text="Data costs money" at={2} fixAt={30} />
       </div>
       <div style={{position: 'absolute', left: P ? 80 : 120, top: P ? 304 : 316}}>
-        <KText size={P ? 104 : 92} start={4} stagger={4} lines={[[{t: 'Run'}, {t: 'exams'}, {t: 'on'}], [{t: 'your'}, {t: 'own', color: C.mint}], [{t: 'network', color: C.mint}]]} />
+        <KText size={P ? 104 : 92} start={4} stagger={4} lines={[[{t: 'Fully'}, {t: 'offline.', color: C.mint}], [{t: 'No'}, {t: 'data'}, {t: 'bills.', color: C.mint}]]} />
       </div>
-      <div style={{position: 'absolute', left: P ? 80 : 120, top: P ? 692 : 622}}>
-        <Explainer text="One school PC runs the exam. Candidates join from any browser on the same network." at={34} width={P ? 920 : 760} size={P ? 36 : 34} />
+      <div style={{position: 'absolute', left: P ? 80 : 120, top: P ? 560 : 540}}>
+        <Explainer text="Run exams on your own school network. No internet is needed during the exam, so there is no data to buy." at={30} width={P ? 920 : 690} size={P ? 38 : 34} />
       </div>
-      <div style={{position: 'absolute', left: P ? 80 : 120, top: P ? 842 : 780, opacity: prog(f, 46, 14), transform: `translateY(${(1 - prog(f, 46, 14)) * 18}px)`}}>
+      <div style={{position: 'absolute', left: P ? 80 : 120, top: P ? 800 : 800, opacity: prog(f, 44, 14), transform: `translateY(${(1 - prog(f, 44, 14)) * 18}px)`}}>
         <Chip bg="rgba(167,243,208,0.1)" fg={C.mint} size={26} style={{border: '1px solid rgba(167,243,208,0.35)'}}>
           <Wifi size={26} stroke={2.4} /> Works offline after licence activation
         </Chip>
       </div>
 
       <Fit from={{x: 890, y: 120, w: 860}} to={{x: 90, y: 900, w: 900}}>
+      {/* the point of the product: nothing here needs the internet */}
+      <div style={{position: 'absolute', left: 1160, top: 88, width: 360, display: 'flex', justifyContent: 'center', opacity: Math.min(1, prog(f, 24, 12, ease.back) * 1.6), transform: `scale(${0.7 + 0.3 * prog(f, 24, 14, ease.back)})`}}>
+        <div style={{display: 'inline-flex', alignItems: 'center', gap: 12, padding: '12px 22px 12px 16px', borderRadius: 999, background: C.dark, border: `2px solid ${C.mint}`, boxShadow: '0 14px 30px rgba(0,0,0,0.4)', fontFamily: FONT, fontWeight: 800, fontSize: 25, color: '#fff', whiteSpace: 'nowrap'}}>
+          <svg width={34} height={34} viewBox="0 0 24 24" fill="none" stroke={C.mint} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+            <path d="M3 3l18 18" stroke="#EF4444" strokeWidth={2.8} />
+          </svg>
+          No internet needed
+        </div>
+      </div>
       {/* connection lines + pulses */}
       <svg width={1920} height={1080} style={{position: 'absolute', inset: 0, opacity: prog(f, 76, 10)}}>
         {nodes.map((n, i) => {

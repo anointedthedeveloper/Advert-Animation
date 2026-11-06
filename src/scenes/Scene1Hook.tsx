@@ -13,10 +13,9 @@ const RED_SOFT = '#FCA5A5';
 
 /** The problems, in the words a school would use. `hot` is the phrase that hurts. */
 const ROWS: {before: string; hot: string; after: string}[] = [
+  {before: 'Exams need internet, and ', hot: 'data costs money.', after: ''},
   {before: '', hot: 'Marking takes days.', after: ''},
   {before: 'Report cards and broadsheets ', hot: 'compiled by hand.', after: ''},
-  {before: 'Candidates face CBT ', hot: 'for the first time on exam day.', after: ''},
-  {before: 'Cyber cafés ', hot: 'cost money', after: ' and are hard to supervise.'},
 ];
 
 const papers = (() => {
@@ -88,7 +87,7 @@ export const Scene1Hook: React.FC = () => {
                   <path d="M6 6l12 12M18 6L6 18" />
                 </svg>
               </span>
-              <span style={{fontSize: P ? 56 : 58, fontWeight: 800, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.02em'}}>
+              <span style={{fontSize: P ? 56 : 60, fontWeight: 800, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.02em'}}>
                 {row.before}
                 <span style={{color: RED_SOFT}}>{row.hot}</span>
                 {row.after}
