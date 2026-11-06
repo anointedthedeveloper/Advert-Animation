@@ -11,7 +11,8 @@
     "render": "node scripts/render.mjs",
     "encode": "node scripts/encode.mjs",
     "verify": "node scripts/verify.mjs",
-    "flyer": "node scripts/flyer.mjs"
+    "flyer": "node scripts/flyer.mjs",
+    "encode:novoice": "AUDIO=public/audio/music_sfx.wav OUT=out/exambox-advert-no-voice.mp4 node scripts/encode.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.535",

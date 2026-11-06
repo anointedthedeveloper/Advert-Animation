@@ -8,7 +8,8 @@ A code-driven motion-graphics advert for **Exam Box**, the computer-based testin
 Concept: **"Run the exam. Skip the marking."**
 
 ```
-out/exambox-advert.mp4     the finished video
+out/exambox-advert.mp4     the finished video, with voice-over
+out/exambox-advert-no-voice.mp4   the same video with music and effects only
 viewer/index.html          a page that plays the video and has a Download video button
 ```
 
@@ -137,8 +138,11 @@ public/brand/exambox-mark.png   official Exam Box mark (transparent PNG), used u
 public/brand/exambox-logo.png   official full logo lockup (reference; not used in the video)
 public/brand/trophy.png         trophy illustration from the Exam Box app, used on the score card
 public/fonts/Inter-*.otf        Inter typeface (SIL Open Font License 1.1)
-public/audio/soundtrack.wav     generated music + sound effects
-scripts/make_audio.py           procedural soundtrack, cues are in video frames
+public/audio/soundtrack.wav     final mix: voice-over + music + sound effects
+public/audio/music_sfx.wav      music + sound effects only
+public/audio/narration.wav      the voice-over track (and narration.json with its timings)
+scripts/make_audio.py           procedural music and effects, plus the final mix with the voice
+scripts/make_narration.py       voice-over (Kokoro text-to-speech)
 scripts/render.mjs              reproducible render wrapper (master + encode)
 scripts/encode.mjs              final delivery encode from the master
 scripts/verify.mjs              ffprobe verification of the finished MP4
@@ -150,7 +154,7 @@ src/components/                 shared pieces: kinetic text, problem/fixed tags,
 viewer/index.html, poster.jpg   player page with download button
 flyer/                          A4 flyer sources (landscape.html, index.html) and images
 scripts/flyer.mjs               exports both flyers to PDF, PNG and JPG
-NARRATION.md                    optional voice-over script
+NARRATION.md                    the spoken script and how to change it
 ```
 
 ## Brand
@@ -171,10 +175,17 @@ transparent, square PNG. Company name, website and phone numbers are constants a
 
 ## Audio
 
-The soundtrack (music bed plus about 190 timed sound effects) is synthesised from scratch by
-`scripts/make_audio.py`, so it is original and licence-free. Cue times are expressed in video frames and read the
-scene starts and `timeScale` from `src/timing.json`. If you move a scene, regenerate the audio. No voice-over is
-included (see `NARRATION.md`).
+Three layers, all produced locally:
+
+1. **Music and sound effects:** synthesised from scratch by `scripts/make_audio.py` (about 190 timed effects), so they are
+   original and licence-free. Cue times are in video frames and follow `src/timing.json`.
+2. **Voice-over:** `scripts/make_narration.py` speaks one line per stage with the open-source Kokoro model and places each
+   line on its scene. The script and timings are in `NARRATION.md` and `public/audio/narration.json`.
+3. **Mix:** `make_audio.py` ducks the music and effects while the voice speaks and writes `public/audio/soundtrack.wav`
+   (with voice) and `public/audio/music_sfx.wav` (without).
+
+`npm run encode` builds `out/exambox-advert.mp4` (with voice-over) and `npm run encode:novoice` builds
+`out/exambox-advert-no-voice.mp4`. `npm run verify` checks that the sound is audible in either file.
 
 ## Licences
 

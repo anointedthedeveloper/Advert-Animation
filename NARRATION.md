@@ -1,21 +1,40 @@
-# Exam Box advert: narration script (optional)
+# Exam Box advert: voice-over
 
-The advert is fully readable **without** voice-over: every message is on screen. No text-to-speech engine
-was available when the video was produced, so the shipped MP4 contains music and sound effects only.
-This script is provided for a human voice artist (or a TTS tool). Read it at a calm, confident pace.
-Total spoken time is about 30 seconds, so read it briskly or trim the problems list, leaving room for the sound effects.
+The video now has a spoken voice-over that introduces each stage, synthesised locally with the open-source Kokoro
+text-to-speech model (voice `af_heart`, a warm US female voice). Every message is also on screen, so the advert
+works with the sound off, and a music-only version is provided.
 
-| Time | Beat | On-screen text | Voice-over |
-|---|---|---|---|
-| 0.0 – 4.8 s | Problems | Sound familiar? / Marking takes days. / Report cards and broadsheets compiled by hand. / Candidates face CBT for the first time on exam day. / Cyber cafés cost money and are hard to supervise. | "Sound familiar? Marking takes days. Report cards and broadsheets, compiled by hand. Candidates facing CBT for the first time on exam day. Cyber cafés that cost money and are hard to supervise." |
-| 4.8 – 7.6 s | Who we are | Meet Exam Box. The offline computer-based testing system for schools and exam centres. | "Meet Exam Box, the offline computer-based testing system for schools and exam centres." |
-| 7.6 – 10.2 s | Strength | Ready on day one. Past questions 1998 to date. JAMB, WAEC, images included, your own school questions | "Ready on day one: past questions from 1998 to date, JAMB and WAEC, with images, plus your own school questions." |
-| 10.2 – 13.1 s | Fix | Run exams on your own network | "No cyber café fees. Run exams on your own network, with no internet needed once the licence is active." |
-| 13.1 – 15.9 s | Fix | Everyone starts together | "Practise the real CBT screen, and everyone starts together." |
-| 15.9 – 18.8 s | Fix | Watch every candidate live | "Watch every candidate, live." |
-| 18.8 – 21.7 s | Fix | Instant marking. Scores out of 100. | "Instant marking. Scores out of one hundred." |
-| 21.7 – 26.7 s | Fix | Branded report cards for the whole class / Export to Excel | "Branded report cards for the whole class, and a broadsheet ready to export to Excel." |
-| 26.7 – 30.0 s | Call to action | Exam Box. Smarter exams, instant results. / Get Exam Box for your school. / aremutecheazysolutions.com / 0901 647 1351 · 0902 907 4772 | "Exam Box. Smarter exams, instant results. Get Exam Box for your school. Visit aremutecheazysolutions.com, or call zero nine zero one, six four seven, one three five one, or zero nine zero two, nine zero seven, four seven seven two." |
+| Time | Spoken line |
+|---|---|
+| 0.4 – 1.6 s | Marking takes days. |
+| 1.8 – 2.9 s | Reports, by hand. |
+| 3.0 – 4.5 s | Cyber cafés cost money. |
+| 5.1 – 7.8 s | Meet Exam Box, the offline exam system. |
+| 7.9 – 10.1 s | Past questions, from nineteen ninety eight. |
+| 10.3 – 12.0 s | Run exams on your own network. |
+| 13.1 – 15.9 s | Everyone starts together, on a real exam screen. |
+| 16.1 – 17.7 s | Watch every candidate live. |
+| 18.9 – 21.2 s | Instant marking. Scores out of one hundred. |
+| 21.9 – 25.9 s | Branded report cards for the whole class, and a broadsheet ready for Excel. |
+| 26.8 – 29.8 s | Exam Box. Smarter exams, instant results. |
 
-To add a voice-over, record or generate a file named `public/audio/narration.wav` (48 kHz, 30 s) and add a second
-`<Audio src={staticFile('audio/narration.wav')} />` next to the existing one in `src/Advert.tsx`, then re-render.
+The voice reads three of the four problems from the opening list (the fourth, "First CBT on exam day", is covered by the
+"real exam screen" line). The contact details are on screen at the end rather than read out, because the phone numbers
+would not fit in the last three seconds.
+
+## Change the words, the voice or the speed
+
+```bash
+python3 -m venv .venv && . .venv/bin/activate
+pip install kokoro-onnx soundfile numpy
+python3 scripts/make_narration.py        # edit the LINES list in that file first; the model downloads on first run (about 120 MB)
+python3 scripts/make_audio.py            # mixes voice + music + effects (the music ducks under the voice)
+npm run encode                           # out/exambox-advert.mp4 (with voice-over)
+npm run encode:novoice                   # out/exambox-advert-no-voice.mp4 (music and effects only)
+```
+
+* Try another voice: `VOICE=bf_emma python3 scripts/make_narration.py` (British female), `am_michael` or `bm_george` (male).
+* Each line has a start time and must finish before the next one starts. The script speeds a line up (never beyond 1.2x)
+  to make it fit and tells you if it cannot, in which case shorten the text.
+* Speech takes roughly 0.3 s per word. Spell abbreviations with spaces so they are read as letters ("C B T").
+* The video itself does not need re-rendering when only the audio changes: `npm run encode` reuses `out/master.mp4`.

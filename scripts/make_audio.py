@@ -426,21 +426,57 @@ sfx = reverb(sfx, 0.14)
 # duck the music slightly under the loudest SFX moments
 sfx_env = np.convolve(np.abs(sfx).max(axis=1), np.ones(int(SR * 0.08)) / int(SR * 0.08), mode="same")
 duck = 1 - 0.35 * np.clip(sfx_env / (np.percentile(sfx_env, 99) + 1e-9), 0, 1)
-mix = music * duck[:, None] * 0.72 + sfx * 0.95
+bed = music * duck[:, None] * 0.72 + sfx * 0.95
 
-# master: gentle fade-in, natural tail + short fade-out, soft clip, normalise
-mix[: int(0.03 * SR)] *= np.linspace(0, 1, int(0.03 * SR))[:, None]
-mix[-int(0.35 * SR) :] *= np.linspace(1, 0, int(0.35 * SR))[:, None]
-mix = np.tanh(mix * 1.25) / np.tanh(1.25)
-peak = np.max(np.abs(mix))
-mix = mix / peak * 0.66  # about -3.6 dBFS peak, roughly -15 LUFS integrated
 
-out_path = ROOT / "public" / "audio" / "soundtrack.wav"
-out_path.parent.mkdir(parents=True, exist_ok=True)
-pcm = (np.clip(mix, -1, 1) * 32767).astype("<i2")
-with wave.open(str(out_path), "wb") as w:
-    w.setnchannels(2)
-    w.setsampwidth(2)
-    w.setframerate(SR)
-    w.writeframes(pcm.tobytes())
-print(f"wrote {out_path}  ({len(pcm) / SR:.2f} s, {SR} Hz, stereo)")
+def finalize(mix):
+    """Gentle fade-in, short fade-out, soft clip, normalise to about -3.6 dBFS peak (roughly -15 LUFS)."""
+    mix = mix.copy()
+    mix[: int(0.03 * SR)] *= np.linspace(0, 1, int(0.03 * SR))[:, None]
+    mix[-int(0.35 * SR) :] *= np.linspace(1, 0, int(0.35 * SR))[:, None]
+    mix = np.tanh(mix * 1.25) / np.tanh(1.25)
+    return mix / np.max(np.abs(mix)) * 0.66
+
+
+def write_wav(path, mix):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    pcm = (np.clip(mix, -1, 1) * 32767).astype("<i2")
+    with wave.open(str(path), "wb") as w:
+        w.setnchannels(2)
+        w.setsampwidth(2)
+        w.setframerate(SR)
+        w.writeframes(pcm.tobytes())
+    print(f"wrote {path}  ({len(pcm) / SR:.2f} s, {SR} Hz, stereo)")
+
+
+audio_dir = ROOT / "public" / "audio"
+bed_final = finalize(bed)
+write_wav(audio_dir / "music_sfx.wav", bed_final)  # music and effects only (the "no voice-over" version)
+
+# ---- voice-over: mix scripts/make_narration.py's output on top, ducking the bed while the voice speaks ----------
+narr_path = audio_dir / "narration.wav"
+if narr_path.exists():
+    with wave.open(str(narr_path), "rb") as w:
+        assert w.getframerate() == SR and w.getnchannels() == 1, "narration.wav must be 48 kHz mono"
+        voice = np.frombuffer(w.readframes(w.getnframes()), "<i2").astype(np.float64) / 32768
+    voice = np.pad(voice, (0, max(0, N - len(voice))))[:N]
+
+    # smoothed "voice is speaking" gate: fast attack so the bed gets out of the way, slow release so it breathes back
+    win = int(SR * 0.05)
+    env = np.sqrt(np.convolve(voice ** 2, np.ones(win) / win, mode="same"))
+    gate = np.clip(env / 0.02, 0, 1)
+    a, r = 1 - np.exp(-1 / (SR * 0.03)), 1 - np.exp(-1 / (SR * 0.35))
+    smooth = np.zeros_like(gate)
+    g = 0.0
+    for i, x in enumerate(gate):  # one-pole attack/release follower (1.4 M samples, a second or two)
+        g += (a if x > g else r) * (x - g)
+        smooth[i] = g
+    bed_gain = 0.80 - 0.44 * smooth  # about -2 dB between lines, about -9 dB under the voice
+    mixv = bed_final * bed_gain[:, None] + voice[:, None] * 1.0
+    mixv[: int(0.03 * SR)] *= np.linspace(0, 1, int(0.03 * SR))[:, None]
+    mixv[-int(0.30 * SR) :] *= np.linspace(1, 0, int(0.30 * SR))[:, None]
+    mixv = np.tanh(mixv * 1.1) / np.tanh(1.1)
+    mixv = mixv / np.max(np.abs(mixv)) * 0.60  # about -4.4 dBFS peak, roughly -15 LUFS integrated
+    write_wav(audio_dir / "soundtrack.wav", mixv)
+else:
+    write_wav(audio_dir / "soundtrack.wav", bed_final)

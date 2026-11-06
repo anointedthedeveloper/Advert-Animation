@@ -5,10 +5,11 @@
  *   Video  H.264 High, constant-quality (CRF) with a bitrate cap and a small buffer, so there are no bitrate
  *          spikes (smooth playback on any player or connection). A keyframe every 2 s for smooth seeking,
  *          BT.709 colour tags, and the MP4 index moved to the front (instant start on the web).
- *   Audio  taken straight from public/audio/soundtrack.wav and encoded once to AAC-LC stereo, 48 kHz
- *          (so the soundtrack is guaranteed to be in the file; scripts/verify.mjs checks it is audible).
+ *   Audio  taken straight from public/audio/soundtrack.wav (music, effects and the voice-over) and encoded once to
+ *          AAC-LC stereo, 48 kHz, so the soundtrack is guaranteed to be in the file. scripts/verify.mjs checks it is audible.
+ *          AUDIO=public/audio/music_sfx.wav gives the version without voice-over.
  *
- * Tuning (environment variables): CRF (default 21), MAXRATE (default 4M), BUFSIZE (default 2M), ABITRATE (default 160k).
+ * Tuning (environment variables): AUDIO, OUT, CRF (default 21), MAXRATE (default 4M), BUFSIZE (default 2M), ABITRATE (default 160k).
  * Lower CRF = sharper and larger. Typical result for this advert: about 6-7 MB.
  */
 import {spawnSync} from 'node:child_process';
@@ -23,7 +24,7 @@ const r = spawnSync(
   [
     '-y', '-v', 'error',
     '-i', 'out/master.mp4',
-    '-i', 'public/audio/soundtrack.wav',
+    '-i', env.AUDIO ?? 'public/audio/soundtrack.wav',
     '-map', '0:v:0', '-map', '1:a:0',
     '-c:v', 'libx264', '-preset', env.PRESET ?? 'veryslow', '-crf', env.CRF ?? '21',
     '-maxrate', env.MAXRATE ?? '4M', '-bufsize', env.BUFSIZE ?? '2M',

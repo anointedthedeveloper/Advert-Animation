@@ -1,0 +1,93 @@
+{
+  "voice": "af_heart",
+  "lines": [
+    {
+      "id": "p1",
+      "text": "Marking takes days.",
+      "start": 0.4,
+      "end": 1.61,
+      "speed": 1.11,
+      "fits": true
+    },
+    {
+      "id": "p2",
+      "text": "Reports, by hand.",
+      "start": 1.75,
+      "end": 2.92,
+      "speed": 1.05,
+      "fits": true
+    },
+    {
+      "id": "p3",
+      "text": "Cyber caf\u00e9s cost money.",
+      "start": 3.05,
+      "end": 4.53,
+      "speed": 1.05,
+      "fits": true
+    },
+    {
+      "id": "intro",
+      "text": "Meet Exam Box, the offline exam system.",
+      "start": 5.1,
+      "end": 7.78,
+      "speed": 1.11,
+      "fits": true
+    },
+    {
+      "id": "questions",
+      "text": "Past questions, from nineteen ninety eight.",
+      "start": 7.9,
+      "end": 10.12,
+      "speed": 1.08,
+      "fits": true
+    },
+    {
+      "id": "network",
+      "text": "Run exams on your own network.",
+      "start": 10.3,
+      "end": 11.99,
+      "speed": 1.05,
+      "fits": true
+    },
+    {
+      "id": "start",
+      "text": "Everyone starts together, on a real exam screen.",
+      "start": 13.1,
+      "end": 15.92,
+      "speed": 1.08,
+      "fits": true
+    },
+    {
+      "id": "monitor",
+      "text": "Watch every candidate live.",
+      "start": 16.05,
+      "end": 17.69,
+      "speed": 1.05,
+      "fits": true
+    },
+    {
+      "id": "marking",
+      "text": "Instant marking. Scores out of one hundred.",
+      "start": 18.9,
+      "end": 21.17,
+      "speed": 1.05,
+      "fits": true
+    },
+    {
+      "id": "reports",
+      "text": "Branded report cards for the whole class, and a broadsheet ready for Excel.",
+      "start": 21.85,
+      "end": 25.91,
+      "speed": 1.05,
+      "fits": true
+    },
+    {
+      "id": "finale",
+      "text": "Exam Box. Smarter exams, instant results.",
+      "start": 26.8,
+      "end": 29.76,
+      "speed": 1.05,
+      "fits": true
+    }
+  ]
+}
