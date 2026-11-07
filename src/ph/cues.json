@@ -1,0 +1,434 @@
+{
+ "duration": 64.99,
+ "fps": 30,
+ "frames": 1950,
+ "voice": "af_heart",
+ "segments": [
+  {
+   "name": "intro",
+   "src_in": 3.95,
+   "src_out": 24.0,
+   "t_in": 0.0,
+   "t_out": 20.05
+  },
+  {
+   "name": "verse",
+   "src_in": 40.72,
+   "src_out": 49.5,
+   "t_in": 19.77,
+   "t_out": 28.55
+  },
+  {
+   "name": "chorus",
+   "src_in": 81.55,
+   "src_out": 100.15,
+   "t_in": 28.27,
+   "t_out": 46.87
+  },
+  {
+   "name": "outro",
+   "src_in": 219.1,
+   "src_out": 237.5,
+   "t_in": 46.59,
+   "t_out": 64.99
+  }
+ ],
+ "drop": 6.43,
+ "vo": [
+  {
+   "id": "v1",
+   "text": "Nurturing excellence.",
+   "start": 0.55,
+   "end": 1.87
+  },
+  {
+   "id": "v2",
+   "text": "Inspiring innovation.",
+   "start": 2.35,
+   "end": 3.74
+  },
+  {
+   "id": "v3",
+   "text": "Building global leaders.",
+   "start": 4.05,
+   "end": 5.43
+  },
+  {
+   "id": "c1",
+   "text": "Peter Harvard International Schools.",
+   "start": 55.55,
+   "end": 57.49
+  },
+  {
+   "id": "c2",
+   "text": "Kubwa, Abuja.",
+   "start": 58.55,
+   "end": 59.75
+  },
+  {
+   "id": "c3",
+   "text": "Visit peter harvard schools dot cloud.",
+   "start": 60.35,
+   "end": 62.56
+  }
+ ],
+ "lyrics": [
+  {
+   "start": 7.87,
+   "end": 14.05,
+   "text": "Established November 2017",
+   "words": [
+    {
+     "w": "Established",
+     "t": 7.87,
+     "e": 9.832
+    },
+    {
+     "w": "November",
+     "t": 9.832,
+     "e": 11.303
+    },
+    {
+     "w": "2017",
+     "t": 11.303,
+     "e": 14.05
+    }
+   ]
+  },
+  {
+   "start": 16.23,
+   "end": 18.35,
+   "text": "Peter Harvard",
+   "words": [
+    {
+     "w": "Peter",
+     "t": 16.23,
+     "e": 17.113
+    },
+    {
+     "w": "Harvard",
+     "t": 17.113,
+     "e": 18.35
+    }
+   ]
+  },
+  {
+   "start": 18.55,
+   "end": 19.95,
+   "text": "We rise",
+   "words": [
+    {
+     "w": "We",
+     "t": 18.55,
+     "e": 19.133
+    },
+    {
+     "w": "rise",
+     "t": 19.133,
+     "e": 19.95
+    }
+   ]
+  },
+  {
+   "start": 20.01,
+   "end": 22.15,
+   "text": "Qualified teachers,",
+   "words": [
+    {
+     "w": "Qualified",
+     "t": 20.01,
+     "e": 21.117
+    },
+    {
+     "w": "teachers,",
+     "t": 21.117,
+     "e": 22.15
+    }
+   ]
+  },
+  {
+   "start": 22.31,
+   "end": 24.45,
+   "text": "hearts on fire,",
+   "words": [
+    {
+     "w": "hearts",
+     "t": 22.31,
+     "e": 22.939
+    },
+    {
+     "w": "on",
+     "t": 22.939,
+     "e": 23.569
+    },
+    {
+     "w": "fire,",
+     "t": 23.569,
+     "e": 24.45
+    }
+   ]
+  },
+  {
+   "start": 24.63,
+   "end": 26.2,
+   "text": "in a safe space",
+   "words": [
+    {
+     "w": "in",
+     "t": 24.63,
+     "e": 24.987
+    },
+    {
+     "w": "a",
+     "t": 24.987,
+     "e": 25.344
+    },
+    {
+     "w": "safe",
+     "t": 25.344,
+     "e": 25.7
+    },
+    {
+     "w": "space",
+     "t": 25.7,
+     "e": 26.2
+    }
+   ]
+  },
+  {
+   "start": 26.35,
+   "end": 28.35,
+   "text": "where dreams climb higher",
+   "words": [
+    {
+     "w": "where",
+     "t": 26.35,
+     "e": 26.695
+    },
+    {
+     "w": "dreams",
+     "t": 26.695,
+     "e": 27.04
+    },
+    {
+     "w": "climb",
+     "t": 27.04,
+     "e": 27.384
+    },
+    {
+     "w": "higher",
+     "t": 27.384,
+     "e": 28.35
+    }
+   ]
+  },
+  {
+   "start": 28.64,
+   "end": 31.07,
+   "text": "Godliness, discipline,",
+   "words": [
+    {
+     "w": "Godliness,",
+     "t": 28.64,
+     "e": 29.652
+    },
+    {
+     "w": "discipline,",
+     "t": 29.652,
+     "e": 31.07
+    }
+   ]
+  },
+  {
+   "start": 31.24,
+   "end": 32.67,
+   "text": "we stand tall",
+   "words": [
+    {
+     "w": "we",
+     "t": 31.24,
+     "e": 31.661
+    },
+    {
+     "w": "stand",
+     "t": 31.661,
+     "e": 32.081
+    },
+    {
+     "w": "tall",
+     "t": 32.081,
+     "e": 32.67
+    }
+   ]
+  },
+  {
+   "start": 32.84,
+   "end": 34.82,
+   "text": "Think, stand up,",
+   "words": [
+    {
+     "w": "Think,",
+     "t": 32.84,
+     "e": 33.422
+    },
+    {
+     "w": "stand",
+     "t": 33.422,
+     "e": 34.005
+    },
+    {
+     "w": "up,",
+     "t": 34.005,
+     "e": 34.82
+    }
+   ]
+  },
+  {
+   "start": 35.0,
+   "end": 37.32,
+   "text": "think Peter Harvard for all",
+   "words": [
+    {
+     "w": "think",
+     "t": 35.0,
+     "e": 35.314
+    },
+    {
+     "w": "Peter",
+     "t": 35.314,
+     "e": 35.941
+    },
+    {
+     "w": "Harvard",
+     "t": 35.941,
+     "e": 36.568
+    },
+    {
+     "w": "for",
+     "t": 36.568,
+     "e": 36.881
+    },
+    {
+     "w": "all",
+     "t": 36.881,
+     "e": 37.32
+    }
+   ]
+  },
+  {
+   "start": 37.44,
+   "end": 41.82,
+   "text": "To dominate in Harvard and beyond",
+   "words": [
+    {
+     "w": "To",
+     "t": 37.44,
+     "e": 37.906
+    },
+    {
+     "w": "dominate",
+     "t": 37.906,
+     "e": 39.304
+    },
+    {
+     "w": "in",
+     "t": 39.304,
+     "e": 39.77
+    },
+    {
+     "w": "Harvard",
+     "t": 39.77,
+     "e": 40.702
+    },
+    {
+     "w": "and",
+     "t": 40.702,
+     "e": 41.168
+    },
+    {
+     "w": "beyond",
+     "t": 41.168,
+     "e": 41.82
+    }
+   ]
+  },
+  {
+   "start": 42.48,
+   "end": 44.22,
+   "text": "Morally strong,",
+   "words": [
+    {
+     "w": "Morally",
+     "t": 42.48,
+     "e": 43.666
+    },
+    {
+     "w": "strong,",
+     "t": 43.666,
+     "e": 44.22
+    }
+   ]
+  },
+  {
+   "start": 44.38,
+   "end": 46.52,
+   "text": "academically strong",
+   "words": [
+    {
+     "w": "academically",
+     "t": 44.38,
+     "e": 46.115
+    },
+    {
+     "w": "strong",
+     "t": 46.115,
+     "e": 46.52
+    }
+   ]
+  },
+  {
+   "start": 47.31,
+   "end": 51.29,
+   "text": "Responsibility and excellence",
+   "words": [
+    {
+     "w": "Responsibility",
+     "t": 47.31,
+     "e": 49.442
+    },
+    {
+     "w": "and",
+     "t": 49.442,
+     "e": 49.798
+    },
+    {
+     "w": "excellence",
+     "t": 49.798,
+     "e": 51.29
+    }
+   ]
+  },
+  {
+   "start": 51.89,
+   "end": 54.79,
+   "text": "forever we rise",
+   "words": [
+    {
+     "w": "forever",
+     "t": 51.89,
+     "e": 53.501
+    },
+    {
+     "w": "we",
+     "t": 53.501,
+     "e": 54.038
+    },
+    {
+     "w": "rise",
+     "t": 54.038,
+     "e": 54.79
+    }
+   ]
+  }
+ ]
+}

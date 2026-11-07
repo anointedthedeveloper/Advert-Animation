@@ -234,3 +234,31 @@ git push -u origin main
 
 Create the empty repository on GitHub first (without a README). `node_modules/` and the large master render are
 ignored; the 6.7 MB MP4 is committed so the repository contains the finished video.
+
+---
+
+# Peter Harvard International Schools advert (65 s)
+
+```
+out/peter-harvard-advert-vertical.mp4   1080x1920, 65 s, for TikTok / Reels / WhatsApp status
+out/peter-harvard-advert-wide.mp4       1920x1080, 65 s, for YouTube / Facebook / the website
+```
+
+Built from the school's own anthem (`public/ph/audio/phis-anthem-source.mp3`, 5 min 25 s), cut to its core: the build and
+"Established November 2017 / Peter Harvard / we rise", the verse about qualified teachers and a safe space, the chorus
+("Godliness, discipline ... morally strong, academically strong"), and the closing "Responsibility and excellence, forever
+we rise". Cuts sit in gaps between sung phrases. Lyrics are captioned word by word, a Kokoro text-to-speech voice-over opens
+and closes the film, and the sound design (pulse, riser, impact, whooshes, chime) is synthesised with numpy.
+
+Images and facts come from peterharvardschools.cloud (badge, photos, address, phone numbers, tagline) and the TikTok
+profile text. Colours come from the site (#C1121F) and the badge. The TikTok page exposes no video thumbnails without
+signed API calls, so none were used; the profile picture is the same badge.
+
+```bash
+python3 -m venv .venv && . .venv/bin/activate && pip install numpy scipy soundfile kokoro-onnx
+python3 scripts/ph_audio.py                  # edit + voice-over + sound design -> public/ph/audio/soundtrack.wav, src/ph/cues.json
+npm run preview                              # Remotion Studio: PeterHarvardAdvert / PeterHarvardAdvertWide
+node scripts/ph_render.mjs                   # vertical;  WIDE=1 node scripts/ph_render.mjs  for 16:9
+```
+
+Lyric captions were transcribed by speech recognition and checked against the cut audio; please read them once for spelling.
