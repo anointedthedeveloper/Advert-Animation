@@ -17,7 +17,7 @@
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.55 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   padding: 0 max(16px, env(safe-area-inset-right)) 56px max(16px, env(safe-area-inset-left)); }
-.wrap { max-width: 1080px; margin: 0 auto; display: grid; gap: 22px; }
+.wrap { max-width: Full HDx; margin: 0 auto; display: grid; gap: 22px; }
 header { display: flex; align-items: center; gap: 16px; padding-top: 26px; flex-wrap: wrap; }
 header img { width: 64px; height: auto; flex: none; }
 h1 { margin: 0; font: 800 clamp(1.4rem, 3.4vw, 2.1rem)/1.1 Georgia, 'Times New Roman', serif; color: var(--crimson); letter-spacing: -0.01em; }
@@ -52,7 +52,7 @@ footer { color: var(--muted); font-size: 0.9rem; }
     <img src="../public/ph/img/badge.png" alt="Peter Harvard International Schools badge">
     <div>
       <h1>Peter Harvard International Schools</h1>
-      <p class="sub">Advert film, 65 seconds, with voice-over. Pick a version, watch it, download it in HD.</p>
+      <p class="sub">Advert film, 65 seconds, with voice-over. Pick a version, watch it, download it. Every file is under 15 MB.</p>
     </div>
   </header>
 
@@ -72,15 +72,15 @@ footer { color: var(--muted); font-size: 0.9rem; }
 // size = approximate MB, filled in by the build; shown only as a hint
 const VERSIONS = [
   { id: 'landscape', tab: 'Landscape (HD)', title: 'Landscape, 16:9, 1920×1080 HD',
-    files: [{ href: '../out/peter-harvard-landscape-hd.mp4', label: 'Download landscape HD', size: '61 MB' }],
-    facts: '65 s · H.264 + AAC · 1080p · for YouTube, Facebook, the school website, TV screens and projectors.',
+    files: [{ href: '../out/web/peter-harvard-landscape.mp4', label: 'Download landscape HD', size: '14.8 MB' }],
+    facts: '65 s · H.264 + AAC · Full HD · for YouTube, Facebook, the school website, TV screens and projectors.',
     tips: ['YouTube and Facebook feed: upload the file as it is.', 'Website: use it in a hero section or on the admissions page.'] },
   { id: 'portrait', tab: 'Portrait (HD)', title: 'Portrait, 9:16, 1080×1920 HD',
-    files: [{ href: '../out/peter-harvard-portrait-hd.mp4', label: 'Download portrait HD', size: '62 MB' }],
+    files: [{ href: '../out/web/peter-harvard-portrait.mp4', label: 'Download portrait HD', size: '14.8 MB' }],
     facts: '65 s · H.264 + AAC · 1080×1920 · for Instagram Reels, Facebook Reels and Stories, YouTube Shorts.',
     tips: ['Reels and Shorts: upload as it is.', 'For WhatsApp status use the WhatsApp version (three short parts).'] },
   { id: 'tiktok', tab: 'TikTok', title: 'TikTok, 9:16, 1080×1920 HD',
-    files: [{ href: '../out/peter-harvard-tiktok-hd.mp4', label: 'Download TikTok HD', size: '60 MB' }],
+    files: [{ href: '../out/web/peter-harvard-tiktok.mp4', label: 'Download TikTok HD', size: '14.8 MB' }],
     facts: '65 s · 1080×1920 · all text and the logo are lifted out of the area TikTok covers with its caption, profile name and side buttons.',
     tips: ['Upload from the TikTok app or tiktok.com/upload for the best quality.', 'Add the caption and hashtags yourself; the bottom of the picture is left clear for them.'] },
   { id: 'wa', tab: 'WhatsApp status', title: 'WhatsApp status, 9:16, three parts',

@@ -242,7 +242,8 @@ ignored; the 6.7 MB MP4 is committed so the repository contains the finished vid
 Open `viewer/peter-harvard.html` to watch every version and download it in HD (it needs the `out/` folder next to it).
 
 ```
-out/peter-harvard-landscape-hd.mp4              1920x1080, for YouTube / Facebook / the website
+out/web/peter-harvard-{landscape,portrait,tiktok}.mp4  14.8 MB each (two-pass H.264, SSIM 0.985 against the HD files), made by scripts/ph_compact.mjs
+out/peter-harvard-landscape-hd.mp4              1920x1080 HD master encode (60 MB), for YouTube / Facebook / the website
 out/peter-harvard-portrait-hd.mp4               1080x1920, for Reels / Shorts / Stories
 out/peter-harvard-tiktok-hd.mp4                 1080x1920, all text kept clear of TikTok's caption and buttons
 out/peter-harvard-whatsapp-status-part1..3.mp4  1080x1920, three parts under 30 s and 16 MB each (28.5 s, 26.8 s, 9.7 s)
