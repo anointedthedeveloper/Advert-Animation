@@ -40,17 +40,20 @@ FILES = ["kokoro-v1.0.int8.onnx", "voices-v1.0.bin"]
 # Timeline: the three problems stamp in at 0.5 / 1.3 / 2.2 s, the logo pops at 5.3 s, logo pops at 5.3 s, then scenes start at
 # questions 7.6, network 10.2, start 13.1, monitor 15.9, marking 18.8, reports 21.7, finale 26.7 s.
 LINES = [
-    ("p1", 0.35, "Data costs money."),
-    ("p2", 1.55, "Marking takes days."),
-    ("p3", 2.85, "Reports, by hand."),
-    ("intro", 4.95, "Meet Exam Box, the fully offline exam system."),
-    ("questions", 8.10, "Past questions, from nineteen ninety eight."),
-    ("network", 10.50, "No internet. No data bills. Fully offline."),
-    ("start", 13.30, "Everyone starts together, like the real exam."),
-    ("monitor", 16.05, "Watch every candidate live."),
-    ("marking", 18.90, "Instant marking. Scores out of one hundred."),
-    ("reports", 21.85, "Branded report cards for the whole class, and a broadsheet ready for Excel."),
-    ("finale", 26.80, "Exam Box. Smarter exams, instant results."),
+    ("p1", 0.95, "Exams need the internet."),
+    ("p2", 2.95, "Marking takes days."),
+    ("p3", 4.35, "Reports, by hand."),
+    ("p4", 5.95, "Cyber cafés cost money."),
+    ("fixes", 7.50, "Exam Box fixes every one."),
+    ("intro", 10.65, "Meet Exam Box, the fully offline exam system."),
+    ("onebox", 13.90, "One box fixes all four."),
+    ("questions", 15.58, "Past questions from nineteen ninety eight, plus your own."),
+    ("network", 18.85, "Run exams on your own school network. Fully offline, no data bills."),
+    ("start", 23.30, "Everyone starts together, with a real timer and calculator."),
+    ("monitor", 27.30, "Watch every candidate live, with progress, connection and battery."),
+    ("marking", 31.30, "Marked the moment they submit. Scores out of one hundred."),
+    ("reports", 35.30, "Branded report cards for the whole class, and a broadsheet ready for Excel."),
+    ("finale", 40.85, "Exam Box. Smarter exams, instant results. Get it today."),
 ]
 END_LIMIT = DUR - 0.12  # the last word must end before the video does
 

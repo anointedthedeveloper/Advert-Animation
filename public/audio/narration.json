@@ -3,89 +3,113 @@
   "lines": [
     {
       "id": "p1",
-      "text": "Data costs money.",
-      "start": 0.35,
-      "end": 1.42,
-      "speed": 1.08,
+      "text": "Exams need the internet.",
+      "start": 0.95,
+      "end": 2.4,
+      "speed": 1.05,
       "fits": true
     },
     {
       "id": "p2",
       "text": "Marking takes days.",
-      "start": 1.55,
-      "end": 2.73,
-      "speed": 1.17,
+      "start": 2.95,
+      "end": 4.22,
+      "speed": 1.05,
       "fits": true
     },
     {
       "id": "p3",
       "text": "Reports, by hand.",
-      "start": 2.85,
-      "end": 4.02,
+      "start": 4.35,
+      "end": 5.52,
+      "speed": 1.05,
+      "fits": true
+    },
+    {
+      "id": "p4",
+      "text": "Cyber caf\u00e9s cost money.",
+      "start": 5.95,
+      "end": 7.36,
+      "speed": 1.14,
+      "fits": true
+    },
+    {
+      "id": "fixes",
+      "text": "Exam Box fixes every one.",
+      "start": 7.5,
+      "end": 9.26,
       "speed": 1.05,
       "fits": true
     },
     {
       "id": "intro",
       "text": "Meet Exam Box, the fully offline exam system.",
-      "start": 4.95,
-      "end": 7.97,
-      "speed": 1.11,
-      "fits": true
-    },
-    {
-      "id": "questions",
-      "text": "Past questions, from nineteen ninety eight.",
-      "start": 8.1,
-      "end": 10.32,
+      "start": 10.65,
+      "end": 13.73,
       "speed": 1.08,
       "fits": true
     },
     {
+      "id": "onebox",
+      "text": "One box fixes all four.",
+      "start": 13.9,
+      "end": 15.44,
+      "speed": 1.14,
+      "fits": true
+    },
+    {
+      "id": "questions",
+      "text": "Past questions from nineteen ninety eight, plus your own.",
+      "start": 15.58,
+      "end": 18.45,
+      "speed": 1.05,
+      "fits": true
+    },
+    {
       "id": "network",
-      "text": "No internet. No data bills. Fully offline.",
-      "start": 10.5,
-      "end": 13.15,
+      "text": "Run exams on your own school network. Fully offline, no data bills.",
+      "start": 18.85,
+      "end": 22.99,
       "speed": 1.05,
       "fits": true
     },
     {
       "id": "start",
-      "text": "Everyone starts together, like the real exam.",
-      "start": 13.3,
-      "end": 15.9,
-      "speed": 1.11,
+      "text": "Everyone starts together, with a real timer and calculator.",
+      "start": 23.3,
+      "end": 26.68,
+      "speed": 1.05,
       "fits": true
     },
     {
       "id": "monitor",
-      "text": "Watch every candidate live.",
-      "start": 16.05,
-      "end": 17.69,
+      "text": "Watch every candidate live, with progress, connection and battery.",
+      "start": 27.3,
+      "end": 30.95,
       "speed": 1.05,
       "fits": true
     },
     {
       "id": "marking",
-      "text": "Instant marking. Scores out of one hundred.",
-      "start": 18.9,
-      "end": 21.17,
+      "text": "Marked the moment they submit. Scores out of one hundred.",
+      "start": 31.3,
+      "end": 34.27,
       "speed": 1.05,
       "fits": true
     },
     {
       "id": "reports",
       "text": "Branded report cards for the whole class, and a broadsheet ready for Excel.",
-      "start": 21.85,
-      "end": 25.91,
+      "start": 35.3,
+      "end": 39.36,
       "speed": 1.05,
       "fits": true
     },
     {
       "id": "finale",
-      "text": "Exam Box. Smarter exams, instant results.",
-      "start": 26.8,
-      "end": 29.76,
+      "text": "Exam Box. Smarter exams, instant results. Get it today.",
+      "start": 40.85,
+      "end": 44.66,
       "speed": 1.05,
       "fits": true
     }

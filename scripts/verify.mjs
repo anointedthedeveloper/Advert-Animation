@@ -4,15 +4,21 @@
  * an AUDIBLE soundtrack (loudness measured, not just "an audio stream exists") and a small file size.
  */
 import {spawnSync} from 'node:child_process';
-import {statSync} from 'node:fs';
+import {statSync, readFileSync} from 'node:fs';
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const file = process.argv[2] ?? resolve(root, 'out/exambox-advert.mp4');
-// the WhatsApp status cut (exambox-status.mp4) is vertical 1080x1920, 897 frames (29.9 s) and must stay under WhatsApp's limits
+// the WhatsApp status parts (exambox-status-part1/2.mp4) are vertical 1080x1920 and must stay under WhatsApp's limits (30 s, 16 MB)
 const status = /status/.test(file);
-const want = status ? {w: '1080', h: '1920', frames: '897', secs: 29.9, mb: 16} : {w: '1920', h: '1080', frames: '900', secs: 30, mb: 10};
+const timing = JSON.parse(readFileSync(resolve(root, 'src/timing.json'), 'utf8'));
+const part = /part2/.test(file) ? 2 : 1;
+const statusFrames = part === 1 ? timing.statusSplit : timing.totalFrames - timing.statusSplit;
+const want = status
+  ? {w: '1080', h: '1920', frames: String(statusFrames), secs: statusFrames / timing.fps, mb: 16} // WhatsApp status: 16 MB, 30 s
+  : {w: '1920', h: '1080', frames: String(timing.totalFrames), secs: timing.totalFrames / timing.fps, mb: 15};
+
 const probe = (args) => spawnSync('ffprobe', ['-v', 'error', ...args, file], {encoding: 'utf8'}).stdout.trim();
 
 const v = Object.fromEntries(

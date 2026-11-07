@@ -1,36 +1,38 @@
-# Exam Box: 30-second cinematic advert
+# Exam Box: 45-second cinematic advert
 
 A code-driven motion-graphics advert for **Exam Box**, the computer-based testing (CBT) system sold by
 **Aremu Tech Eazy Solutions** (aremutecheazysolutions.com, 0901 647 1351, 0902 907 4772). Built with
-[Remotion](https://www.remotion.dev) (React) and delivered as a real **H.264 + AAC MP4**: 1920 × 1080, 30 fps,
-900 frames, exactly 30.0 seconds.
+[Remotion](https://www.remotion.dev) (React) and delivered as real **H.264 + AAC MP4** files: 1920 × 1080, 30 fps,
+1350 frames, exactly 45.0 seconds, with a voice-over. A vertical version for WhatsApp status comes in two parts.
 
-Concept: **"Run the exam. Skip the marking."**
+Concept: **"Run the exam. Skip the marking."** The story is: the problems schools face, who we are, and how Exam Box
+fixes each one.
 
 ```
-out/exambox-advert.mp4     the finished video, with voice-over
-out/exambox-advert-no-voice.mp4   the same video with music and effects only
-out/exambox-status.mp4            vertical 9:16 cut for WhatsApp status (29.9 s)
-viewer/index.html          a page that plays the video and has a Download video button
+out/exambox-advert.mp4             the finished film, 45 s, with voice-over
+out/exambox-advert-no-voice.mp4    the same film with music and effects only
+out/exambox-status-part1.mp4       WhatsApp status part 1 (9:16, 23 s)
+out/exambox-status-part2.mp4       WhatsApp status part 2 (9:16, 22 s)
+out/exambox-flyer*.pdf/png/jpg     A4 flyers (landscape and portrait)
+viewer/index.html                  a page that plays the film and has the download buttons
 ```
 
 ## What is in the video
 
-The advert tells a story in three beats: **the problems schools face, who we are, and how Exam Box fixes each problem.**
 Every feature scene opens with a struck-through problem tag that turns into a green "Fixed" tag, then a headline and one
 line that says how.
 
 | Time | Beat | Scene | On-screen text |
 |---|---|---|---|
-| 0.0 – 4.8 s | Problems | A stack of marked scripts grows while three problems stamp in, then everything dissolves into particles | Sound familiar? / Exams need internet, and data costs money. / Marking takes days. / Report cards and broadsheets compiled by hand. |
-| 4.8 – 7.6 s | Who we are | Logo emerges from the particles | Meet Exam Box. The fully offline computer-based testing system for schools and exam centres. By Aremu Tech Eazy Solutions |
-| 7.6 – 10.2 s | Strength | Question bank: JAMB and WAEC tabs, year ruler, a question with a diagram, a custom school question | Ready on day one. Past questions 1998 to date. |
-| 10.2 – 13.1 s | Fix: data and internet costs (the main selling point) | Student login, devices join one local server, "No internet needed" badge | Fully offline. No data bills. Run exams on your own school network. |
-| 13.1 – 15.9 s | Fix: first CBT on exam day | Waiting room, then exam screen with timer, subject tabs, navigator, calculator | Everyone starts together |
-| 15.9 – 18.8 s | Fix: hard to supervise | Admin Live Monitor with progress bars and submissions | Watch every candidate live |
-| 18.8 – 21.7 s | Fix: marking takes days | Submit, "Calculating score…", animated score card | Instant marking. Scores out of 100. |
-| 21.7 – 26.7 s | Fix: reports by hand | Report cards gather into a ZIP, broadsheet slides in | Branded report cards for the whole class / Export to Excel |
-| 26.7 – 30.0 s | Call to action | Logo lockup, button, contact card | Exam Box. Smarter exams, instant results. / Get Exam Box for your school. / Fully offline, No data bills / aremutecheazysolutions.com / 0901 647 1351 · 0902 907 4772 / © 2026 Aremu Tech Eazy Solutions |
+| 0.0 – 10.3 s | Problems, then the fixes | Four problem cards appear one by one, each with a plain explanation, while a stack of marked scripts grows. Then every card flips to its fix and everything dissolves into particles | Sound familiar? Exams need the internet / Marking takes days / Report cards compiled by hand / Cyber cafés cost money. Then: Exam Box fixes all four, Fully offline. No data bills. / Instant marking / Branded report cards / Watch every candidate live |
+| 10.3 – 14.7 s | Who we are | Logo emerges from the particles, then the four fixes in one line | Meet Exam Box. The fully offline computer-based testing system for schools and exam centres. Fully offline, Instant marking, Live monitoring, Report cards + Excel. By Aremu Tech Eazy Solutions |
+| 14.7 – 18.3 s | Strength | Question bank: JAMB and WAEC tabs, year ruler, a question with a diagram, a custom school question | Ready on day one. Past questions 1998 to date. |
+| 18.3 – 23.1 s | Fix: data and internet costs (the main selling point) | Student login, devices join one local server, "No internet needed" badge | Fully offline. No data bills. Run exams on your own school network. |
+| 23.1 – 27.1 s | Fix: first CBT on exam day | Waiting room, then exam screen with timer, subject tabs, navigator, calculator | Everyone starts together |
+| 27.1 – 31.1 s | Fix: hard to supervise | Admin Live Monitor with progress bars and submissions | Watch every candidate live |
+| 31.1 – 35.1 s | Fix: marking takes days | Submit, "Calculating score…", animated score card | Instant marking. Scores out of 100. |
+| 35.1 – 40.6 s | Fix: reports by hand | Report cards gather into a ZIP, broadsheet slides in | Branded report cards for the whole class / Export to Excel |
+| 40.6 – 45.0 s | Call to action | Logo lockup, button, offline pills, contact card | Exam Box. Smarter exams, instant results. / Get Exam Box for your school. / Fully offline, No data bills / aremutecheazysolutions.com / 0901 647 1351 · 0902 907 4772 / © 2026 Aremu Tech Eazy Solutions |
 
 Scene boundaries, each scene's playback speed (`scale`), the paper-landing frames and the problem-row frames live in
 `src/timing.json`.
@@ -70,7 +72,7 @@ Render one frame with `npx remotion still src/index.ts ExamBoxAdvert out/still.p
 ```bash
 npm run audio            # (re)generates public/audio/soundtrack.wav, optional because it is committed
 npm run render           # Remotion master -> ffmpeg final encode -> out/exambox-advert.mp4
-npm run verify           # ffprobe checks: 900 frames, 30 fps, 30.0 s, 1920x1080, H.264 + AAC, yuv420p
+npm run verify           # ffprobe checks: 1350 frames, 30 fps, 45.0 s, 1920x1080, H.264 + AAC, audible sound
 ```
 
 Using an existing browser (for example in a container or CI):
@@ -95,16 +97,21 @@ audio stream exists) and that the file is under 10 MB.
 
 Lower `CONCURRENCY` (for example `CONCURRENCY=2 npm run render`) on small machines.
 
-## WhatsApp status (vertical cut)
+## WhatsApp status (vertical, two parts)
 
-`out/exambox-status.mp4` is the same advert laid out for a phone: **1080 x 1920 (9:16), 29.9 s, about 6.5 MB**, with the
-voice-over and music. WhatsApp status videos are limited to 30 seconds, so it stops 0.1 s short, with a short audio
-fade-out so nothing is cut mid-word. Every scene has its own portrait layout (stacked exam screen, simplified live
-monitor, larger type), and the key content stays clear of the areas WhatsApp covers at the top and bottom.
+WhatsApp status clips are limited to 30 seconds, so the 45 s film is laid out for a phone (**1080 × 1920, 9:16**) and cut
+into two parts at a natural scene break (`statusSplit` in `src/timing.json`):
+
+* `out/exambox-status-part1.mp4`: 23.1 s, the problems, the fixes at a glance, who we are, past questions, offline.
+* `out/exambox-status-part2.mp4`: 21.9 s, how it works, then the call to action.
+
+Each part has its own slice of the soundtrack with a short fade, a small "Part 1 of 2 / Part 2 next →" label, and stays
+under WhatsApp's 16 MB limit. Every scene has its own portrait layout (stacked exam screen, simplified live monitor,
+larger type), and the key content stays clear of the areas WhatsApp covers at the top and bottom.
 
 ```bash
-npm run render:status      # master (PNG frames) -> ffmpeg encode -> out/exambox-status.mp4
-node scripts/verify.mjs out/exambox-status.mp4
+npm run render:status      # both parts: master (PNG frames) -> ffmpeg encode -> out/exambox-status-part1.mp4 and part2
+node scripts/verify.mjs out/exambox-status-part1.mp4
 ```
 
 `npm run preview` shows both compositions in Remotion Studio: `ExamBoxAdvert` (16:9) and `ExamBoxStatus` (9:16). The

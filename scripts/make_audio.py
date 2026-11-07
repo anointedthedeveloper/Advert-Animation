@@ -302,6 +302,9 @@ for k, fr in enumerate(TIMING["problemRows"]):
     sfx_at(fr, mixsig(thud(0.3, 0.8 - 0.05 * k) * 0.9, click(0.65, 0.09) * 1.1), 0.7, -0.3)
     sfx_at(fr + 4, tick(300 + 40 * k, 0.18, 0.7), 0.3)
 sfx_at(3, tick(500, 0.2, 0.7), 0.25)
+for k, fr in enumerate(TIMING["fixRows"]):  # each problem card flips into its fix
+    sfx_at(fr, whoosh(0.4, up=True, lo=800, hi=9000, level=0.7, seed=300 + k), 0.45, -0.3)
+    sfx_at(fr + 10, chime([hz(81 + 2 * k), hz(88 + 2 * k)], 0.9, 0.7, 3.5), 0.5, -0.2)
 DS = TIMING["dissolveStart"]
 # dissolve: the stack breaks into particles (wave of ~20 frames) that sweep into the logo
 sfx_at(DS - 2, whoosh(1.1, up=True, lo=300, hi=9000, level=0.9, seed=11), 0.55, 0.2)
@@ -315,19 +318,21 @@ sfx_at(r2 + 32, whoosh(0.55, up=True, lo=1500, hi=9000, level=0.7, seed=31), 0.4
 for k, fr in enumerate((26, 31, 36)):
     sfx_at(r2 + fr, click(1.0 + 0.1 * k), 0.4)
 sfx_at(r2 + 44, whoosh(0.45, up=True, lo=1200, hi=8000, level=0.5, seed=33), 0.3)
-sfx_at(r2 + 76, whoosh(0.5, up=False, lo=300, hi=5000, level=0.7, seed=41), 0.45)
+for k in range(4):  # the four fix chips
+    sfx_at(r2 + 66 + 8 * k, click(1.1 + 0.08 * k), 0.35, -0.3 + 0.2 * k)
+sfx_at(r2 + 114, whoosh(0.5, up=False, lo=300, hi=5000, level=0.7, seed=41), 0.45)
 
 # Scene 3 (new): question bank - window, three cards, pills, year ruler
-sq = S["questions"]
-sfx_at(sq + 1, whoosh(0.55, up=True, lo=300, hi=6000, level=0.8, seed=45), 0.5)
+sq = "questions"
+at(sq, 1, whoosh(0.55, up=True, lo=300, hi=6000, level=0.8, seed=45), 0.5)
 for k, fr in enumerate((12, 24, 36)):
-    sfx_at(sq + fr, mixsig(whoosh(0.35, up=True, lo=1500, hi=9000, level=0.6, seed=47 + k), click(0.9 + 0.1 * k) * 0.6), 0.4, 0.2)
+    at(sq, fr, mixsig(whoosh(0.35, up=True, lo=1500, hi=9000, level=0.6, seed=47 + k), click(0.9 + 0.1 * k) * 0.6), 0.4, 0.2)
 for k, fr in enumerate((22, 27, 32, 38)):
-    sfx_at(sq + fr, tick(900 + 120 * k, 0.07, 0.8), 0.3)
+    at(sq, fr, tick(900 + 120 * k, 0.07, 0.8), 0.3)
 for k in range(14):  # year ruler fills (frames 16-62)
-    sfx_at(sq + 16 + round(k * 46 / 13), tick(500 + 60 * k, 0.04, 0.7), 0.12)
-sfx_at(sq + 38, chime([hz(79), hz(86)], 0.9, 0.5, 4), 0.35)
-sfx_at(sq + 62, chime([hz(81), hz(88)], 1.0, 0.5, 3.5), 0.35, 0.2)
+    at(sq, 16 + round(k * 46 / 13), tick(500 + 60 * k, 0.04, 0.7), 0.12)
+at(sq, 38, chime([hz(79), hz(86)], 0.9, 0.5, 4), 0.35)
+at(sq, 62, chime([hz(81), hz(88)], 1.0, 0.5, 3.5), 0.35, 0.2)
 
 # Scene 4: sign-in typing, click, connect
 s3 = "network"

@@ -8,7 +8,7 @@ import timing from '../timing.json';
 /** Geometry shared by the paper stack (scene 1) and the particle layer that replaces it. */
 export const STACKS = {
   landscape: {cx: 1500, cy: 560, cols: 26, rows: 32, tile: 22},
-  portrait: {cx: 540, cy: 1500, cols: 26, rows: 32, tile: 22},
+  portrait: {cx: 540, cy: 1540, cols: 26, rows: 32, tile: 22},
 };
 export const TARGETS = {landscape: {x: 960, y: 380}, portrait: {x: 540, y: 560}};
 export const SIZES = {landscape: {w: 1920, h: 1080}, portrait: {w: 1080, h: 1920}};

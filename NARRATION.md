@@ -6,21 +6,25 @@ works with the sound off, and a music-only version is provided.
 
 | Time | Spoken line |
 |---|---|
-| 0.3 – 1.4 s | Data costs money. |
-| 1.6 – 2.7 s | Marking takes days. |
-| 2.9 – 4.0 s | Reports, by hand. |
-| 5.0 – 8.0 s | Meet Exam Box, the fully offline exam system. |
-| 8.1 – 10.3 s | Past questions, from nineteen ninety eight. |
-| 10.5 – 13.2 s | No internet. No data bills. Fully offline. |
-| 13.3 – 15.9 s | Everyone starts together, like the real exam. |
-| 16.1 – 17.7 s | Watch every candidate live. |
-| 18.9 – 21.2 s | Instant marking. Scores out of one hundred. |
-| 21.9 – 25.9 s | Branded report cards for the whole class, and a broadsheet ready for Excel. |
-| 26.8 – 29.8 s | Exam Box. Smarter exams, instant results. |
+| 0.9 – 2.4 s | Exams need the internet. |
+| 3.0 – 4.2 s | Marking takes days. |
+| 4.3 – 5.5 s | Reports, by hand. |
+| 6.0 – 7.4 s | Cyber cafés cost money. |
+| 7.5 – 9.3 s | Exam Box fixes every one. |
+| 10.7 – 13.7 s | Meet Exam Box, the fully offline exam system. |
+| 13.9 – 15.4 s | One box fixes all four. |
+| 15.6 – 18.4 s | Past questions from nineteen ninety eight, plus your own. |
+| 18.9 – 23.0 s | Run exams on your own school network. Fully offline, no data bills. |
+| 23.3 – 26.7 s | Everyone starts together, with a real timer and calculator. |
+| 27.3 – 30.9 s | Watch every candidate live, with progress, connection and battery. |
+| 31.3 – 34.3 s | Marked the moment they submit. Scores out of one hundred. |
+| 35.3 – 39.4 s | Branded report cards for the whole class, and a broadsheet ready for Excel. |
+| 40.9 – 44.7 s | Exam Box. Smarter exams, instant results. Get it today. |
 
-The opening shows three problems and the voice reads all three, starting with the internet and data cost, because being
-fully offline is the main selling point. The "No internet needed" badge, the "Fully offline. No data bills." headline and
-the finale pills repeat it on screen. The contact details are on screen at the end rather than read out, because the phone numbers
+The opening names four problems, each with a plain explanation on screen, then the cards flip into their fixes while the
+voice says "Exam Box fixes every one". Being fully offline is the main selling point, so it is the first problem and it
+gets the longest scene ("Fully offline. No data bills."). The contact details are on screen at the end rather than read
+out. The contact details are on screen at the end rather than read out, because the phone numbers
 would not fit in the last three seconds.
 
 ## Change the words, the voice or the speed

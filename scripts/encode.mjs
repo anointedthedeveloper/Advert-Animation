@@ -20,15 +20,23 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const env = process.env;
 const out = env.OUT ?? 'out/exambox-advert.mp4';
 const master = env.MASTER ?? 'out/master.mp4';
-const duration = parseFloat(env.DURATION ?? '30');
-// a clip trimmed short of the full soundtrack gets a short fade-out so the audio never ends on a hard cut
-const afade = duration < 30 ? ['-af', `afade=t=out:st=${(duration - 0.35).toFixed(2)}:d=0.35`] : [];
+const duration = parseFloat(env.DURATION ?? '45');
+const audioStart = parseFloat(env.AUDIO_START ?? '0'); // seconds into the soundtrack where this clip begins (WhatsApp part 2)
+// a clip cut out of the soundtrack gets a short fade-in (when it starts mid-track) and fade-out so it never starts or ends on a hard cut
+const totalSecs = parseFloat(env.TOTAL ?? '45');
+const filters = [];
+// A gentle limiter ahead of the AAC encoder: sharp click effects can otherwise overshoot to full scale after encoding.
+filters.push('alimiter=limit=0.5:attack=1:release=30:level=disabled');
+if (audioStart > 0) filters.push('afade=t=in:st=0:d=0.2');
+if (audioStart + duration < totalSecs - 0.05) filters.push(`afade=t=out:st=${(duration - 0.35).toFixed(2)}:d=0.35`);
+const afade = ['-af', filters.join(',')];
+
 const r = spawnSync(
   'ffmpeg',
   [
     '-y', '-v', 'error',
     '-i', master,
-    '-i', env.AUDIO ?? 'public/audio/soundtrack.wav',
+    '-ss', String(audioStart), '-i', env.AUDIO ?? 'public/audio/soundtrack.wav',
     '-map', '0:v:0', '-map', '1:a:0',
     '-c:v', 'libx264', '-preset', env.PRESET ?? 'veryslow', '-crf', env.CRF ?? '21',
     '-maxrate', env.MAXRATE ?? '4M', '-bufsize', env.BUFSIZE ?? '2M',

@@ -1,9 +1,10 @@
-node_modules/
-.remotion/
-out/still*.png
-out/frames/
 *.log
-out/master.mp4
-out/work/
 .cache/
-out/master-status.mp4
+.remotion/
+node_modules/
+out/frames/
+out/master-status-1.mp4
+out/master-status-2.mp4
+out/master.mp4
+out/still*.png
+out/work/

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {AbsoluteFill, Audio, Sequence, continueRender, delayRender, staticFile} from 'remotion';
+import {AbsoluteFill, Audio, Sequence, continueRender, delayRender, staticFile, useCurrentFrame} from 'remotion';
 import timing from './timing.json';
 import {TimeScale} from './frame';
 import {LayoutProvider, Layout} from './layout';
@@ -43,6 +43,25 @@ const useFonts = () => {
   }, [handle]);
 };
 
+/** WhatsApp status is limited to 30 s, so the vertical cut is rendered as two parts; this labels them. */
+const PartBadge: React.FC = () => {
+  const f = useCurrentFrame();
+  const split = timing.statusSplit;
+  let text: string | null = null;
+  if (f < 90) text = 'Part 1 of 2';
+  else if (f >= split - 80 && f < split) text = 'Part 2 next  →';
+  else if (f >= split && f < split + 90) text = 'Part 2 of 2';
+  if (!text) return null;
+  const inEdge = f < 90 ? f : f >= split ? f - split : f - (split - 80);
+  const len = f < 90 ? 90 : f >= split ? 90 : 80;
+  const o = Math.min(1, inEdge / 10, (len - inEdge) / 10);
+  return (
+    <div style={{position: 'absolute', right: 40, top: 154, opacity: Math.max(0, o), padding: '10px 20px', borderRadius: 999, background: 'rgba(2,44,34,0.78)', border: '1.5px solid rgba(167,243,208,0.6)', color: '#A7F3D0', fontFamily: "'Inter', sans-serif", fontWeight: 800, fontSize: 26, letterSpacing: '0.04em'}}>
+      {text}
+    </div>
+  );
+};
+
 export const Advert: React.FC<{layout?: Layout}> = ({layout = 'landscape'}) => {
   useFonts();
   return (
@@ -58,7 +77,9 @@ export const Advert: React.FC<{layout?: Layout}> = ({layout = 'landscape'}) => {
         <Scene2Reveal />
       </Sequence>
       <Sequence {...seq(S.questions)} name="3 Question bank">
-        <SceneQuestions />
+        <TimeScale k={S.questions.scale}>
+          <SceneQuestions />
+        </TimeScale>
       </Sequence>
       <Sequence {...seq(S.network)} name="4 Network">
         <TimeScale k={S.network.scale}>
@@ -88,6 +109,7 @@ export const Advert: React.FC<{layout?: Layout}> = ({layout = 'landscape'}) => {
       <Sequence {...seq(S.finale)} name="9 Finale">
         <Scene8Finale />
       </Sequence>
+      {layout === 'portrait' && <PartBadge />}
     </AbsoluteFill>
     </LayoutProvider>
   );

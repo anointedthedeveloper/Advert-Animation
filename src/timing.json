@@ -2,71 +2,79 @@
   "fps": 30,
   "width": 1920,
   "height": 1080,
-  "totalFrames": 900,
-  "dissolveStart": 110,
+  "totalFrames": 1350,
+  "dissolveStart": 276,
   "paperLandings": [
-    6,
-    9,
-    12,
-    15,
-    18,
-    21,
-    34,
+    8,
+    14,
+    20,
+    26,
+    30,
     40,
-    54,
-    60,
-    74,
-    80
+    84,
+    94,
+    126,
+    136,
+    168,
+    180
   ],
   "problemRows": [
-    14,
-    40,
-    66
+    26,
+    84,
+    126,
+    168
   ],
+  "fixRows": [
+    222,
+    236,
+    250,
+    264
+  ],
+  "statusSplit": 692,
   "scenes": {
     "hook": {
       "from": 0,
-      "to": 150,
+      "to": 316,
       "scale": 1
     },
     "reveal": {
-      "from": 144,
-      "to": 234,
+      "from": 310,
+      "to": 446,
       "scale": 1
     },
     "questions": {
-      "from": 228,
-      "to": 312,
-      "scale": 1
+      "from": 440,
+      "to": 554,
+      "scale": 0.833
     },
     "network": {
-      "from": 306,
-      "to": 398,
-      "scale": 1.37
+      "from": 548,
+      "to": 698,
+      "scale": 0.875
     },
     "start": {
-      "from": 392,
-      "to": 484,
-      "scale": 1.37
+      "from": 692,
+      "to": 818,
+      "scale": 1.05
     },
     "monitor": {
-      "from": 478,
-      "to": 570,
-      "scale": 1.37
+      "from": 812,
+      "to": 938,
+      "scale": 1.05
     },
     "marking": {
-      "from": 564,
-      "to": 656,
-      "scale": 1.37
+      "from": 932,
+      "to": 1058,
+      "scale": 1.05
     },
     "reports": {
-      "from": 650,
-      "to": 806,
-      "scale": 1.192
+      "from": 1052,
+      "to": 1223,
+      "scale": 1.127
     },
     "finale": {
-      "from": 800,
-      "to": 900,
+      "from": 1217,
+      "to": 1350,
       "scale": 1
     }
   }
