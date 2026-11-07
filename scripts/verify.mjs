@@ -14,9 +14,10 @@ const file = process.argv[2] ?? resolve(root, 'out/exambox-advert.mp4');
 const status = /status/.test(file);
 const timing = JSON.parse(readFileSync(resolve(root, 'src/timing.json'), 'utf8'));
 const part = /part2/.test(file) ? 2 : 1;
-const statusFrames = part === 1 ? timing.statusSplit : timing.totalFrames - timing.statusSplit;
+const isPart = /part[12]/.test(file);
+const statusFrames = !isPart ? timing.totalFrames : part === 1 ? timing.statusSplit : timing.totalFrames - timing.statusSplit;
 const want = status
-  ? {w: '1080', h: '1920', frames: String(statusFrames), secs: statusFrames / timing.fps, mb: 16} // WhatsApp status: 16 MB, 30 s
+  ? {w: '1080', h: '1920', frames: String(statusFrames), secs: statusFrames / timing.fps, mb: 16} // WhatsApp status: 16 MB
   : {w: '1920', h: '1080', frames: String(timing.totalFrames), secs: timing.totalFrames / timing.fps, mb: 15};
 
 const probe = (args) => spawnSync('ffprobe', ['-v', 'error', ...args, file], {encoding: 'utf8'}).stdout.trim();

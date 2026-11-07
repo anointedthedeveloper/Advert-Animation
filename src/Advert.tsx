@@ -62,7 +62,7 @@ const PartBadge: React.FC = () => {
   );
 };
 
-export const Advert: React.FC<{layout?: Layout}> = ({layout = 'landscape'}) => {
+export const Advert: React.FC<{layout?: Layout; partLabels?: boolean}> = ({layout = 'landscape', partLabels = true}) => {
   useFonts();
   return (
     <LayoutProvider layout={layout}>
@@ -109,7 +109,7 @@ export const Advert: React.FC<{layout?: Layout}> = ({layout = 'landscape'}) => {
       <Sequence {...seq(S.finale)} name="9 Finale">
         <Scene8Finale />
       </Sequence>
-      {layout === 'portrait' && <PartBadge />}
+      {layout === 'portrait' && partLabels && <PartBadge />}
     </AbsoluteFill>
     </LayoutProvider>
   );

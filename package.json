@@ -13,8 +13,9 @@
     "verify": "node scripts/verify.mjs",
     "flyer": "node scripts/flyer.mjs",
     "encode:novoice": "AUDIO=public/audio/music_sfx.wav OUT=out/exambox-advert-no-voice.mp4 node scripts/encode.mjs",
-    "render:status": "COMP=ExamBoxStatus node scripts/render.mjs",
-    "preview:status": "remotion studio src/index.ts"
+    "render:status": "COMP=ExamBoxStatusFull node scripts/render.mjs",
+    "preview:status": "remotion studio src/index.ts",
+    "render:status:parts": "COMP=ExamBoxStatus node scripts/render.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.535",

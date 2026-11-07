@@ -3,7 +3,7 @@
 A code-driven motion-graphics advert for **Exam Box**, the computer-based testing (CBT) system sold by
 **Aremu Tech Eazy Solutions** (aremutecheazysolutions.com, 0901 647 1351, 0902 907 4772). Built with
 [Remotion](https://www.remotion.dev) (React) and delivered as real **H.264 + AAC MP4** files: 1920 × 1080, 30 fps,
-1350 frames, exactly 45.0 seconds, with a voice-over. A vertical version for WhatsApp status comes in two parts.
+1350 frames, exactly 45.0 seconds, with a voice-over. A vertical version for WhatsApp status is included.
 
 Concept: **"Run the exam. Skip the marking."** The story is: the problems schools face, who we are, and how Exam Box
 fixes each one.
@@ -11,8 +11,9 @@ fixes each one.
 ```
 out/exambox-advert.mp4             the finished film, 45 s, with voice-over
 out/exambox-advert-no-voice.mp4    the same film with music and effects only
-out/exambox-status-part1.mp4       WhatsApp status part 1 (9:16, 23 s)
-out/exambox-status-part2.mp4       WhatsApp status part 2 (9:16, 22 s)
+out/exambox-status.mp4             WhatsApp status, the whole film as one vertical video (9:16, 45 s)
+out/exambox-status-part1.mp4       the same in two parts under 30 s, in case WhatsApp trims status at 30 s
+out/exambox-status-part2.mp4
 out/exambox-flyer*.pdf/png/jpg     A4 flyers (landscape and portrait)
 viewer/index.html                  a page that plays the film and has the download buttons
 ```
@@ -97,25 +98,27 @@ audio stream exists) and that the file is under 10 MB.
 
 Lower `CONCURRENCY` (for example `CONCURRENCY=2 npm run render`) on small machines.
 
-## WhatsApp status (vertical, two parts)
+## WhatsApp status (vertical)
 
-WhatsApp status clips are limited to 30 seconds, so the 45 s film is laid out for a phone (**1080 × 1920, 9:16**) and cut
-into two parts at a natural scene break (`statusSplit` in `src/timing.json`):
+`out/exambox-status.mp4` is the whole 45 s film laid out for a phone: **1080 × 1920 (9:16), one continuous video,
+about 9 MB**, with the voice-over and music. Every scene has its own portrait layout (stacked exam screen, simplified
+live monitor, larger type), and the key content stays clear of the areas WhatsApp covers at the top and bottom.
+
+Some versions of WhatsApp limit a status clip to 30 seconds, so the same story is also provided in two parts that split
+at a natural scene break (`statusSplit` in `src/timing.json`), each with a "Part 1 of 2 / Part 2 next →" label:
 
 * `out/exambox-status-part1.mp4`: 23.1 s, the problems, the fixes at a glance, who we are, past questions, offline.
 * `out/exambox-status-part2.mp4`: 21.9 s, how it works, then the call to action.
 
-Each part has its own slice of the soundtrack with a short fade, a small "Part 1 of 2 / Part 2 next →" label, and stays
-under WhatsApp's 16 MB limit. Every scene has its own portrait layout (stacked exam screen, simplified live monitor,
-larger type), and the key content stays clear of the areas WhatsApp covers at the top and bottom.
-
 ```bash
-npm run render:status      # both parts: master (PNG frames) -> ffmpeg encode -> out/exambox-status-part1.mp4 and part2
-node scripts/verify.mjs out/exambox-status-part1.mp4
+npm run render:status         # one video       -> out/exambox-status.mp4
+npm run render:status:parts   # the two parts   -> out/exambox-status-part1.mp4 and part2
+node scripts/verify.mjs out/exambox-status.mp4
 ```
 
-`npm run preview` shows both compositions in Remotion Studio: `ExamBoxAdvert` (16:9) and `ExamBoxStatus` (9:16). The
-scenes read the layout from `src/layout.tsx`, so a change to the story or timing applies to both.
+`npm run preview` shows all compositions in Remotion Studio: `ExamBoxAdvert` (16:9), `ExamBoxStatusFull` (9:16, one
+video) and `ExamBoxStatus` (9:16, for the two parts). The scenes read the layout from `src/layout.tsx`, so a change to
+the story or timing applies to all of them.
 
 ## Watch and download in a browser
 

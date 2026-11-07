@@ -6,7 +6,8 @@
  *   3. scripts/encode.mjs makes the delivery file(s): capped bitrate, keyframes every 2 s, BT.709 tags, fast-start index
  *
  *   npm run render                           # 16:9 film  -> out/exambox-advert.mp4
- *   npm run render:status                    # 9:16 for WhatsApp status -> out/exambox-status-part1.mp4 and -part2.mp4
+ *   npm run render:status                    # 9:16 for WhatsApp status, ONE video -> out/exambox-status.mp4 (45 s)
+ *   npm run render:status:parts              # the same in two parts under 30 s -> out/exambox-status-part1.mp4 and -part2.mp4
  *   BROWSER=/path/to/chrome npm run render   # use an existing Chrome/Chromium/headless_shell
  *
  * WhatsApp status clips are limited to 30 s, so the vertical cut is rendered in two parts that split at
@@ -25,7 +26,8 @@ const run = (cmd, args, env = {}) => {
 };
 
 const comp = process.env.COMP ?? 'ExamBoxAdvert';
-const status = comp === 'ExamBoxStatus';
+const status = comp === 'ExamBoxStatus'; // two parts
+const full = comp === 'ExamBoxStatusFull'; // one vertical video
 const fps = timing.fps;
 const total = timing.totalFrames;
 const split = timing.statusSplit;
@@ -38,7 +40,9 @@ const jobs = status
       {master: 'out/master-status-1.mp4', final: 'out/exambox-status-part1.mp4', from: 0, to: split - 1},
       {master: 'out/master-status-2.mp4', final: 'out/exambox-status-part2.mp4', from: split, to: total - 1},
     ]
-  : [{master: 'out/master.mp4', final: 'out/exambox-advert.mp4', from: 0, to: total - 1}];
+  : full
+    ? [{master: 'out/master-status-full.mp4', final: 'out/exambox-status.mp4', from: 0, to: total - 1}]
+    : [{master: 'out/master.mp4', final: 'out/exambox-advert.mp4', from: 0, to: total - 1}];
 
 for (const j of jobs) {
   const args = ['remotion', 'render', 'src/index.ts', comp, j.master, '--concurrency=' + (process.env.CONCURRENCY ?? '4'), `--frames=${j.from}-${j.to}`];
