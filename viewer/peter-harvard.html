@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Peter Harvard Advert: watch and download</title>
+<style>
+:root {
+  --crimson: #C1121F; --crimson-deep: #7F0A14; --olive: #353300; --olive-deep: #1B1A00;
+  --cream: #FFF3C9; --paper: #FFF9E8; --gold: #F6B93B;
+  --bg: #FFF9E8; --surface: #fff; --text: #1B1A00; --muted: #5b5a3a; --line: rgba(53, 51, 0, 0.16);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14130a; --surface: #1f1e0f; --text: #FFF3C9; --muted: #c9c39a; --line: rgba(255, 243, 201, 0.18); color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.55 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  padding: 0 max(16px, env(safe-area-inset-right)) 56px max(16px, env(safe-area-inset-left)); }
+.wrap { max-width: 1080px; margin: 0 auto; display: grid; gap: 22px; }
+header { display: flex; align-items: center; gap: 16px; padding-top: 26px; flex-wrap: wrap; }
+header img { width: 64px; height: auto; flex: none; }
+h1 { margin: 0; font: 800 clamp(1.4rem, 3.4vw, 2.1rem)/1.1 Georgia, 'Times New Roman', serif; color: var(--crimson); letter-spacing: -0.01em; }
+.sub { margin: 2px 0 0; color: var(--muted); }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.tab { appearance: none; border: 1.5px solid var(--line); background: var(--surface); color: var(--text); font: 700 0.95rem/1 inherit; padding: 12px 18px; border-radius: 999px; cursor: pointer; min-height: 44px; }
+.tab[aria-selected="true"] { background: var(--crimson); border-color: var(--crimson); color: #fff; }
+.tab:focus-visible, .btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.stage { background: #000; border-radius: 18px; overflow: hidden; display: grid; place-items: center; border: 1px solid var(--line); }
+video { display: block; max-width: 100%; max-height: min(78vh, 900px); background: #000; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 14px; }
+.panel h2 { margin: 0; font-size: 1.15rem; }
+.facts { color: var(--muted); font-size: 0.93rem; margin: 0; }
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 10px; background: var(--crimson); color: #fff; text-decoration: none; font-weight: 800; padding: 14px 22px; border-radius: 12px; min-height: 48px; }
+.btn:hover { background: var(--crimson-deep); }
+.btn small { font-weight: 600; opacity: 0.85; }
+.btn.alt { background: transparent; color: var(--crimson); border: 1.5px solid var(--crimson); }
+@media (prefers-color-scheme: dark) { .btn.alt { color: var(--gold); border-color: var(--gold); } }
+.tips { margin: 0; padding-left: 1.1em; color: var(--muted); font-size: 0.93rem; }
+.tips li { margin: 3px 0; }
+.all { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.all .item { border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 6px; background: var(--surface); }
+.all .item b { display: block; }
+.all .item span { color: var(--muted); font-size: 0.9rem; }
+footer { color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="../public/ph/img/badge.png" alt="Peter Harvard International Schools badge">
+    <div>
+      <h1>Peter Harvard International Schools</h1>
+      <p class="sub">Advert film, 65 seconds, with voice-over. Pick a version, watch it, download it in HD.</p>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Versions"></div>
+  <div class="stage"><video id="v" controls playsinline preload="metadata"></video></div>
+  <section class="panel" id="info" aria-live="polite"></section>
+
+  <section class="panel">
+    <h2>All downloads</h2>
+    <div class="all" id="all"></div>
+  </section>
+
+  <footer>Website: peterharvardschools.com · TikTok: @peterharvardintlsch · Kubwa, Abuja</footer>
+</div>
+
+<script>
+// size = approximate MB, filled in by the build; shown only as a hint
+const VERSIONS = [
+  { id: 'landscape', tab: 'Landscape (HD)', title: 'Landscape, 16:9, 1920×1080 HD',
+    files: [{ href: '../out/peter-harvard-landscape-hd.mp4', label: 'Download landscape HD', size: '61 MB' }],
+    facts: '65 s · H.264 + AAC · 1080p · for YouTube, Facebook, the school website, TV screens and projectors.',
+    tips: ['YouTube and Facebook feed: upload the file as it is.', 'Website: use it in a hero section or on the admissions page.'] },
+  { id: 'portrait', tab: 'Portrait (HD)', title: 'Portrait, 9:16, 1080×1920 HD',
+    files: [{ href: '../out/peter-harvard-portrait-hd.mp4', label: 'Download portrait HD', size: '62 MB' }],
+    facts: '65 s · H.264 + AAC · 1080×1920 · for Instagram Reels, Facebook Reels and Stories, YouTube Shorts.',
+    tips: ['Reels and Shorts: upload as it is.', 'For WhatsApp status use the WhatsApp version (three short parts).'] },
+  { id: 'tiktok', tab: 'TikTok', title: 'TikTok, 9:16, 1080×1920 HD',
+    files: [{ href: '../out/peter-harvard-tiktok-hd.mp4', label: 'Download TikTok HD', size: '60 MB' }],
+    facts: '65 s · 1080×1920 · all text and the logo are lifted out of the area TikTok covers with its caption, profile name and side buttons.',
+    tips: ['Upload from the TikTok app or tiktok.com/upload for the best quality.', 'Add the caption and hashtags yourself; the bottom of the picture is left clear for them.'] },
+  { id: 'wa', tab: 'WhatsApp status', title: 'WhatsApp status, 9:16, three parts',
+    files: [
+      { href: '../out/peter-harvard-whatsapp-status-part1.mp4', label: 'Part 1', size: '8 MB' },
+      { href: '../out/peter-harvard-whatsapp-status-part2.mp4', label: 'Part 2', size: '6 MB' },
+      { href: '../out/peter-harvard-whatsapp-status-part3.mp4', label: 'Part 3', size: '1 MB' }],
+    facts: 'WhatsApp status clips can be 30 seconds at most, so the film is cut into three parts at scene changes (28 s, 27 s, 10 s). Each part is under 16 MB.',
+    tips: ['Post Part 1, then Part 2, then Part 3 as three statuses, in that order.', 'Parts 1 and 2 end on a fade so the cuts feel natural.'] },
+];
+const $ = (s) => document.querySelector(s);
+const v = $('#v'), tabs = document.querySelector('.tabs'), info = $('#info'), all = $('#all');
+const dl = (f) => `<a class="btn" href="${f.href}" download>⬇ ${f.label} <small>${f.size && !f.size.startsWith('@@') ? f.size : ''}</small></a>`;
+function select(id, push) {
+  const ver = VERSIONS.find((x) => x.id === id) || VERSIONS[0];
+  tabs.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.id === ver.id)));
+  const first = ver.files[0];
+  v.src = first.href; v.load();
+  info.innerHTML = `<h2>${ver.title}</h2><p class="facts">${ver.facts}</p><div class="row">${ver.files.map((f, i) => (i === 0 ? dl(f) : dl(f).replace('class="btn"', 'class="btn alt"'))).join('')}</div>
+    ${ver.files.length > 1 ? '<div class="row">' + ver.files.map((f, i) => `<button class="tab" data-part="${i}" type="button">Preview ${f.label}</button>`).join('') + '</div>' : ''}
+    <ul class="tips">${ver.tips.map((t) => `<li>${t}</li>`).join('')}</ul>`;
+  info.querySelectorAll('[data-part]').forEach((b) => b.addEventListener('click', () => { v.src = ver.files[+b.dataset.part].href; v.load(); v.play().catch(() => {}); }));
+  if (push) { try { history.replaceState(null, '', '#' + ver.id); } catch (e) {} }
+}
+VERSIONS.forEach((x) => {
+  const b = document.createElement('button');
+  b.className = 'tab'; b.type = 'button'; b.role = 'tab'; b.dataset.id = x.id; b.textContent = x.tab;
+  b.addEventListener('click', () => select(x.id, true));
+  tabs.appendChild(b);
+  const i = document.createElement('div'); i.className = 'item';
+  i.innerHTML = `<b>${x.tab}</b><span>${x.title}</span><div class="row">${x.files.map((f) => dl(f)).join('')}</div>`;
+  all.appendChild(i);
+});
+select((location.hash || '').slice(1), false);
+</script>
+</body>
+</html>

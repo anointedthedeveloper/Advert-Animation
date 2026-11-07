@@ -92,7 +92,7 @@ VO_LINES = [
     ("v3", "Building global leaders.", 4.05),
     ("c1", "Peter Harvard International Schools.", 55.55),
     ("c2", "Kubwa, Abuja.", 58.55),
-    ("c3", "Visit peter harvard schools dot cloud.", 60.35),
+    ("c3", "Visit peter harvard schools dot com.", 60.35),
 ]
 SPEED = 0.98
 

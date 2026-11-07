@@ -51,9 +51,26 @@ const LANDSCAPE: Geo = {
     [780, 1080],
   ],
 };
+// TikTok covers the bottom ~20 % (caption, profile) and the right edge (buttons), so this layout lifts all text and
+// shortens the photo window to keep everything in the safe area.
+const TIKTOK: Geo = {
+  ...PORTRAIT,
+  win: {x: 0, y: 0, w: 1080, h: 1050},
+  clip: 'polygon(0 0, 100% 0, 100% 100%, 0 92%)',
+  zone: {x: 64, y: 1110, w: 860, h: 330},
+  brand: {x: 64, y: 1470, w: 860, h: 112},
+  edge: [
+    [0, 1050 * 0.92],
+    [1080, 1050],
+  ],
+};
+const VariantCtx = createContext<'default' | 'tiktok'>('default');
+export const VariantProvider = VariantCtx.Provider;
+export const useTikTok = () => useContext(VariantCtx) === 'tiktok';
 export const useGeo = (): Geo => {
   const {width, height} = useVideoConfig();
-  return height > width ? PORTRAIT : LANDSCAPE;
+  const tk = useTikTok();
+  return height > width ? (tk ? TIKTOK : PORTRAIT) : LANDSCAPE;
 };
 
 export const fit = (v: number) => v; // sizes are authored per layout, helper kept for readability

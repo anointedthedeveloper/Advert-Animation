@@ -18,6 +18,7 @@ export const Root: React.FC = () => (
     <Composition id="ExamBoxStatusFull" component={Advert} durationInFrames={timing.totalFrames} fps={timing.fps} width={1080} height={1920} defaultProps={{layout: 'portrait' as const, partLabels: false}} />
     {/* Peter Harvard International Schools: 9:16 for TikTok / Reels / WhatsApp status, and 16:9 for YouTube / Facebook / the website */}
     <Composition id="PeterHarvardAdvert" component={PhisAdvert} durationInFrames={phCues.frames} fps={phCues.fps} width={1080} height={1920} />
+    <Composition id="PeterHarvardAdvertTikTok" component={PhisAdvert} durationInFrames={phCues.frames} fps={phCues.fps} width={1080} height={1920} defaultProps={{variant: 'tiktok' as const}} />
     <Composition id="PeterHarvardAdvertWide" component={PhisAdvert} durationInFrames={phCues.frames} fps={phCues.fps} width={1920} height={1080} />
   </>
 );

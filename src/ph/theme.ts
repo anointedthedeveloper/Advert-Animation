@@ -25,6 +25,6 @@ export const SCHOOL = {
   tagline: ['Nurturing Excellence', 'Inspiring Innovation', 'Building Global Leaders'],
   address: ['No. 1, Dr Peter Agunloye Drive,', 'NEPA Road, Phase 4, Kubwa, Abuja'],
   phones: ['0818 227 7020', '0803 357 0685', '0806 213 4991'],
-  site: 'peterharvardschools.cloud',
+  site: 'peterharvardschools.com',
   tiktok: '@peterharvardintlsch',
 } as const;

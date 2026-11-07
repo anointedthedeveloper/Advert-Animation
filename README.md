@@ -239,9 +239,13 @@ ignored; the 6.7 MB MP4 is committed so the repository contains the finished vid
 
 # Peter Harvard International Schools advert (65 s)
 
+Open `viewer/peter-harvard.html` to watch every version and download it in HD (it needs the `out/` folder next to it).
+
 ```
-out/peter-harvard-advert-vertical.mp4   1080x1920, 65 s, for TikTok / Reels / WhatsApp status
-out/peter-harvard-advert-wide.mp4       1920x1080, 65 s, for YouTube / Facebook / the website
+out/peter-harvard-landscape-hd.mp4              1920x1080, for YouTube / Facebook / the website
+out/peter-harvard-portrait-hd.mp4               1080x1920, for Reels / Shorts / Stories
+out/peter-harvard-tiktok-hd.mp4                 1080x1920, all text kept clear of TikTok's caption and buttons
+out/peter-harvard-whatsapp-status-part1..3.mp4  1080x1920, three parts under 30 s and 16 MB each (28.5 s, 26.8 s, 9.7 s)
 ```
 
 Built from the school's own anthem (`public/ph/audio/phis-anthem-source.mp3`, 5 min 25 s), cut to its core: the build and
@@ -250,15 +254,16 @@ Built from the school's own anthem (`public/ph/audio/phis-anthem-source.mp3`, 5 
 we rise". Cuts sit in gaps between sung phrases. Lyrics are captioned word by word, a Kokoro text-to-speech voice-over opens
 and closes the film, and the sound design (pulse, riser, impact, whooshes, chime) is synthesised with numpy.
 
-Images and facts come from peterharvardschools.cloud (badge, photos, address, phone numbers, tagline) and the TikTok
-profile text. Colours come from the site (#C1121F) and the badge. The TikTok page exposes no video thumbnails without
-signed API calls, so none were used; the profile picture is the same badge.
+Images and facts come from the school's website (badge, photos, address, phone numbers, tagline) and the TikTok profile
+text; the website shown in the advert, the QR code and the voice-over is peterharvardschools.com. Colours come from the site
+(#C1121F) and the badge. The TikTok page exposes no video thumbnails without signed API calls, so none were used.
 
 ```bash
 python3 -m venv .venv && . .venv/bin/activate && pip install numpy scipy soundfile kokoro-onnx
-python3 scripts/ph_audio.py                  # edit + voice-over + sound design -> public/ph/audio/soundtrack.wav, src/ph/cues.json
-npm run preview                              # Remotion Studio: PeterHarvardAdvert / PeterHarvardAdvertWide
-node scripts/ph_render.mjs                   # vertical;  WIDE=1 node scripts/ph_render.mjs  for 16:9
+python3 scripts/ph_audio.py                       # edit + voice-over + sound design -> public/ph/audio/soundtrack.wav, src/ph/cues.json
+npm run preview                                   # Remotion Studio: PeterHarvardAdvert / ...TikTok / ...Wide
+VARIANT=portrait node scripts/ph_render.mjs       # also VARIANT=tiktok and VARIANT=landscape
+node scripts/ph_export.mjs                        # WhatsApp status parts, from the portrait master
 ```
 
 Lyric captions were transcribed by speech recognition and checked against the cut audio; please read them once for spelling.

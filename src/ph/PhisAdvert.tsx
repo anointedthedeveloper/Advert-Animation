@@ -3,7 +3,7 @@ import {AbsoluteFill, Audio, Img, continueRender, delayRender, staticFile, useVi
 import cues from './cues.json';
 import {ease, prog, lerp, clamp} from '../util';
 import {P, SANS, SCHOOL, SERIF} from './theme';
-import {Badge, BrandStrip, Check, Chip, Flash, Grain, LyricBlock, Phrase, PhotoWindow, Sparks, Spark, Stage, Stamp, TimeProvider, Vignette, Wipe, WindowEdge, useGeo, useT} from './common';
+import {VariantProvider, useTikTok, Badge, BrandStrip, Check, Chip, Flash, Grain, LyricBlock, Phrase, PhotoWindow, Sparks, Spark, Stage, Stamp, TimeProvider, Vignette, Wipe, WindowEdge, useGeo, useT} from './common';
 
 const L = cues.lyrics as Phrase[];
 const VO = Object.fromEntries(cues.vo.map((v) => [v.id, v.start])) as Record<string, number>;
@@ -107,11 +107,12 @@ const Hook: React.FC = () => {
 const Reveal: React.FC = () => {
   const t = useT();
   const g = useGeo();
+  const dy = useTikTok() ? -90 : 0;
   const p = prog(t, DROP, 0.9, ease.back);
   const ring = prog(t, DROP, 1.1, ease.out);
   const badgeW = g.portrait ? 800 : 640;
   const bx = g.portrait ? g.W / 2 : 470;
-  const by = g.portrait ? 640 : g.H / 2;
+  const by = (g.portrait ? 640 : g.H / 2) + dy * 0.6;
   const nameIn = prog(t, DROP + 0.45, 0.6, ease.out);
   const sub = prog(t, DROP + 0.75, 0.6, ease.out);
   const txtX = g.portrait ? 0 : 900;
@@ -125,13 +126,13 @@ const Reveal: React.FC = () => {
       <div style={{position: 'absolute', left: bx - badgeW / 2, top: by - (badgeW * 0.877) / 2, transform: `scale(${lerp(0.5, 1, p)}) rotate(${lerp(-5, 0, p)}deg)`, opacity: prog(t, DROP, 0.15, ease.out), filter: 'drop-shadow(0 30px 40px rgba(53,51,0,0.35))'}}>
         <Badge width={badgeW} />
       </div>
-      <div style={{position: 'absolute', left: txtX, top: g.portrait ? 1010 : 250, width: txtW, textAlign: align, padding: g.portrait ? '0 40px' : 0, boxSizing: 'border-box', opacity: nameIn, transform: `translateY(${(1 - nameIn) * 30}px)`}}>
+      <div style={{position: 'absolute', left: txtX, top: (g.portrait ? 1010 : 250) + dy, width: txtW, textAlign: align, padding: g.portrait ? '0 40px' : 0, boxSizing: 'border-box', opacity: nameIn, transform: `translateY(${(1 - nameIn) * 30}px)`}}>
         <div style={{fontFamily: SERIF, fontWeight: 900, fontSize: g.portrait ? 116 : 108, lineHeight: 1, color: P.crimson, letterSpacing: '-0.01em', whiteSpace: 'nowrap'}}>PETER HARVARD</div>
         <div style={{fontFamily: SANS, fontWeight: 800, fontSize: g.portrait ? 38 : 36, letterSpacing: '0.34em', color: P.olive, marginTop: 16, marginRight: g.portrait ? '-0.34em' : 0}}>INTERNATIONAL SCHOOLS</div>
       </div>
-      <div style={{position: 'absolute', left: g.portrait ? g.W / 2 - 90 : 900, top: g.portrait ? 1190 : 478, width: 180 * sub, height: 6, background: P.crimson, borderRadius: 3}} />
-      <div style={{position: 'absolute', left: txtX, top: g.portrait ? 1230 : 508, width: txtW, textAlign: align, fontFamily: SANS, fontWeight: 700, fontSize: 28, letterSpacing: '0.24em', color: P.olive, opacity: sub * 0.85}}>KUBWA · ABUJA · NIGERIA</div>
-      <div style={{position: 'absolute', left: g.portrait ? 60 : 900, top: g.portrait ? 1380 : 600, width: g.portrait ? g.W - 120 : 900}}>
+      <div style={{position: 'absolute', left: g.portrait ? g.W / 2 - 90 : 900, top: (g.portrait ? 1190 : 478) + dy, width: 180 * sub, height: 6, background: P.crimson, borderRadius: 3}} />
+      <div style={{position: 'absolute', left: txtX, top: (g.portrait ? 1230 : 508) + dy, width: txtW, textAlign: align, fontFamily: SANS, fontWeight: 700, fontSize: 28, letterSpacing: '0.24em', color: P.olive, opacity: sub * 0.85}}>KUBWA · ABUJA · NIGERIA</div>
+      <div style={{position: 'absolute', left: g.portrait ? 60 : 900, top: (g.portrait ? 1380 : 600) + dy, width: g.portrait ? g.W - 120 : 900}}>
         <LyricBlock phrases={[L[0]]} size={g.portrait ? 92 : 84} align={align} light italic hold={0.2} lineGap={1.12} />
       </div>
     </AbsoluteFill>
@@ -169,7 +170,7 @@ const Framed: React.FC = () => {
   const t = useT();
   const g = useGeo();
   const pairSize = g.portrait ? 96 : 84;
-  const chipPos = (n: number): React.CSSProperties => (g.portrait ? {left: 56, top: 960 - n * 0} : {left: 900, top: 900});
+  const chipPos = (n: number): React.CSSProperties => ({left: g.portrait ? 56 : 900, top: g.portrait ? g.win.h - 280 + n : 900});
   const badgeIn = prog(t, L[10].start, 0.6, ease.back);
   const badgeOut = 1 - prog(t, L[10].end + 0.3, 0.3, ease.in);
   return (
@@ -207,8 +208,8 @@ const Framed: React.FC = () => {
       <div
         style={{
           position: 'absolute',
-          left: g.portrait ? 790 : 1500,
-          top: g.portrait ? 70 : 70,
+          left: g.portrait ? 740 : 1500,
+          top: 70,
           width: 200,
           height: 200,
           borderRadius: 44,
@@ -241,7 +242,7 @@ const Typo: React.FC = () => {
   const end = B.finale + 0.2;
   const m = L[12].words;
   const a = L[13].words;
-  const s1 = g.portrait ? 196 : 210;
+  const s1 = g.portrait ? (useTikTok() ? 168 : 196) : 210;
   const s2 = g.portrait ? 106 : 170;
   const dim = 1 - prog(t, a[0].t - 0.05, 0.3, ease.out) * 0.5;
   return (
@@ -269,11 +270,12 @@ const Finale: React.FC = () => {
   const t = useT();
   const g = useGeo();
   const t0 = B.finale;
+  const fdy = useTikTok() ? -150 : 0;
   const p = prog(t, t0 + 0.1, 1.0, ease.out);
   const zoom = lerp(0.94, 1.06, clamp((t - t0) / (B.cta - t0)));
   const badgeW = g.portrait ? 860 : 700;
   const bx = g.portrait ? g.W / 2 : 520;
-  const by = g.portrait ? 640 : g.H / 2;
+  const by = (g.portrait ? 640 : g.H / 2) + fdy * 0.45;
   const pulse = 1 + 0.03 * Math.exp(-(t - L[14].start) * 6) * (t >= L[14].start ? 1 : 0) + 0.03 * Math.exp(-(t - L[15].start) * 6) * (t >= L[15].start ? 1 : 0);
   return (
     <AbsoluteFill style={{background: `radial-gradient(circle at ${g.portrait ? '50% 33%' : '27% 50%'}, ${P.oliveMid} 0%, ${P.olive} 30%, ${P.oliveDeep} 68%, ${P.ink} 100%)`}}>
@@ -282,10 +284,10 @@ const Finale: React.FC = () => {
       <div style={{position: 'absolute', left: bx - badgeW / 2, top: by - (badgeW * 0.877) / 2, opacity: p, transform: `scale(${zoom * pulse * lerp(0.85, 1, p)})`, filter: 'drop-shadow(0 28px 44px rgba(0,0,0,0.5))'}}>
         <Badge width={badgeW} />
       </div>
-      <div style={{position: 'absolute', left: g.portrait ? 64 : 960, top: g.portrait ? 1190 : 300, width: g.portrait ? 952 : 880}}>
+      <div style={{position: 'absolute', left: g.portrait ? 64 : 960, top: (g.portrait ? 1190 : 300) + fdy, width: g.portrait ? 952 : 880}}>
         <LyricBlock phrases={[L[14]]} size={g.portrait ? 100 : 98} hold={4} align={g.portrait ? 'center' : 'left'} lineGap={1.04} />
       </div>
-      <div style={{position: 'absolute', left: g.portrait ? 64 : 960, top: g.portrait ? 1500 : 640, width: g.portrait ? 952 : 880}}>
+      <div style={{position: 'absolute', left: g.portrait ? 64 : 960, top: (g.portrait ? 1500 : 640) + fdy, width: g.portrait ? 952 : 880}}>
         <LyricBlock phrases={[L[15]]} size={g.portrait ? 150 : 140} hold={2} italic align={g.portrait ? 'center' : 'left'} lineGap={1} />
       </div>
       <Sparks t0={L[15].start - 0.3} t1={B.cta + 0.3} count={70} seed={5} maxSize={16} />
@@ -341,22 +343,24 @@ const EndCard: React.FC = () => {
   const tag = prog(t, 62.0, 0.6, ease.out);
   const qr = prog(t, 60.5, 0.6, ease.back);
   const T = SCHOOL;
+  const tk = useTikTok();
+  const dy = tk ? -120 : 0;
   const lab: React.CSSProperties = {fontFamily: SANS, fontWeight: 800, fontSize: 24, letterSpacing: '0.2em', color: P.crimson, marginBottom: 4};
-  const val: React.CSSProperties = {fontFamily: SANS, fontWeight: 800, fontSize: g.portrait ? 46 : 38, color: P.olive, lineHeight: 1.18};
+  const val: React.CSSProperties = {fontFamily: SANS, fontWeight: 800, fontSize: g.portrait ? (tk ? 40 : 46) : 38, color: P.olive, lineHeight: 1.18};
   const left = g.portrait ? 78 : 1000;
   return (
     <AbsoluteFill style={{background: `radial-gradient(circle at ${g.portrait ? '50% 12%' : '25% 45%'}, #FFFFFF 0%, ${P.paper} 45%, #F1DFA6 100%)`}}>
       <Rays cx={g.portrait ? '50%' : '25%'} cy={g.portrait ? '14%' : '45%'} color="rgba(246,185,59,0.5)" opacity={0.22} />
       {/* badge + name */}
-      <div style={{position: 'absolute', left: g.portrait ? g.W / 2 - 250 : 230, top: g.portrait ? 90 : 230, transform: `scale(${lerp(0.7, 1, inP)})`, opacity: prog(t, t0, 0.2, ease.out), filter: 'drop-shadow(0 22px 30px rgba(53,51,0,0.3))'}}>
+      <div style={{position: 'absolute', left: g.portrait ? g.W / 2 - 250 : 230, top: (g.portrait ? 90 : 230) + (tk ? -30 : 0), transform: `scale(${lerp(0.7, 1, inP)})`, opacity: prog(t, t0, 0.2, ease.out), filter: 'drop-shadow(0 22px 30px rgba(53,51,0,0.3))'}}>
         <Badge width={g.portrait ? 500 : 520} />
       </div>
-      <div style={{position: 'absolute', left: g.portrait ? 0 : 80, top: g.portrait ? 520 : 690, width: g.portrait ? g.W : 880, textAlign: 'center', opacity: nameP, transform: `translateY(${(1 - nameP) * 24}px)`}}>
+      <div style={{position: 'absolute', left: g.portrait ? 0 : 80, top: (g.portrait ? 520 : 690) + (tk ? -40 : 0), width: g.portrait ? g.W : 880, textAlign: 'center', opacity: nameP, transform: `translateY(${(1 - nameP) * 24}px)`}}>
         <div style={{fontFamily: SERIF, fontWeight: 900, fontSize: g.portrait ? 104 : 84, color: P.crimson, lineHeight: 1, whiteSpace: 'nowrap'}}>PETER HARVARD</div>
         <div style={{fontFamily: SANS, fontWeight: 800, fontSize: g.portrait ? 34 : 30, letterSpacing: '0.32em', color: P.olive, marginTop: 12, marginRight: '-0.32em'}}>INTERNATIONAL SCHOOLS</div>
       </div>
       {/* contact rows */}
-      <div style={{position: 'absolute', left, top: g.portrait ? 790 : 150, width: g.portrait ? 924 : 820, display: 'flex', flexDirection: 'column', gap: g.portrait ? 30 : 30}}>
+      <div style={{position: 'absolute', left, top: (g.portrait ? 790 : 150) + (tk ? -110 : 0), width: g.portrait ? (tk ? 860 : 924) : 820, display: 'flex', flexDirection: 'column', gap: g.portrait ? (tk ? 22 : 30) : 30}}>
         <Row t0={58.35} icon={<PinIcon />}>
           <div style={lab}>FIND US</div>
           <div style={val}>{T.address[0]}</div>
@@ -364,8 +368,8 @@ const EndCard: React.FC = () => {
         </Row>
         <Row t0={59.25} icon={<PhoneIcon />}>
           <div style={lab}>CALL</div>
-          <div style={{...val, fontSize: g.portrait ? 46 : 38}}>{T.phones[0]} · {T.phones[1]}</div>
-          <div style={{...val, fontSize: g.portrait ? 46 : 38}}>{T.phones[2]}</div>
+          <div style={{...val, fontSize: g.portrait ? (tk ? 40 : 46) : 38}}>{T.phones[0]} · {T.phones[1]}</div>
+          <div style={{...val, fontSize: g.portrait ? (tk ? 40 : 46) : 38}}>{T.phones[2]}</div>
         </Row>
         <Row t0={60.25} icon={<GlobeIcon />}>
           <div style={lab}>VISIT</div>
@@ -377,12 +381,12 @@ const EndCard: React.FC = () => {
         </Row>
       </div>
       {/* QR */}
-      <div style={{position: 'absolute', left: g.portrait ? 790 : 1560, top: g.portrait ? 1310 : 500, width: 220, padding: 18, borderRadius: 26, background: '#fff', boxShadow: '0 18px 40px rgba(53,51,0,0.25)', opacity: qr, transform: `scale(${lerp(0.7, 1, qr)})`, display: g.portrait ? 'block' : 'none'}}>
+      <div style={{position: 'absolute', left: g.portrait ? 790 : 1560, top: (g.portrait ? 1310 : 500) + (tk ? -330 : 0), width: tk ? 170 : 220, padding: 18, borderRadius: 26, background: '#fff', boxShadow: '0 18px 40px rgba(53,51,0,0.25)', opacity: qr, transform: `scale(${lerp(0.7, 1, qr)})`, display: g.portrait ? 'block' : 'none'}}>
         <Img src={staticFile('ph/img/qr-site.svg')} style={{width: '100%', height: 'auto', display: 'block'}} />
         <div style={{fontFamily: SANS, fontWeight: 800, fontSize: 19, letterSpacing: '0.12em', color: P.olive, textAlign: 'center', marginTop: 8}}>SCAN TO VISIT</div>
       </div>
       {/* tagline + motto bar */}
-      <div style={{position: 'absolute', left: 0, right: 0, bottom: 0, height: g.portrait ? 250 : 150, background: `linear-gradient(135deg, ${P.crimson}, ${P.crimsonDeep})`, opacity: tag, transform: `translateY(${(1 - tag) * 60}px)`, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, padding: '0 50px', boxSizing: 'border-box', textAlign: 'center'}}>
+      <div style={{position: 'absolute', left: 0, right: 0, bottom: 0, height: g.portrait ? (tk ? 540 : 250) : 150, paddingBottom: tk ? 390 : 0, background: `linear-gradient(135deg, ${P.crimson}, ${P.crimsonDeep})`, opacity: tag, transform: `translateY(${(1 - tag) * 60}px)`, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, padding: '0 50px', boxSizing: 'border-box', textAlign: 'center'}}>
         <div style={{fontFamily: SERIF, fontStyle: 'italic', fontWeight: 900, fontSize: g.portrait ? 62 : 46, color: P.cream}}>Responsibility &amp; Excellence</div>
         <div style={{fontFamily: SANS, fontWeight: 700, fontSize: g.portrait ? 24 : 22, letterSpacing: '0.12em', lineHeight: 1.5, color: P.gold}}>{T.tagline.map((s) => s.toUpperCase()).join(g.portrait ? '\u00a0\u00a0·\u00a0\u00a0' : '  ·  ')}</div>
       </div>
@@ -392,12 +396,13 @@ const EndCard: React.FC = () => {
 };
 
 // ------------------------------------------------------------------------------------------------ main
-export const PhisAdvert: React.FC = () => {
+export const PhisAdvert: React.FC<{variant?: 'default' | 'tiktok'}> = ({variant = 'default'}) => {
   useFonts();
   const {width, height} = useVideoConfig();
   void width;
   void height;
   return (
+    <VariantProvider value={variant}>
     <TimeProvider>
       <AbsoluteFill style={{background: P.ink, overflow: 'hidden'}}>
         <Audio src={staticFile('ph/audio/soundtrack.wav')} />
@@ -428,5 +433,6 @@ export const PhisAdvert: React.FC = () => {
         <Grain opacity={0.06} />
       </AbsoluteFill>
     </TimeProvider>
+    </VariantProvider>
   );
 };
