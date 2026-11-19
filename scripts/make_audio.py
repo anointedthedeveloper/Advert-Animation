@@ -318,9 +318,9 @@ sfx_at(r2 + 32, whoosh(0.55, up=True, lo=1500, hi=9000, level=0.7, seed=31), 0.4
 for k, fr in enumerate((26, 31, 36)):
     sfx_at(r2 + fr, click(1.0 + 0.1 * k), 0.4)
 sfx_at(r2 + 44, whoosh(0.45, up=True, lo=1200, hi=8000, level=0.5, seed=33), 0.3)
-for k in range(4):  # the four fix chips
-    sfx_at(r2 + 66 + 8 * k, click(1.1 + 0.08 * k), 0.35, -0.3 + 0.2 * k)
-sfx_at(r2 + 114, whoosh(0.5, up=False, lo=300, hi=5000, level=0.7, seed=41), 0.45)
+for k in range(5):  # the fix chips
+    sfx_at(r2 + 58 + 7 * k, click(1.1 + 0.06 * k), 0.35, -0.4 + 0.2 * k)
+sfx_at(r2 + 104, whoosh(0.5, up=False, lo=300, hi=5000, level=0.7, seed=41), 0.45)
 
 # Scene 3 (new): question bank - window, three cards, pills, year ruler
 sq = "questions"
@@ -333,6 +333,18 @@ for k in range(14):  # year ruler fills (frames 16-62)
     at(sq, 16 + round(k * 46 / 13), tick(500 + 60 * k, 0.04, 0.7), 0.12)
 at(sq, 38, chime([hz(79), hz(86)], 0.9, 0.5, 4), 0.35)
 at(sq, 62, chime([hz(81), hz(88)], 1.0, 0.5, 3.5), 0.35, 0.2)
+# phase B of the same scene: building your own exam (internal frames)
+at(sq, 70, whoosh(0.5, up=True, lo=800, hi=8000, level=0.7, seed=60), 0.4)
+for k in range(10):  # typing the exam name
+    at(sq, 84 + round(k * 1.9), click(0.9 + 0.1 * (k % 3)), 0.22)
+for fr in (98, 102):
+    at(sq, fr, tick(1000 + 100 * (fr % 5), 0.07, 0.8), 0.3)
+for k, fr in enumerate((100, 103, 106)):  # the three toggles
+    at(sq, fr, click(1.1 + 0.08 * k), 0.3)
+at(sq, 110, click(0.7, 0.09) * 1.2, 0.5)  # Create exam
+at(sq, 114, chime([hz(81), hz(88), hz(93)], 1.2, 0.8, 3.0), 0.55)
+for k, fr in enumerate((114, 121, 128)):  # the three exam cards
+    at(sq, fr, mixsig(whoosh(0.35, up=True, lo=1500, hi=9000, level=0.6, seed=70 + k), click(0.9 + 0.1 * k) * 0.6), 0.4, 0.2)
 
 # Scene 4: sign-in typing, click, connect
 s3 = "network"

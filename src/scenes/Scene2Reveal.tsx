@@ -7,7 +7,7 @@ import {KText} from '../components/KText';
 import {C, FONT} from '../theme';
 import {ease, prog} from '../util';
 
-const CHIPS = ['Fully offline', 'Instant marking', 'Live monitoring', 'Report cards + Excel'];
+const CHIPS = ['Fully offline', 'Instant marking', 'Live monitoring', 'Report cards + Excel', 'Custom exams'];
 
 /**
  * Local frame 0 = dissolveStart + 34. The logo pops as the particles from scene 1 arrive, then the scene says who we
@@ -20,13 +20,13 @@ export const Scene2Reveal: React.FC = () => {
   const cy = P ? 520 : 300;
   const markIn = prog(f, 14, 22, ease.back);
   const flash = prog(f, 18, 6, ease.out) * (1 - prog(f, 24, 14, ease.out));
-  const out = prog(f, 116, 12, ease.in);
+  const out = prog(f, 105, 12, ease.in);
   const what = prog(f, 48, 18, ease.out);
-  const by = prog(f, 100, 16, ease.out);
+  const by = prog(f, 92, 14, ease.out);
   return (
     <AbsoluteFill
       style={{
-        transform: `scale(${1 + prog(f, 0, 130, ease.soft) * 0.035 + out * 0.25})`,
+        transform: `scale(${1 + prog(f, 0, 117, ease.soft) * 0.035 + out * 0.25})`,
         opacity: 1 - out,
       }}
     >
@@ -81,12 +81,12 @@ export const Scene2Reveal: React.FC = () => {
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
-          gap: P ? 16 : 18,
+          gap: P ? 14 : 16,
           fontFamily: FONT,
         }}
       >
         {CHIPS.map((c, i) => {
-          const p = prog(f, 66 + i * 8, 14, ease.back);
+          const p = prog(f, 58 + i * 7, 14, ease.back);
           return (
             <div
               key={c}
@@ -99,7 +99,7 @@ export const Scene2Reveal: React.FC = () => {
                 background: 'rgba(22,163,74,0.9)',
                 color: '#fff',
                 fontWeight: 800,
-                fontSize: P ? 34 : 30,
+                fontSize: P ? 32 : 28,
                 whiteSpace: 'nowrap',
                 opacity: Math.min(1, p * 1.6),
                 transform: `translateY(${(1 - p) * 24}px) scale(${0.85 + 0.15 * p})`,

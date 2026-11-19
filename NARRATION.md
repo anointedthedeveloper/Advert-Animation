@@ -11,14 +11,15 @@ works with the sound off, and a music-only version is provided.
 | 4.3 – 5.5 s | Reports, by hand. |
 | 6.0 – 7.4 s | Cyber cafés cost money. |
 | 7.5 – 9.3 s | Exam Box fixes every one. |
-| 10.7 – 13.7 s | Meet Exam Box, the fully offline exam system. |
-| 13.9 – 15.4 s | One box fixes all four. |
-| 15.6 – 18.4 s | Past questions from nineteen ninety eight, plus your own. |
-| 18.9 – 23.0 s | Run exams on your own school network. Fully offline, no data bills. |
-| 23.3 – 26.7 s | Everyone starts together, with a real timer and calculator. |
-| 27.3 – 30.9 s | Watch every candidate live, with progress, connection and battery. |
-| 31.3 – 34.3 s | Marked the moment they submit. Scores out of one hundred. |
-| 35.3 – 39.4 s | Branded report cards for the whole class, and a broadsheet ready for Excel. |
+| 10.6 – 13.3 s | Meet Exam Box, the offline exam system. |
+| 13.5 – 15.0 s | One box fixes all four. |
+| 15.2 – 17.2 s | Past questions from nineteen ninety eight. |
+| 17.4 – 21.0 s | Build your own exams too: promotion, entrance, even office tests. |
+| 21.1 – 24.9 s | Run exams on your own school network. Fully offline, no data bills. |
+| 25.1 – 28.4 s | Everyone starts together, with a real timer and calculator. |
+| 28.6 – 32.1 s | Watch every candidate live, with progress, connection and battery. |
+| 32.2 – 35.2 s | Marked the moment they submit. Scores out of one hundred. |
+| 36.0 – 40.0 s | Branded report cards for the whole class, and a broadsheet ready for Excel. |
 | 40.9 – 44.7 s | Exam Box. Smarter exams, instant results. Get it today. |
 
 The opening names four problems, each with a plain explanation on screen, then the cards flip into their fixes while the

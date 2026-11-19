@@ -26,13 +26,14 @@ line that says how.
 | Time | Beat | Scene | On-screen text |
 |---|---|---|---|
 | 0.0 – 10.3 s | Problems, then the fixes | Four problem cards appear one by one, each with a plain explanation, while a stack of marked scripts grows. Then every card flips to its fix and everything dissolves into particles | Sound familiar? Exams need the internet / Marking takes days / Report cards compiled by hand / Cyber cafés cost money. Then: Exam Box fixes all four, Fully offline. No data bills. / Instant marking / Branded report cards / Watch every candidate live |
-| 10.3 – 14.7 s | Who we are | Logo emerges from the particles, then the four fixes in one line | Meet Exam Box. The fully offline computer-based testing system for schools and exam centres. Fully offline, Instant marking, Live monitoring, Report cards + Excel. By Aremu Tech Eazy Solutions |
-| 14.7 – 18.3 s | Strength | Question bank: JAMB and WAEC tabs, year ruler, a question with a diagram, a custom school question | Ready on day one. Past questions 1998 to date. |
-| 18.3 – 23.1 s | Fix: data and internet costs (the main selling point) | Student login, devices join one local server, "No internet needed" badge | Fully offline. No data bills. Run exams on your own school network. |
-| 23.1 – 27.1 s | Fix: first CBT on exam day | Waiting room, then exam screen with timer, subject tabs, navigator, calculator | Everyone starts together |
-| 27.1 – 31.1 s | Fix: hard to supervise | Admin Live Monitor with progress bars and submissions | Watch every candidate live |
-| 31.1 – 35.1 s | Fix: marking takes days | Submit, "Calculating score…", animated score card | Instant marking. Scores out of 100. |
-| 35.1 – 40.6 s | Fix: reports by hand | Report cards gather into a ZIP, broadsheet slides in | Branded report cards for the whole class / Export to Excel |
+| 10.3 – 14.2 s | Who we are | Logo emerges from the particles, then the four fixes in one line | Meet Exam Box. The fully offline computer-based testing system for schools and exam centres. Fully offline, Instant marking, Live monitoring, Report cards + Excel. By Aremu Tech Eazy Solutions |
+| 14.2 – 17.0 s | Strength | Question bank: JAMB and WAEC tabs, year ruler, a question with a diagram, a custom school question | Ready on day one. Past questions 1998 to date. |
+| 17.0 – 20.2 s | Strength | Custom Exams window: name the exam, set the timer, import your questions, create. Cards for promotion, entrance and office tests | Your own exams. Promotion exams, entrance exams, office tests. |
+| 20.2 – 24.6 s | Fix: data and internet costs (the main selling point) | Student login, devices join one local server, "No internet needed" badge | Fully offline. No data bills. Run exams on your own school network. |
+| 24.6 – 28.3 s | Fix: first CBT on exam day | Waiting room, then exam screen with timer, subject tabs, navigator, calculator | Everyone starts together |
+| 28.3 – 32.0 s | Fix: hard to supervise | Admin Live Monitor with progress bars and submissions | Watch every candidate live |
+| 32.0 – 35.7 s | Fix: marking takes days | Submit, "Calculating score…", animated score card | Instant marking. Scores out of 100. |
+| 35.7 – 40.6 s | Fix: reports by hand | Report cards gather into a ZIP, broadsheet slides in | Branded report cards for the whole class / Export to Excel |
 | 40.6 – 45.0 s | Call to action | Logo lockup, button, offline pills, contact card | Exam Box. Smarter exams, instant results. / Get Exam Box for your school. / Fully offline, No data bills / aremutecheazysolutions.com / 0901 647 1351 · 0902 907 4772 / © 2026 Aremu Tech Eazy Solutions |
 
 Scene boundaries, each scene's playback speed (`scale`), the paper-landing frames and the problem-row frames live in

@@ -43,73 +43,81 @@
     },
     {
       "id": "intro",
-      "text": "Meet Exam Box, the fully offline exam system.",
-      "start": 10.65,
-      "end": 13.73,
-      "speed": 1.08,
+      "text": "Meet Exam Box, the offline exam system.",
+      "start": 10.55,
+      "end": 13.35,
+      "speed": 1.05,
       "fits": true
     },
     {
       "id": "onebox",
       "text": "One box fixes all four.",
-      "start": 13.9,
-      "end": 15.44,
+      "start": 13.5,
+      "end": 15.04,
       "speed": 1.14,
       "fits": true
     },
     {
       "id": "questions",
-      "text": "Past questions from nineteen ninety eight, plus your own.",
-      "start": 15.58,
-      "end": 18.45,
-      "speed": 1.05,
+      "text": "Past questions from nineteen ninety eight.",
+      "start": 15.2,
+      "end": 17.16,
+      "speed": 1.17,
+      "fits": true
+    },
+    {
+      "id": "custom",
+      "text": "Build your own exams too: promotion, entrance, even office tests.",
+      "start": 17.35,
+      "end": 21.02,
+      "speed": 1.2,
       "fits": true
     },
     {
       "id": "network",
       "text": "Run exams on your own school network. Fully offline, no data bills.",
-      "start": 18.85,
-      "end": 22.99,
-      "speed": 1.05,
+      "start": 21.15,
+      "end": 24.93,
+      "speed": 1.2,
       "fits": true
     },
     {
       "id": "start",
       "text": "Everyone starts together, with a real timer and calculator.",
-      "start": 23.3,
-      "end": 26.68,
-      "speed": 1.05,
+      "start": 25.15,
+      "end": 28.43,
+      "speed": 1.11,
       "fits": true
     },
     {
       "id": "monitor",
       "text": "Watch every candidate live, with progress, connection and battery.",
-      "start": 27.3,
-      "end": 30.95,
-      "speed": 1.05,
+      "start": 28.6,
+      "end": 32.06,
+      "speed": 1.17,
       "fits": true
     },
     {
       "id": "marking",
       "text": "Marked the moment they submit. Scores out of one hundred.",
-      "start": 31.3,
-      "end": 34.27,
+      "start": 32.25,
+      "end": 35.22,
       "speed": 1.05,
       "fits": true
     },
     {
       "id": "reports",
       "text": "Branded report cards for the whole class, and a broadsheet ready for Excel.",
-      "start": 35.3,
-      "end": 39.36,
+      "start": 35.95,
+      "end": 40.01,
       "speed": 1.05,
       "fits": true
     },
     {
       "id": "finale",
       "text": "Exam Box. Smarter exams, instant results. Get it today.",
-      "start": 40.85,
-      "end": 44.66,
+      "start": 40.9,
+      "end": 44.71,
       "speed": 1.05,
       "fits": true
     }

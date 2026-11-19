@@ -30,7 +30,7 @@
     250,
     264
   ],
-  "statusSplit": 692,
+  "statusSplit": 739,
   "scenes": {
     "hook": {
       "from": 0,
@@ -39,41 +39,41 @@
     },
     "reveal": {
       "from": 310,
-      "to": 446,
+      "to": 433,
       "scale": 1
     },
     "questions": {
-      "from": 440,
-      "to": 554,
-      "scale": 0.833
+      "from": 427,
+      "to": 613,
+      "scale": 0.9167
     },
     "network": {
-      "from": 548,
-      "to": 698,
-      "scale": 0.875
+      "from": 607,
+      "to": 745,
+      "scale": 0.909
     },
     "start": {
-      "from": 692,
-      "to": 818,
-      "scale": 1.05
+      "from": 739,
+      "to": 856,
+      "scale": 1.081
     },
     "monitor": {
-      "from": 812,
-      "to": 938,
-      "scale": 1.05
+      "from": 850,
+      "to": 967,
+      "scale": 1.081
     },
     "marking": {
-      "from": 932,
-      "to": 1058,
-      "scale": 1.05
+      "from": 961,
+      "to": 1078,
+      "scale": 1.081
     },
     "reports": {
-      "from": 1052,
-      "to": 1223,
-      "scale": 1.127
+      "from": 1072,
+      "to": 1225,
+      "scale": 1.184
     },
     "finale": {
-      "from": 1217,
+      "from": 1219,
       "to": 1350,
       "scale": 1
     }

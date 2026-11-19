@@ -3,7 +3,7 @@ import {AbsoluteFill} from 'remotion';
 import {useCurrentFrame} from '../frame';
 import {Fit, useIsPortrait} from '../layout';
 import {KText} from '../components/KText';
-import {Chip, Crest, Logo36} from '../components/ui';
+import {Chip, Crest, Logo36, Dot} from '../components/ui';
 import {Check} from '../components/Icons';
 import {C, FONT} from '../theme';
 import {ease, lerp, prog} from '../util';
@@ -71,12 +71,116 @@ const CARDS: CardDef[] = [
   {at: 36, tag: 'Greenfield Academy', tagBg: C.dark, tagFg: '#fff', meta: 'Custom question · Chemistry · Question 3', text: 'Which gas is produced when zinc reacts with dilute acid?', custom: true, spot: [62, 100]},
 ];
 
-/** Local frame 0 = global frame 180 (6.0 s). Past questions, images, JAMB / WAEC sources, custom school questions. */
+
+const EXAMS = [
+  {at: 114, tag: 'Promotion exam', bg: '#ECFDF5', fg: '#15803D', title: 'SS 2 Promotion Exam', meta: '40 questions · 60 min · Password protected', fresh: true},
+  {at: 121, tag: 'Entrance exam', bg: '#EFF6FF', fg: '#1D4ED8', title: 'JSS 1 Entrance Test', meta: '50 questions · 45 min', fresh: false},
+  {at: 128, tag: 'Office test', bg: '#0F172A', fg: '#fff', title: 'Staff Assessment', meta: '30 questions · 30 min', fresh: false},
+];
+const EXAM_NAME = 'SS 2 Promotion Exam';
+
+/** Phase B of the scene: building your own exam (promotion, entrance, office tests). */
+const CustomExamsPanel: React.FC<{f: number; op: number}> = ({f, op}) => {
+  const chars = Math.max(0, Math.min(EXAM_NAME.length, Math.floor((f - 84) / 0.9)));
+  const typing = f >= 82 && chars < EXAM_NAME.length;
+  const caret = Math.floor(f / 7) % 2 === 0;
+  const press = prog(f, 110, 3) * (1 - prog(f, 113, 6));
+  const created = f >= 114;
+  const field = (label: string, value: React.ReactNode, flex: number, at: number) => {
+    const p = prog(f, at, 10, ease.out);
+    return (
+      <div style={{flex, opacity: p, transform: `translateY(${(1 - p) * 10}px)`}}>
+        <div style={{fontSize: 13, fontWeight: 800, color: C.slate, letterSpacing: '0.1em', marginBottom: 6}}>{label}</div>
+        <div style={{height: 52, borderRadius: 12, border: `2px solid ${C.line}`, background: '#F8FAFC', display: 'flex', alignItems: 'center', padding: '0 16px', fontSize: 21, fontWeight: 700, color: C.ink, whiteSpace: 'nowrap'}}>{value}</div>
+      </div>
+    );
+  };
+  return (
+    <div style={{position: 'absolute', inset: 0, opacity: op, fontFamily: FONT}}>
+      <div style={{height: 72, background: '#fff', borderBottom: `1px solid ${C.line}`, display: 'flex', alignItems: 'center', gap: 14, padding: '0 26px'}}>
+        <Logo36 size={38} />
+        <div style={{fontWeight: 900, fontSize: 26, color: C.ink, letterSpacing: '-0.01em'}}>Custom Exams</div>
+        <div style={{flex: 1}} />
+        <Chip bg={C.primary} fg="#fff" size={16}>+ New exam</Chip>
+      </div>
+
+      <div style={{margin: '18px 26px 0', background: '#fff', border: `1px solid ${C.line}`, borderRadius: 18, padding: '18px 22px 20px'}}>
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 14}}>
+          <span style={{fontSize: 22, fontWeight: 900, color: C.ink}}>Create an exam</span>
+          <span style={{fontSize: 15, fontWeight: 700, color: C.slate}}>Your questions, your timer, your rules</span>
+        </div>
+        <div style={{display: 'flex', gap: 16}}>
+          {field('EXAM NAME', <span>{EXAM_NAME.slice(0, chars)}{typing && caret ? <span style={{color: C.primary}}>|</span> : ''}</span>, 2.1, 80)}
+          {field('DURATION', '60 min', 1, 98)}
+          {field('QUESTIONS', '40 imported', 1.15, 102)}
+        </div>
+        <div style={{display: 'flex', gap: 10, marginTop: 16, flexWrap: 'nowrap'}}>
+          {['Shuffle questions', 'Shuffle options', 'Access password'].map((t, i) => {
+            const p = prog(f, 100 + i * 3, 10, ease.back);
+            return (
+              <div key={t} style={{opacity: Math.min(1, p * 1.6), transform: `scale(${0.85 + 0.15 * p})`, transformOrigin: 'left center'}}>
+                <Chip bg="#ECFDF5" fg="#15803D" size={17}>
+                  <Check size={17} stroke={3.4} /> {t}
+                </Chip>
+              </div>
+            );
+          })}
+        </div>
+        <div style={{marginTop: 16, height: 54, borderRadius: 14, background: created ? C.dark : C.primary, color: '#fff', fontWeight: 800, fontSize: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, transform: `scale(${1 - press * 0.04})`, boxShadow: '0 10px 22px rgba(22,163,74,0.3)'}}>
+          {created ? (
+            <>
+              <Check size={24} stroke={3.4} /> Exam created
+            </>
+          ) : (
+            'Create exam'
+          )}
+        </div>
+      </div>
+
+      <div style={{padding: '16px 26px 0', display: 'flex', flexDirection: 'column', gap: 12}}>
+        {EXAMS.map((e) => {
+          const p = prog(f, e.at, 14, ease.out);
+          return (
+            <div
+              key={e.title}
+              style={{
+                height: 92,
+                borderRadius: 18,
+                background: '#fff',
+                border: `2px solid ${e.fresh && f > e.at + 6 ? C.primary : C.line}`,
+                boxShadow: e.fresh && f > e.at + 6 ? '0 12px 30px rgba(22,163,74,0.18)' : 'none',
+                padding: '14px 22px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 18,
+                opacity: p,
+                transform: `translateX(${(1 - p) * 90}px)`,
+              }}
+            >
+              <div style={{flex: 1, minWidth: 0}}>
+                <Chip bg={e.bg} fg={e.fg} size={15}>{e.tag}</Chip>
+                <div style={{marginTop: 8, fontSize: 25, fontWeight: 800, color: C.ink, letterSpacing: '-0.01em', lineHeight: 1.1}}>{e.title}</div>
+                <div style={{marginTop: 3, fontSize: 16, fontWeight: 600, color: C.slate}}>{e.meta}</div>
+              </div>
+              <Chip bg="#ECFDF5" fg="#15803D" size={16}>
+                <Dot color={C.emerald} size={9} /> Ready
+              </Chip>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+/** Phase A: past questions with images (JAMB, WAEC) and custom school questions. Phase B: building your own exams. */
 export const SceneQuestions: React.FC = () => {
   const f = useCurrentFrame();
   const P = useIsPortrait();
   const inP = prog(f, 0, 16, ease.out);
-  const out = prog(f, 78, 12, ease.in);
+  const out = prog(f, 153, 12, ease.in);
+  const aOp = 1 - prog(f, 62, 12, ease.inOut); // past questions fade out
+  const bOp = prog(f, 70, 10, ease.out); // your own exams fade in
   const ruler = prog(f, 16, 46, ease.inOut);
   const activeTab = f < 38 ? 0 : f < 62 ? 1 : 2;
   const tabs = ['JAMB', 'WAEC', 'Greenfield Academy'];
@@ -84,6 +188,7 @@ export const SceneQuestions: React.FC = () => {
 
   return (
     <AbsoluteFill style={{opacity: 1 - out, transform: `translateX(${-out * 80}px)`}}>
+      <div style={{position: 'absolute', inset: 0, opacity: aOp}}>
       <div style={{position: 'absolute', left: P ? 80 : 110, top: P ? 214 : 168}}>
         <Strength text="Ready on day one" at={2} />
       </div>
@@ -104,6 +209,25 @@ export const SceneQuestions: React.FC = () => {
         Not affiliated with or endorsed by JAMB or WAEC.
       </div>
 
+      </div>
+      <div style={{position: 'absolute', inset: 0, opacity: bOp}}>
+        <div style={{position: 'absolute', left: P ? 80 : 110, top: P ? 214 : 168}}>
+          <Strength text="Build your own" at={76} />
+        </div>
+        <div style={{position: 'absolute', left: P ? 80 : 110, top: P ? 300 : 250}}>
+          <KText size={P ? 108 : 92} start={80} stagger={4} lines={[[{t: 'Your'}, {t: 'own'}], [{t: 'exams.', color: C.mint}]]} />
+        </div>
+        <div style={{position: 'absolute', left: P ? 80 : 110, top: P ? 560 : 470, display: 'flex', flexDirection: 'column', gap: 16}}>
+          <div style={{display: 'flex', gap: 14, flexWrap: 'wrap'}}>
+            <Pill at={92} filled>Promotion exams</Pill>
+            <Pill at={96} filled>Entrance exams</Pill>
+          </div>
+          <div style={{display: 'flex', gap: 14, flexWrap: 'wrap'}}>
+            <Pill at={100} filled>Office tests</Pill>
+            <Pill at={104}>Your questions, your timer</Pill>
+          </div>
+        </div>
+      </div>
       <Fit from={{x: WX, y: WY, w: WW}} to={{x: 100, y: 800, w: 880}}>
       <div
         style={{
@@ -121,6 +245,7 @@ export const SceneQuestions: React.FC = () => {
           transform: `translateY(${(1 - inP) * 70}px)`,
         }}
       >
+        <div style={{position: 'absolute', inset: 0, opacity: aOp}}>
         <div style={{height: 72, background: '#fff', borderBottom: `1px solid ${C.line}`, display: 'flex', alignItems: 'center', gap: 14, padding: '0 26px'}}>
           <Logo36 size={38} />
           <div style={{fontWeight: 900, fontSize: 26, color: C.ink, letterSpacing: '-0.01em'}}>Question Bank</div>
@@ -207,6 +332,8 @@ export const SceneQuestions: React.FC = () => {
             );
           })}
         </div>
+        </div>
+        <CustomExamsPanel f={f} op={bOp} />
       </div>
       </Fit>
     </AbsoluteFill>
